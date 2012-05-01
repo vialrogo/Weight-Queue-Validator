@@ -1,0 +1,13 @@
+Weight Queue Validator
+^^^^^^^^^^^^^^^^^^^^^^
+Victor Alberto Romero
+
+	Aplicación final y software complementario para el trabajo de grado de Ingeniería de Sistemas
+
+Carpetas:
+- Datos		Contiene los datos con los que se va a trabajar
+		NO estan en el repositorio
+
+Archivos:
+- main.cpp	Main
+- wq_validator	Archivo principal llamado por main (es ui)
