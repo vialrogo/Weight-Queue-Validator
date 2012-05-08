@@ -28,4 +28,3 @@ NOTAS VARIAS
 	
 	INCLUDEPATH += /usr/include/qwt
 	LIBS += -l qwt
-
