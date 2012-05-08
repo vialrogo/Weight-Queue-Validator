@@ -11,3 +11,21 @@ Carpetas:
 Archivos:
 - main.cpp	Main
 - wq_validator	Archivo principal llamado por main (es ui)
+
+
+Datos:
+- No vale mas la pena descargar los .pcap sino los .time
+- Para todos los archivos, los datos fueron tomados en un minuto entre las 14:00 y las 14:01
+
+
+NOTAS VARIAS
+^^^^^^^^^^^^
+1)Cuando se utiliza qwt hay que referenciarlo algo así:
+
+	[program/widget] is based in part on the work of the Qwt project (http://qwt.sf.net).
+
+2)Para poder compilar algo usando qwt hay que incluir en el .pro lo siguiente
+	
+	INCLUDEPATH += /usr/include/qwt
+	LIBS += -l qwt
+
