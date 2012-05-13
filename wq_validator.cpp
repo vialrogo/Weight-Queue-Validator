@@ -12,3 +12,5 @@ WQ_Validator::~WQ_Validator()
 {
     delete ui;
 }
+
+//Aquí estuve :P
