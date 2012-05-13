@@ -16,3 +16,9 @@ SOURCES += main.cpp\
 HEADERS  += wq_validator.h
 
 FORMS    += wq_validator.ui
+
+INCLUDEPATH += /usr/include/qwt
+LIBS += -l qwt
+
+OTHER_FILES += \
+    README
