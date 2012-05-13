@@ -1,0 +1,21 @@
+#include "wq_validator.h"
+#include "ui_wq_validator.h"
+
+WQ_Validator::WQ_Validator(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::WQ_Validator)
+{
+    ui->setupUi(this);
+}
+
+WQ_Validator::~WQ_Validator()
+{
+    delete ui;
+}
+
+<<<<<<< HEAD
+//Aquí estuve :P
+//Otra vez
+=======
+//Aquí estuve :P yo también
+>>>>>>> 36369fe8143d71ccb253eb2f09ee8d5d2965abde
