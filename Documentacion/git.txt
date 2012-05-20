@@ -63,7 +63,7 @@ Estos dos comandos (crear una rama y pasarse a ella) podrían también hacerse c
 	$ git add .
 	$ git commit -m "archivo agregado a funcionalidadNueva"
 
-Tambipen podríamos mezclar las dos últimas lineas con << git commit -a -m "archivo agregado a funcionalidadNueva" >>. Para agregar los cambios implementados en la rama funcionalidadNueva a master, perimero nos pasamos a master, desde ahí hacemos un merge con funcionalidadNueva y luego el push
+También podríamos mezclar las dos últimas lineas con << git commit -a -m "archivo agregado a funcionalidadNueva" >>. Para agregar los cambios implementados en la rama funcionalidadNueva a master, perimero nos pasamos a master, desde ahí hacemos un merge con funcionalidadNueva y luego el push
 
 	$ git checkout master
 	$ git merge funcionalidadNueva
