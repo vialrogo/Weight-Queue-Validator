@@ -1,0 +1,91 @@
+Pasos básicos de git
+^^^^^^^^^^^^^^^^^^^^
+Tomado de:
+	- http://codexico.com.br/blog/linux/tutorial-simples-como-usar-o-git-e-o-github/
+	- http://codexico.com.br/blog/linux/tutorial-simples-parte-2-git-branch-e-merge/
+
+
+########################### INSTALANDO ######################
+
+0) Pasos previos
+
+Instale git y una herramienta diff (por ejemplo meld)
+
+	$ sudo apt-get install git meld
+
+######################## CREANDO PROYECTO ###################
+
+1) Creando un proyecto git en local
+
+	$ mkdir proyecto
+	$ cd proyecto
+	$ git init      # inicia el repositório
+	$ git add .     # incluye todos los archivos al repositório
+	$ git commit    # hace commit
+
+
+2) Creando un proyecto git en github
+	
+	<pendiente>
+
+
+2.1) Bajando el proyecto creado en github
+
+	<pendiente>
+
+
+3) Configurando la copia del proyecto
+
+Primero defina usuario y contraseña:
+
+	$ git config --global user.name "Your Name"
+	$ git config --global user.email codexico@gmail.com
+
+configure su herramienta diff:
+
+	$ git config --global merge.tool meld
+
+########################### USANDO GIT ######################
+
+4) Ejemplo simple:
+
+Para trabajar cualquier nueva funcionalidad creamos una rama:
+
+	$ git branch funcionalidadNueva
+
+Con << $ git branch >> podemos ver que ramas existen y en que rama estamos (marcada con *). Para agregar la nueva funcionalidad nos pasamos a trabajar en la rama que acabamos de crear:
+
+	$ git checkout funcionalidadNueva
+
+Estos dos comandos (crear una rama y pasarse a ella) podrían también hacerse con el comando << $ git checkout -b funcionalidadNueva >>. Estando en esta nueva rama podemos hacer los cambios que deseemos, por ejemplo:
+
+	$ touch archivo
+	$ git add .
+	$ git commit -m "archivo agregado a funcionalidadNueva"
+
+Tambipen podríamos mezclar las dos últimas lineas con << git commit -a -m "archivo agregado a funcionalidadNueva" >>. Para agregar los cambios implementados en la rama funcionalidadNueva a master, perimero nos pasamos a master, desde ahí hacemos un merge con funcionalidadNueva y luego el push
+
+	$ git checkout master
+	$ git merge funcionalidadNueva
+	$ git push origin master
+
+En ese caso se envió una modificación pero en github nunca se enteraron que existieron varias ramas. Si lo que quiero es subir la rama nueva a github, lo hago con el comando:
+
+	$ git push origin funcionalidadNueva:funcionalidadNueva
+
+La sintaxis del formato es <<git push repositorioRemoto nombreLocalDelBranch:nombreRemotoDelBranch>>. Imagine ahora que usted está desarrollando la nueva funcionalidad y en ese momento surge la necesidad de solucionar un bug en master. Para esto creamos una nueva rama, solucionamos el bug e integramos con master.
+
+	$ git checkout -b bugNuevo
+	$ <arreglo el bug>
+	$ git commit -a -m "bugNuevo corregido"
+	$ git checkout master
+	$ git merge --no-ff bugNuevo
+
+La opción << --no-ff >> forza la creación de un commit ANTES del merge. Esto se hace para poderse devolver de versión más facilmente si llega a ser necesario. Cuando no se vaya a usar mas, se puede borrar la rama con << $ git branch -d nombre-del-branch >>:
+
+	$ git branch -d bugNuevo
+
+Luego podemos hacer checkout de nuevo a funcionalidadNueva y seguir trabajando.
+
+
+
