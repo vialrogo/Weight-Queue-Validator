@@ -1,10 +1,10 @@
 #include <QtGui/QApplication>
-#include "wq_validator.h"
+#include "wq_window.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    WQ_Validator w;
+    WQ_Window w;
     w.show();
 
     return a.exec();
