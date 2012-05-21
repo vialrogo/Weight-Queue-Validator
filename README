@@ -11,6 +11,7 @@ Carpetas:
 		NO estan en el repositorio
 - Documentacion	Contiene los diagramas y archivos varios que se van a utilizar
 
+
 Archivos:
 - main.cpp	Main
 - wq_validator	Archivo principal llamado por main (es ui)
