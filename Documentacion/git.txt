@@ -88,4 +88,21 @@ La opción << --no-ff >> forza la creación de un commit ANTES del merge. Esto s
 Luego podemos hacer checkout de nuevo a funcionalidadNueva y seguir trabajando.
 
 
+###################################################################################################################################
+La mega explicación de git!!
+Tomado de: http://stackoverflow.com/questions/9040848/git-removing-a-development-branch-from-remote-git-server
+
+
+To expand on these answers, each branch basically exists in three places:
+
+1) On the remote server, e.g. <<origin/foo>>
+2) Your local copy of <<origin/foo>> (which is updated via <<git fetch>>)
+3) The local branch <<foo>> (which is updated via <<git merge origin/foo>> following <<git fetch>> - or more commonly, both are done together via <<git pull>>).
+
+<<git branch -d>> deletes the last of these three, namely the local branch. <<git branch -d -r>> will remove YOUR COPY of the remote branch (or you can run <<git remote prune origin>> after deleting local branches).
+
+To delete the branch on the remote server though, you must use <<git push>>. The old syntax for this is <<git push origin :branchname>>. This is because the syntax is <<localref:remoteref>>, for example it is possible to push a local branch on your machine to a remote branch with a different name, e.g. <<git push origin localbranch:remotebranch>>. If you leave the <<localbranch>> part empty, you're telling git to push nothing to the remote branch, deleting it.
+
+If that's confusing, don't worry, the git developers agree with you. Newer versions have a <<--delete>> option so <<git push origin --delete branchname>> does the same thing as <<git push origin :branchname>>, but its intent is much more clear.
+
 
