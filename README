@@ -32,3 +32,5 @@ NOTAS VARIAS
 	
 	INCLUDEPATH += /usr/include/qwt
 	LIBS += -l qwt
+
+Este es un pequeño cambio
