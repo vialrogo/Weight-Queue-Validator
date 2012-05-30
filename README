@@ -33,4 +33,6 @@ NOTAS VARIAS
 	INCLUDEPATH += /usr/include/qwt
 	LIBS += -l qwt
 
-Este es un pequeño cambio
+
+Para poder hacer push desde QtCreator hay que ir a Tools, Options, Version Control, y en
+SSH Prompt Command colocar "/usr/lib/seahorse/seahorse-ssh-askpass"
