@@ -37,7 +37,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>40</y>
+      <y>10</y>
       <width>300</width>
       <height>180</height>
      </rect>
@@ -47,7 +47,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>260</y>
+      <y>230</y>
       <width>300</width>
       <height>180</height>
      </rect>
@@ -57,7 +57,7 @@
     <property name="geometry">
      <rect>
       <x>340</x>
-      <y>480</y>
+      <y>450</y>
       <width>300</width>
       <height>180</height>
      </rect>
@@ -100,9 +100,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>40</y>
+      <y>10</y>
       <width>300</width>
-      <height>160</height>
+      <height>130</height>
      </rect>
     </property>
     <property name="sizePolicy">
@@ -116,6 +116,13 @@
       <width>0</width>
       <height>0</height>
      </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
     </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
@@ -136,7 +143,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>50</y>
+       <y>40</y>
        <width>150</width>
        <height>26</height>
       </rect>
@@ -149,7 +156,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>90</y>
+       <y>70</y>
        <width>150</width>
        <height>26</height>
       </rect>
@@ -162,7 +169,7 @@
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>130</y>
+       <y>100</y>
        <width>150</width>
        <height>26</height>
       </rect>
@@ -171,6 +178,78 @@
       <string>Tipo de Análisis 3</string>
      </property>
     </widget>
+   </widget>
+   <widget class="QLabel" name="labelChart1">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>190</y>
+      <width>300</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Chart Number 1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelChart2">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>410</y>
+      <width>300</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Chart Number 2</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelChart3">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>630</y>
+      <width>300</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Chart Number 3</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
