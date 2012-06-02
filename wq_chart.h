@@ -1,10 +1,14 @@
 #ifndef WQ_CHART_H
 #define WQ_CHART_H
 
-class WQ_Chart
+#include <qwt_plot.h>
+
+class WQ_Chart: public QwtPlot
 {
+private:
+
 public:
-    WQ_Chart();
+    WQ_Chart(QWidget* parent = 0);
 };
 
 #endif // WQ_CHART_H
