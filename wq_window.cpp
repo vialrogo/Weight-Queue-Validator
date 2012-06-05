@@ -13,6 +13,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
 
     //Inicialización de otras variables
     radioButtonSeleccionado=0;
+    validador = new WQ_Validator();
 
     connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
     connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
@@ -48,9 +49,9 @@ void WQ_Window::comparacionEscalasDeTiempo()
         grafico3->adicionarCurva("curva");
 
         //Agrego las etiquetas a los ejes
-        grafico1->agregarEtiquetas("tiempo","datos");
-        grafico2->agregarEtiquetas("tiempo","datos");
-        grafico3->agregarEtiquetas("tiempo","datos");
+//        grafico1->agregarEtiquetas("tiempo","datos");
+//        grafico2->agregarEtiquetas("tiempo","datos");
+//        grafico3->agregarEtiquetas("tiempo","datos");
 
         ////////////////////// Codigo Basura /////////////////////////////
         QVector<QPointF>* samples = new QVector<QPointF>;
@@ -62,11 +63,11 @@ void WQ_Window::comparacionEscalasDeTiempo()
             samples->push_back(QPointF( id/10.0 , sin(id/10.0) ));
         }
 
+        //////////////////////////////////////////////////////////////////
+
         grafico1->agregarDatosACurva("curva",samples);
         grafico2->agregarDatosACurva("curva",samples);
         grafico3->agregarDatosACurva("curva",samples);
-
-        //////////////////////////////////////////////////////////////////
     }
 }
 

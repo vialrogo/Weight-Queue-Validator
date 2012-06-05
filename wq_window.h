@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "ui_wq_window.h"
 #include "wq_chart.h"
+#include "wq_validator.h"
 
 //Includes Temporales
 #include <math.h>
@@ -27,6 +28,7 @@ private:
     WQ_Chart* grafico2;
     WQ_Chart* grafico3;
     int radioButtonSeleccionado;
+    WQ_Validator* validador;
 
 private slots:
     void acercaDe();
