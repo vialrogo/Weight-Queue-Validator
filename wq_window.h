@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::WQ_Window *ui;
+    int radioButtonSeleccionado;
+
+private slots:
+    void acercaDe();
+    void comparacionEscalasDeTiempo();
+    void comparacionFuncionesProbabilidad();
 };
 
 #endif // WQ_WINDOW_H

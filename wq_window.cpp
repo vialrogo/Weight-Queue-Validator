@@ -9,6 +9,9 @@
 #include <qwt_scale_draw.h>
 #include <qwt_plot_rescaler.h>
 
+//Includes de QT
+#include <QMessageBox>
+
 //Includes Temporales
 #include <math.h>
 
@@ -27,9 +30,13 @@ WQ_Window::WQ_Window(QWidget *parent) :
     grafico3->setAutoReplot(true);
 
     //Ajusto el tamanho
-    grafico1->setMinimumWidth(300);
-    grafico2->setMinimumWidth(300);
-    grafico3->setMinimumWidth(300);
+    grafico1->setMinimumSize(300,180);
+    grafico2->setMinimumSize(300,180);
+    grafico3->setMinimumSize(300,180);
+
+    grafico1->setMaximumSize(300,180);
+    grafico2->setMaximumSize(300,180);
+    grafico3->setMaximumSize(300,180);
 
     //Creo las curvas que voy a pintar
     QwtPlotCurve *curva1 = new QwtPlotCurve();
@@ -38,6 +45,14 @@ WQ_Window::WQ_Window(QWidget *parent) :
     curva1->attach(grafico1);
     curva2->attach(grafico2);
     curva3->attach(grafico3);
+
+    //Inicialización de otras variables
+    radioButtonSeleccionado=0;
+
+    connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
+    connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
+    connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
+    connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
 
 //    Temporatilo
 //    grafico1->setAxisTitle( QwtPlot::xBottom, "time" );
@@ -63,11 +78,38 @@ WQ_Window::WQ_Window(QWidget *parent) :
 
     //////////////////////////////////////////////////////////////////
 
-//    qDebug()<<myPlot1->sizeHint();
-
 }
 
 WQ_Window::~WQ_Window()
 {
     delete ui;
+}
+void WQ_Window::acercaDe()
+{
+    QMessageBox msgBox;
+    msgBox.setTextFormat(Qt::RichText);
+    msgBox.setWindowTitle("About");
+    msgBox.setText("<h3>Weight Queue Validator</h3>");
+    msgBox.setInformativeText("Create by: \n Victor Alberto Romero");
+    msgBox.setIconPixmap(QPixmap("Imagenes/Fractal-Symmetric-Transparent_128x128.png"));
+    msgBox.exec();
+    return;
+}
+
+void WQ_Window::comparacionEscalasDeTiempo()
+{
+    if(radioButtonSeleccionado!=1)
+    {
+        radioButtonSeleccionado=1;
+        qDebug("Escogio comparacion por escalas de tiempo");
+    }
+}
+
+void WQ_Window::comparacionFuncionesProbabilidad()
+{
+    if(radioButtonSeleccionado!=2)
+    {
+        radioButtonSeleccionado=2;
+        qDebug("Escogio comparacion por funciones probabilisticas");
+    }
 }
