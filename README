@@ -7,15 +7,18 @@ Andrés Ricardo Torres (programador carita feliz) :)
 	Aplicación final y software complementario para el trabajo de grado de Ingeniería de Sistemas
 
 Carpetas:
-- Datos		Contiene los datos con los que se va a trabajar
-		NO estan en el repositorio
-- Documentacion	Contiene los diagramas y archivos varios que se van a utilizar
-
+- Datos		Contiene los datos con los que se va a trabajar. NO estan en el repositorio
+- Documentacion	Contiene los diagramas y archivos varios que se van a utilizar.
+- Imagenes	Contiene todas las imágenes que hacen parte del programa, como iconos y demás.
 
 Archivos:
-- main.cpp	Main
-- wq_validator	Archivo principal llamado por main (es ui)
-
+- main		Main
+- wq_window	Archivo principal llamado por main (es un ui)
+- wq_validator
+- wq_chart
+- wq_generator
+- wq_gen_heavytail
+- wq_gen_poisson
 
 Datos:
 - No vale mas la pena descargar los .pcap sino los .time
