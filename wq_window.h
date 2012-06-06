@@ -7,9 +7,6 @@
 #include "wq_chart.h"
 #include "wq_validator.h"
 
-//Includes Temporales
-#include <math.h>
-
 namespace Ui {
     class WQ_Window;
 }

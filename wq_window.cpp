@@ -43,6 +43,8 @@ void WQ_Window::comparacionEscalasDeTiempo()
     {
         radioButtonSeleccionado=1;
 
+        QVector<QPointF>** vectoresGraficas = validador->comparacionEscalasDeTiempo();
+
         //Creo las curvas que voy a pintar
         grafico1->adicionarCurva("curva");
         grafico2->adicionarCurva("curva");
@@ -53,21 +55,9 @@ void WQ_Window::comparacionEscalasDeTiempo()
 //        grafico2->agregarEtiquetas("tiempo","datos");
 //        grafico3->agregarEtiquetas("tiempo","datos");
 
-        ////////////////////// Codigo Basura /////////////////////////////
-        QVector<QPointF>* samples = new QVector<QPointF>;
-
-        double id;
-        for (int i = 0; i < 200; ++i)
-        {
-            id=(double)(i);
-            samples->push_back(QPointF( id/10.0 , sin(id/10.0) ));
-        }
-
-        //////////////////////////////////////////////////////////////////
-
-        grafico1->agregarDatosACurva("curva",samples);
-        grafico2->agregarDatosACurva("curva",samples);
-        grafico3->agregarDatosACurva("curva",samples);
+        grafico1->agregarDatosACurva("curva",vectoresGraficas[0]);
+        grafico2->agregarDatosACurva("curva",vectoresGraficas[1]);
+        grafico3->agregarDatosACurva("curva",vectoresGraficas[2]);
     }
 }
 
