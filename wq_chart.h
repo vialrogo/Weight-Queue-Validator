@@ -16,6 +16,8 @@ public:
     void adicionarCurva(QString nombreCurva);
     void agregarDatosACurva(QString nombreCurva, QVector<QPointF>* datos);
     void agregarEtiquetas(QString x, QString y);
+    void agregarEtiquetaX(QString x);
+    void agregarEtiquetaY(QString y);
 };
 
 #endif // WQ_CHART_H

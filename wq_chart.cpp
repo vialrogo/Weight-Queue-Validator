@@ -23,6 +23,16 @@ void WQ_Chart::agregarDatosACurva(QString nombreCurva, QVector<QPointF>* datos)
 
 void WQ_Chart::agregarEtiquetas(QString x, QString y)
 {
+    agregarEtiquetaX(x);
+    agregarEtiquetaY(y);
+}
+
+void WQ_Chart::agregarEtiquetaX(QString x)
+{
     setAxisTitle(QwtPlot::xBottom, x);
+}
+
+void WQ_Chart::agregarEtiquetaY(QString y)
+{
     setAxisTitle(QwtPlot::yLeft, y);
 }
