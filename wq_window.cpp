@@ -42,22 +42,23 @@ void WQ_Window::comparacionEscalasDeTiempo()
     if(radioButtonSeleccionado!=1)
     {
         radioButtonSeleccionado=1;
-
+        QString nombreSeries="serieDeTiempo";
         QVector<QPointF>** vectoresGraficas = validador->comparacionEscalasDeTiempo();
 
         //Creo las curvas que voy a pintar
-        grafico1->adicionarCurva("curva");
-        grafico2->adicionarCurva("curva");
-        grafico3->adicionarCurva("curva");
+        grafico1->adicionarCurva(nombreSeries);
+        grafico2->adicionarCurva(nombreSeries);
+        grafico3->adicionarCurva(nombreSeries);
 
         //Agrego las etiquetas a los ejes
 //        grafico1->agregarEtiquetas("tiempo","datos");
 //        grafico2->agregarEtiquetas("tiempo","datos");
 //        grafico3->agregarEtiquetas("tiempo","datos");
 
-        grafico1->agregarDatosACurva("curva",vectoresGraficas[0]);
-        grafico2->agregarDatosACurva("curva",vectoresGraficas[1]);
-        grafico3->agregarDatosACurva("curva",vectoresGraficas[2]);
+        //agrego a cada gráfico la serie que corresponde
+        grafico1->agregarDatosACurva(nombreSeries,vectoresGraficas[0]);
+        grafico2->agregarDatosACurva(nombreSeries,vectoresGraficas[1]);
+        grafico3->agregarDatosACurva(nombreSeries,vectoresGraficas[2]);
     }
 }
 
