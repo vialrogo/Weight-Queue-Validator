@@ -5,11 +5,15 @@
 #include <qwt_plot_curve.h>
 #include <qwt_plot.h>
 #include <qwt_series_data.h>
+#include <qwt_plot_magnifier.h>
+#include <qwt_plot_panner.h>
+#include <qwt_plot_canvas.h>
 
 class WQ_Chart: public QwtPlot
 {
 private:
     QHash<QString, QwtPlotCurve*> hashCurvas;
+    QwtPlotMagnifier* magnifier;
 
 public:
     WQ_Chart(QWidget* parent, QSize tamano);

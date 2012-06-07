@@ -51,14 +51,16 @@ void WQ_Window::comparacionEscalasDeTiempo()
         grafico3->adicionarCurva(nombreSeries);
 
         //Agrego las etiquetas a los ejes
-//        grafico1->agregarEtiquetas("tiempo","datos");
-//        grafico2->agregarEtiquetas("tiempo","datos");
-//        grafico3->agregarEtiquetas("tiempo","datos");
+//        grafico1->agregarEtiquetas("Tiempo","Datos");
+//        grafico2->agregarEtiquetas("Tiempo","Datos");
+//        grafico3->agregarEtiquetas("Tiempo","Datos");
 
         //agrego a cada gráfico la serie que corresponde
         grafico1->agregarDatosACurva(nombreSeries,vectoresGraficas[0]);
         grafico2->agregarDatosACurva(nombreSeries,vectoresGraficas[1]);
         grafico3->agregarDatosACurva(nombreSeries,vectoresGraficas[2]);
+
+        grafico1->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
     }
 }
 
