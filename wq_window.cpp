@@ -5,15 +5,11 @@ WQ_Window::WQ_Window(QWidget *parent) :
     ui(new Ui::WQ_Window)
 {
     ui->setupUi(this);
-
-    //Defino los gráficos que se van a dibujar
-    grafico1 = new WQ_Chart(ui->widgetChart1, QSize(330,200));
-    grafico2 = new WQ_Chart(ui->widgetChart2, QSize(330,200));
-    grafico3 = new WQ_Chart(ui->widgetChart3, QSize(330,200));
-
-    //Inicialización de otras variables
+    tamanoEstandarGrafico= QSize(330,200);
     radioButtonSeleccionado=0;
     validador = new WQ_Validator();
+
+    for (int i = 0; i < 6; ++i) agregarQuitarBordeChart(i,true);
 
     connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
     connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
@@ -25,6 +21,22 @@ WQ_Window::~WQ_Window()
 {
     delete ui;
 }
+
+void WQ_Window::agregarQuitarBordeChart(int chart, bool bordeBool)
+{
+    QString borde="";
+
+    if(bordeBool)
+        borde = "border: 2px dotted gray; border-radius: 3px;";
+
+    if(chart==0) ui->widgetChart0->setStyleSheet(borde);
+    if(chart==1) ui->widgetChart1->setStyleSheet(borde);
+    if(chart==2) ui->widgetChart2->setStyleSheet(borde);
+    if(chart==3) ui->widgetChart3->setStyleSheet(borde);
+    if(chart==4) ui->widgetChart4->setStyleSheet(borde);
+    if(chart==5) ui->widgetChart5->setStyleSheet(borde);
+}
+
 void WQ_Window::acercaDe()
 {
     QMessageBox msgBox;
@@ -39,11 +51,26 @@ void WQ_Window::acercaDe()
 
 void WQ_Window::comparacionEscalasDeTiempo()
 {
-    if(radioButtonSeleccionado!=1)
+    if(radioButtonSeleccionado!=1) //Esto hay que hacerlo dinámico
     {
         radioButtonSeleccionado=1;
         QString nombreSeries="serieDeTiempo";
         QVector<QPointF>** vectoresGraficas = validador->comparacionEscalasDeTiempo();
+
+        //Quito los punteados
+        agregarQuitarBordeChart(0, false);
+        agregarQuitarBordeChart(1, false);
+        agregarQuitarBordeChart(2, false);
+
+        //Defino los gráficos que se van a dibujar
+        grafico1 = new WQ_Chart(ui->widgetChart0, tamanoEstandarGrafico);
+        grafico2 = new WQ_Chart(ui->widgetChart1, tamanoEstandarGrafico);
+        grafico3 = new WQ_Chart(ui->widgetChart2, tamanoEstandarGrafico);
+
+        //Hago que las gráficas se vean
+        grafico1->setVisible(true);
+        grafico2->setVisible(true);
+        grafico3->setVisible(true);
 
         //Creo las curvas que voy a pintar
         grafico1->adicionarCurva(nombreSeries);
@@ -60,6 +87,7 @@ void WQ_Window::comparacionEscalasDeTiempo()
         grafico2->agregarDatosACurva(nombreSeries,vectoresGraficas[1]);
         grafico3->agregarDatosACurva(nombreSeries,vectoresGraficas[2]);
 
+        //Temporal
         grafico1->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
     }
 }

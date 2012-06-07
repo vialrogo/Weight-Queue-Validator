@@ -26,6 +26,8 @@ private:
     WQ_Chart* grafico3;
     int radioButtonSeleccionado;
     WQ_Validator* validador;
+    QSize tamanoEstandarGrafico;
+    void agregarQuitarBordeChart(int chart, bool bordeBool);
 
 private slots:
     void acercaDe();
