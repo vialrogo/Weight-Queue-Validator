@@ -66,20 +66,37 @@ void WQ_Window::comparacionEscalasDeTiempo()
         agregarQuitarBordeChart(1, false);
         agregarQuitarBordeChart(2, false);
 
+        agregarQuitarBordeChart(3, false);
+        agregarQuitarBordeChart(4, false);
+        agregarQuitarBordeChart(5, false);
+
         //Defino los gráficos que se van a dibujar
         grafico1 = new WQ_Chart(arregoWidgets[0], tamanoEstandarGrafico);
         grafico2 = new WQ_Chart(arregoWidgets[1], tamanoEstandarGrafico);
         grafico3 = new WQ_Chart(arregoWidgets[2], tamanoEstandarGrafico);
+
+        vectorCharts.append(new WQ_Chart(arregoWidgets[3], tamanoEstandarGrafico));
+        vectorCharts.append(new WQ_Chart(arregoWidgets[4], tamanoEstandarGrafico));
+        vectorCharts.append(new WQ_Chart(arregoWidgets[5], tamanoEstandarGrafico));
 
         //Hago que las gráficas se vean
         grafico1->setVisible(true);
         grafico2->setVisible(true);
         grafico3->setVisible(true);
 
+        vectorCharts[0]->setVisible(true);
+        vectorCharts[1]->setVisible(true);
+        vectorCharts[2]->setVisible(true);
+
         //Creo las curvas que voy a pintar
         grafico1->adicionarCurva(nombreSeries);
         grafico2->adicionarCurva(nombreSeries);
         grafico3->adicionarCurva(nombreSeries);
+
+        vectorCharts[0]->adicionarCurva(nombreSeries);
+        vectorCharts[1]->adicionarCurva(nombreSeries);
+        vectorCharts[2]->adicionarCurva(nombreSeries);
+
 
         //Agrego las etiquetas a los ejes
 //        grafico1->agregarEtiquetas("Tiempo","Datos");
@@ -90,6 +107,10 @@ void WQ_Window::comparacionEscalasDeTiempo()
         grafico1->agregarDatosACurva(nombreSeries,vectoresGraficas[0]);
         grafico2->agregarDatosACurva(nombreSeries,vectoresGraficas[1]);
         grafico3->agregarDatosACurva(nombreSeries,vectoresGraficas[2]);
+
+        vectorCharts[0]->agregarDatosACurva(nombreSeries,vectoresGraficas[0]);
+        vectorCharts[1]->agregarDatosACurva(nombreSeries,vectoresGraficas[1]);
+        vectorCharts[2]->agregarDatosACurva(nombreSeries,vectoresGraficas[2]);
 
         //Temporal
         grafico1->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
