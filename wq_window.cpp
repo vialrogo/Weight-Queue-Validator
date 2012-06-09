@@ -78,7 +78,7 @@ int WQ_Window::agregarChart()
     }
     else
     {
-        cout<<"intentó agregar un widget que no cabe"<<endl;
+        cout<<"intentó agregar un chart que no cabe"<<endl;
         return -1;
     }
 }
@@ -119,7 +119,7 @@ void WQ_Window::eliminarChart(int numChart)
     }
     else
     {
-        cout<<"intentó quitar un widget que no existe"<<endl;
+        cout<<"intentó quitar un chart que no existe"<<endl;
     }
 }
 
