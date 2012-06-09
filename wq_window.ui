@@ -6,19 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>660</width>
+    <width>1024</width>
     <height>720</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>660</width>
+    <width>1024</width>
     <height>720</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>660</width>
+    <width>1024</width>
     <height>720</height>
    </size>
   </property>
@@ -37,6 +37,8 @@
      border: 2px solid gray; 
      border-radius: 3px; 
  } 
+
+
 </string>
   </property>
   <property name="locale">
@@ -61,36 +63,6 @@
    <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="widgetChart1" native="true">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>10</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widgetChart2" native="true">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>230</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widgetChart3" native="true">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>450</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
@@ -120,6 +92,9 @@
         <width>300</width>
         <height>220</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
      </widget>
     </widget>
@@ -157,6 +132,9 @@
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="title">
      <string>Analysing Types</string>
@@ -216,6 +194,9 @@
       <height>260</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -223,7 +204,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>660</width>
+     <width>1024</width>
      <height>29</height>
     </rect>
    </property>

@@ -3,9 +3,12 @@
 
 #include <QMessageBox>
 #include <QMainWindow>
+#include <iostream>
 #include "ui_wq_window.h"
 #include "wq_chart.h"
 #include "wq_validator.h"
+
+using namespace std;
 
 namespace Ui {
     class WQ_Window;
@@ -21,16 +24,25 @@ public:
 
 private:
     Ui::WQ_Window *ui;
-    WQ_Chart* grafico1;
-    WQ_Chart* grafico2;
-    WQ_Chart* grafico3;
     int radioButtonSeleccionado;
+    int numeroWidgetsUsados;
+    QSize tamanoEstandarGrafico;
     WQ_Validator* validador;
+    QWidget** arregoWidgets;
+    QVector<WQ_Chart*> vectorCharts;
+    QVector<QVector <QVector<QPointF>* >* >* vectorCurvasPorChart;
+
+    void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
+    int agregarChart();
+    void eliminarChart(int numChart);
+    void colocarWidgetEnPosicion(int numWidget, int posicion);
+    void agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QPointF>* datos);
 
 private slots:
     void acercaDe();
     void comparacionEscalasDeTiempo();
     void comparacionFuncionesProbabilidad();
+    void comparacion3NombreTemporal();
 };
 
 #endif // WQ_WINDOW_H
