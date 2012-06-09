@@ -14,10 +14,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     for (int i = 0; i < 6; ++i)
     {
         arregoWidgets[i]=new QWidget(this);
-        arregoWidgets[i]->setMaximumSize(330,200);
-        arregoWidgets[i]->setMinimumSize(330,200);
-        arregoWidgets[i]->setGeometry(324+((i%2)*360), 40+((i/2)*220), 330, 200);
-        arregoWidgets[i]->setVisible(true);
+        colocarWidgetEnPosicion(i,i);
         agregarQuitarBordeWidgets(i,true);
     }
 
@@ -50,6 +47,16 @@ void WQ_Window::acercaDe()
     return;
 }
 
+void WQ_Window::colocarWidgetEnPosicion(int numWidget, int posicion)
+{
+    arregoWidgets[numWidget]->setMaximumSize(tamanoEstandarGrafico.width(),tamanoEstandarGrafico.height());
+    arregoWidgets[numWidget]->setMinimumSize(tamanoEstandarGrafico.width(),tamanoEstandarGrafico.height());
+    arregoWidgets[numWidget]->setGeometry(324+((posicion%2)*(tamanoEstandarGrafico.width()+30) ),
+                                          40 +((posicion/2)*(tamanoEstandarGrafico.height()+20)),
+                                          tamanoEstandarGrafico.width(),
+                                          tamanoEstandarGrafico.height() );
+}
+
 int WQ_Window::agregarChart()
 {
     if(numeroWidgetsUsados<6)
@@ -76,9 +83,9 @@ void WQ_Window::eliminarChart(int numChart)
 
         for (int i = numChart+1; i < vectorCharts.size(); ++i)
         {
-            //Cambio la posición de los widgets en la interfaz (sacar de aquí!!!)
-            arregoWidgets[i]->setGeometry(324+(((i-1)%2)*360), 40+(((i-1)/2)*220), 330, 200);
-            arregoWidgets[i-1]->setGeometry(324+((i%2)*360), 40+((i/2)*220), 330, 200);
+            //Cambio la posición de los widgets en la interfaz
+            colocarWidgetEnPosicion(i,i-1);
+            colocarWidgetEnPosicion(i-1,i);
 
             //Troco los widgets en el arreglo
             temporal=arregoWidgets[i-1];

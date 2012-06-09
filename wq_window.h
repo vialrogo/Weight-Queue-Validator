@@ -34,6 +34,7 @@ private:
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart();
     void eliminarChart(int numChart);
+    void colocarWidgetEnPosicion(int numWidget, int posicion);
 
 private slots:
     void acercaDe();
