@@ -7,6 +7,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     ui->setupUi(this);
     tamanoEstandarGrafico= QSize(330,200);
     radioButtonSeleccionado=0;
+    numeroWidgetsUsados=0;
     validador = new WQ_Validator();
     arregoWidgets = new QWidget*[6];
 
@@ -17,11 +18,12 @@ WQ_Window::WQ_Window(QWidget *parent) :
         arregoWidgets[i]->setMinimumSize(330,200);
         arregoWidgets[i]->setGeometry(324+((i%2)*360), 40+((i/2)*220), 330, 200);
         arregoWidgets[i]->setVisible(true);
-        agregarQuitarBordeChart(i,true);
+        agregarQuitarBordeWidgets(i,true);
     }
 
     connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
     connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
+    connect(ui->radioButtonAnalisis3,SIGNAL(clicked()),this,SLOT(comparacion3NombreTemporal()));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
 }
@@ -31,14 +33,9 @@ WQ_Window::~WQ_Window()
     delete ui;
 }
 
-void WQ_Window::agregarQuitarBordeChart(int chart, bool bordeBool)
+void WQ_Window::agregarQuitarBordeWidgets(int numWidget, bool bordeBool)
 {
-    QString borde="";
-
-    if(bordeBool)
-        borde = "border: 2px dotted gray; border-radius: 3px;";
-
-    arregoWidgets[chart]->setStyleSheet(borde);
+    arregoWidgets[numWidget]->setStyleSheet(bordeBool? "border: 2px dotted gray; border-radius: 3px;" : "");
 }
 
 void WQ_Window::acercaDe()
@@ -53,6 +50,24 @@ void WQ_Window::acercaDe()
     return;
 }
 
+int WQ_Window::agregarChart()
+{
+    if(numeroWidgetsUsados<6)
+    {
+        agregarQuitarBordeWidgets(numeroWidgetsUsados,false);
+        WQ_Chart* nuevoChart = new WQ_Chart(arregoWidgets[numeroWidgetsUsados], tamanoEstandarGrafico);
+        vectorCharts.append(nuevoChart);
+        nuevoChart->setVisible(true);
+        numeroWidgetsUsados++;
+        return vectorCharts.size()-1;
+    }
+    else
+    {
+        qDebug("intento agregar un widget de mas");
+        return -1;
+    }
+}
+
 void WQ_Window::comparacionEscalasDeTiempo()
 {
     if(radioButtonSeleccionado!=1) //Esto hay que hacerlo dinámico
@@ -61,34 +76,23 @@ void WQ_Window::comparacionEscalasDeTiempo()
         QString nombreSeries="serieDeTiempo";
         QVector<QPointF>** vectoresGraficas = validador->comparacionEscalasDeTiempo();
 
-        //Quito los punteados
-        agregarQuitarBordeChart(0, false);
-        agregarQuitarBordeChart(1, false);
-        agregarQuitarBordeChart(2, false);
-
-
-        //Defino los gráficos que se van a dibujar
-        vectorCharts.append(new WQ_Chart(arregoWidgets[0], tamanoEstandarGrafico));
-        vectorCharts.append(new WQ_Chart(arregoWidgets[1], tamanoEstandarGrafico));
-        vectorCharts.append(new WQ_Chart(arregoWidgets[2], tamanoEstandarGrafico));
-
-        //Hago que las gráficas se vean
-        vectorCharts[0]->setVisible(true);
-        vectorCharts[1]->setVisible(true);
-        vectorCharts[2]->setVisible(true);
+        //Quito los punteados, defino los gráficos que se van a dibujar y hago que las gráficas se vean
+        int chart1 = agregarChart();
+        int chart2 = agregarChart();
+        int chart3 = agregarChart();
 
         //Creo las curvas que voy a pintar y la serie que corresponde
-        vectorCharts[0]->agregarCurva(nombreSeries,vectoresGraficas[0]);
-        vectorCharts[1]->agregarCurva(nombreSeries,vectoresGraficas[1]);
-        vectorCharts[2]->agregarCurva(nombreSeries,vectoresGraficas[2]);
+        vectorCharts[chart1]->agregarCurva(nombreSeries,vectoresGraficas[0]);
+        vectorCharts[chart2]->agregarCurva(nombreSeries,vectoresGraficas[1]);
+        vectorCharts[chart3]->agregarCurva(nombreSeries,vectoresGraficas[2]);
 
         //Agrego las etiquetas a los ejes
-//        vectorCharts[0]->agregarEtiquetas("Tiempo","Datos");
-//        vectorCharts[1]->agregarEtiquetas("Tiempo","Datos");
-//        vectorCharts[2]->agregarEtiquetas("Tiempo","Datos");
+//        vectorCharts[chart1]->agregarEtiquetas("Tiempo","Datos");
+//        vectorCharts[chart2]->agregarEtiquetas("Tiempo","Datos");
+//        vectorCharts[chart3]->agregarEtiquetas("Tiempo","Datos");
 
         //Temporal
-        vectorCharts[0]->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
+        vectorCharts[chart1]->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
     }
 }
 
@@ -101,13 +105,24 @@ void WQ_Window::comparacionFuncionesProbabilidad()
 
         delete vectorCharts[0];
         vectorCharts.pop_front();
+        numeroWidgetsUsados--;
         delete vectorCharts[0];
         vectorCharts.pop_front();
+        numeroWidgetsUsados--;
         delete vectorCharts[0];
         vectorCharts.pop_front();
+        numeroWidgetsUsados--;
 
-        agregarQuitarBordeChart(0, true);
-        agregarQuitarBordeChart(1, true);
-        agregarQuitarBordeChart(2, true);
+        agregarQuitarBordeWidgets(0, true);
+        agregarQuitarBordeWidgets(1, true);
+        agregarQuitarBordeWidgets(2, true);
+    }
+}
+
+void WQ_Window::comparacion3NombreTemporal()
+{
+    if(radioButtonSeleccionado!=3)
+    {
+        radioButtonSeleccionado=3;
     }
 }

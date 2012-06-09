@@ -22,18 +22,20 @@ public:
 private:
     Ui::WQ_Window *ui;
     int radioButtonSeleccionado;
+    int numeroWidgetsUsados;
     QSize tamanoEstandarGrafico;
     WQ_Validator* validador;
     QWidget** arregoWidgets;
     QVector<WQ_Chart*> vectorCharts;
 
-    void agregarQuitarBordeChart(int chart, bool bordeBool);
-    void agregarChart();
+    void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
+    int agregarChart();
 
 private slots:
     void acercaDe();
     void comparacionEscalasDeTiempo();
     void comparacionFuncionesProbabilidad();
+    void comparacion3NombreTemporal();
 };
 
 #endif // WQ_WINDOW_H
