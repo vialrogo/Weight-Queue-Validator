@@ -30,11 +30,13 @@ private:
     WQ_Validator* validador;
     QWidget** arregoWidgets;
     QVector<WQ_Chart*> vectorCharts;
+    QVector<QVector <QVector<QPointF>* >* >* vectorCurvasPorChart;
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart();
     void eliminarChart(int numChart);
     void colocarWidgetEnPosicion(int numWidget, int posicion);
+    void agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QPointF>* datos);
 
 private slots:
     void acercaDe();

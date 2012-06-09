@@ -10,6 +10,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     numeroWidgetsUsados=0;
     validador = new WQ_Validator();
     arregoWidgets = new QWidget*[6];
+    vectorCurvasPorChart = new QVector<QVector <QVector<QPointF>* >* >();
 
     for (int i = 0; i < 6; ++i)
     {
@@ -62,8 +63,15 @@ int WQ_Window::agregarChart()
     if(numeroWidgetsUsados<6)
     {
         agregarQuitarBordeWidgets(numeroWidgetsUsados,false);
+
+        //Creo y agrego el chart
         WQ_Chart* nuevoChart = new WQ_Chart(arregoWidgets[numeroWidgetsUsados], tamanoEstandarGrafico);
         vectorCharts.append(nuevoChart);
+
+        //Creo y agrego su vector de curvas
+        QVector<QVector<QPointF>* >* vectorCurvas = new QVector <QVector<QPointF>* > ();
+        vectorCurvasPorChart->append(vectorCurvas);
+
         nuevoChart->setVisible(true);
         numeroWidgetsUsados++;
         return vectorCharts.size()-1;
@@ -93,9 +101,19 @@ void WQ_Window::eliminarChart(int numChart)
             arregoWidgets[i]=temporal;
         }
 
-        //Elimino el último chart y acomodo el último widget
+        //Elimino el último chart
         delete vectorCharts[numChart];
         vectorCharts.remove(numChart);
+
+        //Elimino todas las curvas del chart
+        for (int i = 0; i < vectorCurvasPorChart->at(numChart)->size(); ++i) {
+            delete vectorCurvasPorChart->at(numChart)->at(0);
+            vectorCurvasPorChart->at(numChart)->remove(0);
+        }
+        delete vectorCurvasPorChart->at(numChart);
+        vectorCurvasPorChart->remove(numChart);
+
+        //Acomodo el último widget
         agregarQuitarBordeWidgets(numeroWidgetsUsados-1, true);
         numeroWidgetsUsados--;
     }
@@ -103,6 +121,13 @@ void WQ_Window::eliminarChart(int numChart)
     {
         cout<<"intentó quitar un widget que no existe"<<endl;
     }
+}
+
+void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QPointF> *datos)
+{
+    QVector<QVector<QPointF>* >* vectorCurvas = vectorCurvasPorChart->at(numChart);
+    vectorCurvas->push_back(datos);
+    vectorCharts[numChart]->agregarCurva(nombreCurva,datos);
 }
 
 void WQ_Window::comparacionEscalasDeTiempo()
@@ -119,9 +144,9 @@ void WQ_Window::comparacionEscalasDeTiempo()
         int chart3 = agregarChart();
 
         //Creo las curvas que voy a pintar y la serie que corresponde
-        vectorCharts[chart1]->agregarCurva(nombreSeries,vectoresGraficas[0]);
-        vectorCharts[chart2]->agregarCurva(nombreSeries,vectoresGraficas[1]);
-        vectorCharts[chart3]->agregarCurva(nombreSeries,vectoresGraficas[2]);
+        agregarCurvaAChart(chart1,nombreSeries,vectoresGraficas[0]);
+        agregarCurvaAChart(chart2,nombreSeries,vectoresGraficas[1]);
+        agregarCurvaAChart(chart3,nombreSeries,vectoresGraficas[2]);
 
         //Agrego las etiquetas a los ejes
 //        vectorCharts[chart1]->agregarEtiquetas("Tiempo","Datos");
@@ -139,10 +164,7 @@ void WQ_Window::comparacionFuncionesProbabilidad()
     {
         radioButtonSeleccionado=2;
         qDebug("Escogio comparacion por funciones probabilisticas");
-
-//        eliminarChart(2);
-        eliminarChart(1);
-//        eliminarChart(0);
+        eliminarChart(0);
     }
 }
 
@@ -151,6 +173,6 @@ void WQ_Window::comparacion3NombreTemporal()
     if(radioButtonSeleccionado!=3)
     {
         radioButtonSeleccionado=3;
-        eliminarChart(0);
+        qDebug("Escogio comparacion por 3");
     }
 }
