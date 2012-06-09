@@ -63,36 +63,6 @@
    <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QWidget" name="widgetChart0" native="true">
-    <property name="geometry">
-     <rect>
-      <x>324</x>
-      <y>10</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widgetChart2" native="true">
-    <property name="geometry">
-     <rect>
-      <x>324</x>
-      <y>230</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widgetChart4" native="true">
-    <property name="geometry">
-     <rect>
-      <x>324</x>
-      <y>450</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
@@ -226,36 +196,6 @@
     </property>
     <property name="styleSheet">
      <string notr="true"/>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widgetChart1" native="true">
-    <property name="geometry">
-     <rect>
-      <x>684</x>
-      <y>10</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widgetChart3" native="true">
-    <property name="geometry">
-     <rect>
-      <x>684</x>
-      <y>230</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="widgetChart5" native="true">
-    <property name="geometry">
-     <rect>
-      <x>684</x>
-      <y>450</y>
-      <width>330</width>
-      <height>200</height>
-     </rect>
     </property>
    </widget>
   </widget>

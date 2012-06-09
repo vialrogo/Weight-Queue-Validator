@@ -8,8 +8,17 @@ WQ_Window::WQ_Window(QWidget *parent) :
     tamanoEstandarGrafico= QSize(330,200);
     radioButtonSeleccionado=0;
     validador = new WQ_Validator();
+    arregoWidgets = new QWidget*[6];
 
-    for (int i = 0; i < 6; ++i) agregarQuitarBordeChart(i,true);
+    for (int i = 0; i < 6; ++i)
+    {
+        arregoWidgets[i]=new QWidget(this);
+        arregoWidgets[i]->setMaximumSize(330,200);
+        arregoWidgets[i]->setMinimumSize(330,200);
+        arregoWidgets[i]->setGeometry(324+((i%2)*360), 40+((i/2)*220), 330, 200);
+        arregoWidgets[i]->setVisible(true);
+        agregarQuitarBordeChart(i,true);
+    }
 
     connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
     connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
@@ -29,12 +38,7 @@ void WQ_Window::agregarQuitarBordeChart(int chart, bool bordeBool)
     if(bordeBool)
         borde = "border: 2px dotted gray; border-radius: 3px;";
 
-    if(chart==0) ui->widgetChart0->setStyleSheet(borde);
-    if(chart==1) ui->widgetChart1->setStyleSheet(borde);
-    if(chart==2) ui->widgetChart2->setStyleSheet(borde);
-    if(chart==3) ui->widgetChart3->setStyleSheet(borde);
-    if(chart==4) ui->widgetChart4->setStyleSheet(borde);
-    if(chart==5) ui->widgetChart5->setStyleSheet(borde);
+    arregoWidgets[chart]->setStyleSheet(borde);
 }
 
 void WQ_Window::acercaDe()
@@ -63,9 +67,9 @@ void WQ_Window::comparacionEscalasDeTiempo()
         agregarQuitarBordeChart(2, false);
 
         //Defino los gráficos que se van a dibujar
-        grafico1 = new WQ_Chart(ui->widgetChart0, tamanoEstandarGrafico);
-        grafico2 = new WQ_Chart(ui->widgetChart1, tamanoEstandarGrafico);
-        grafico3 = new WQ_Chart(ui->widgetChart2, tamanoEstandarGrafico);
+        grafico1 = new WQ_Chart(arregoWidgets[0], tamanoEstandarGrafico);
+        grafico2 = new WQ_Chart(arregoWidgets[1], tamanoEstandarGrafico);
+        grafico3 = new WQ_Chart(arregoWidgets[2], tamanoEstandarGrafico);
 
         //Hago que las gráficas se vean
         grafico1->setVisible(true);

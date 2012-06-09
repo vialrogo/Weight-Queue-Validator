@@ -24,6 +24,7 @@ private:
     WQ_Chart* grafico1;
     WQ_Chart* grafico2;
     WQ_Chart* grafico3;
+    QWidget** arregoWidgets;
     int radioButtonSeleccionado;
     WQ_Validator* validador;
     QSize tamanoEstandarGrafico;
