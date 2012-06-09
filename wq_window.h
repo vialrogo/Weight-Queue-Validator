@@ -21,15 +21,14 @@ public:
 
 private:
     Ui::WQ_Window *ui;
-    WQ_Chart* grafico1;
-    WQ_Chart* grafico2;
-    WQ_Chart* grafico3;
-    QVector<WQ_Chart*> vectorCharts;
-    QWidget** arregoWidgets;
     int radioButtonSeleccionado;
-    WQ_Validator* validador;
     QSize tamanoEstandarGrafico;
+    WQ_Validator* validador;
+    QWidget** arregoWidgets;
+    QVector<WQ_Chart*> vectorCharts;
+
     void agregarQuitarBordeChart(int chart, bool bordeBool);
+    void agregarChart();
 
 private slots:
     void acercaDe();

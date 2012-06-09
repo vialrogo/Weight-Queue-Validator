@@ -28,18 +28,16 @@ WQ_Chart::~WQ_Chart()
     }
 }
 
-void WQ_Chart::adicionarCurva(QString nombreCurva)
-{
-    QwtPlotCurve* nuevacurva = new QwtPlotCurve();
-    nuevacurva->attach(this);
-    hashCurvas[nombreCurva]=nuevacurva;
-}
-
-void WQ_Chart::agregarDatosACurva(QString nombreCurva, QVector<QPointF>* datos)
+void WQ_Chart::agregarCurva(QString nombreCurva, QVector<QPointF>* datos)
 {
     QwtPointSeriesData* seriesData = new QwtPointSeriesData;
     seriesData->setSamples(*datos);
-    hashCurvas[nombreCurva]->setData(seriesData);
+
+    QwtPlotCurve* nuevacurva = new QwtPlotCurve();
+    nuevacurva->attach(this);
+
+    nuevacurva->setData(seriesData);
+    hashCurvas[nombreCurva]=nuevacurva;
 }
 
 void WQ_Chart::agregarEtiquetas(QString x, QString y)

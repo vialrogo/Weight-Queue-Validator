@@ -66,54 +66,29 @@ void WQ_Window::comparacionEscalasDeTiempo()
         agregarQuitarBordeChart(1, false);
         agregarQuitarBordeChart(2, false);
 
-        agregarQuitarBordeChart(3, false);
-        agregarQuitarBordeChart(4, false);
-        agregarQuitarBordeChart(5, false);
 
         //Defino los gráficos que se van a dibujar
-        grafico1 = new WQ_Chart(arregoWidgets[0], tamanoEstandarGrafico);
-        grafico2 = new WQ_Chart(arregoWidgets[1], tamanoEstandarGrafico);
-        grafico3 = new WQ_Chart(arregoWidgets[2], tamanoEstandarGrafico);
-
-        vectorCharts.append(new WQ_Chart(arregoWidgets[3], tamanoEstandarGrafico));
-        vectorCharts.append(new WQ_Chart(arregoWidgets[4], tamanoEstandarGrafico));
-        vectorCharts.append(new WQ_Chart(arregoWidgets[5], tamanoEstandarGrafico));
+        vectorCharts.append(new WQ_Chart(arregoWidgets[0], tamanoEstandarGrafico));
+        vectorCharts.append(new WQ_Chart(arregoWidgets[1], tamanoEstandarGrafico));
+        vectorCharts.append(new WQ_Chart(arregoWidgets[2], tamanoEstandarGrafico));
 
         //Hago que las gráficas se vean
-        grafico1->setVisible(true);
-        grafico2->setVisible(true);
-        grafico3->setVisible(true);
-
         vectorCharts[0]->setVisible(true);
         vectorCharts[1]->setVisible(true);
         vectorCharts[2]->setVisible(true);
 
-        //Creo las curvas que voy a pintar
-        grafico1->adicionarCurva(nombreSeries);
-        grafico2->adicionarCurva(nombreSeries);
-        grafico3->adicionarCurva(nombreSeries);
-
-        vectorCharts[0]->adicionarCurva(nombreSeries);
-        vectorCharts[1]->adicionarCurva(nombreSeries);
-        vectorCharts[2]->adicionarCurva(nombreSeries);
-
+        //Creo las curvas que voy a pintar y la serie que corresponde
+        vectorCharts[0]->agregarCurva(nombreSeries,vectoresGraficas[0]);
+        vectorCharts[1]->agregarCurva(nombreSeries,vectoresGraficas[1]);
+        vectorCharts[2]->agregarCurva(nombreSeries,vectoresGraficas[2]);
 
         //Agrego las etiquetas a los ejes
-//        grafico1->agregarEtiquetas("Tiempo","Datos");
-//        grafico2->agregarEtiquetas("Tiempo","Datos");
-//        grafico3->agregarEtiquetas("Tiempo","Datos");
-
-        //agrego a cada gráfico la serie que corresponde
-        grafico1->agregarDatosACurva(nombreSeries,vectoresGraficas[0]);
-        grafico2->agregarDatosACurva(nombreSeries,vectoresGraficas[1]);
-        grafico3->agregarDatosACurva(nombreSeries,vectoresGraficas[2]);
-
-        vectorCharts[0]->agregarDatosACurva(nombreSeries,vectoresGraficas[0]);
-        vectorCharts[1]->agregarDatosACurva(nombreSeries,vectoresGraficas[1]);
-        vectorCharts[2]->agregarDatosACurva(nombreSeries,vectoresGraficas[2]);
+//        vectorCharts[0]->agregarEtiquetas("Tiempo","Datos");
+//        vectorCharts[1]->agregarEtiquetas("Tiempo","Datos");
+//        vectorCharts[2]->agregarEtiquetas("Tiempo","Datos");
 
         //Temporal
-        grafico1->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
+        vectorCharts[0]->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
     }
 }
 
@@ -124,8 +99,15 @@ void WQ_Window::comparacionFuncionesProbabilidad()
         radioButtonSeleccionado=2;
         qDebug("Escogio comparacion por funciones probabilisticas");
 
-        delete grafico1;
-        delete grafico2;
-        delete grafico3;
+        delete vectorCharts[0];
+        vectorCharts.pop_front();
+        delete vectorCharts[0];
+        vectorCharts.pop_front();
+        delete vectorCharts[0];
+        vectorCharts.pop_front();
+
+        agregarQuitarBordeChart(0, true);
+        agregarQuitarBordeChart(1, true);
+        agregarQuitarBordeChart(2, true);
     }
 }

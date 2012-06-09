@@ -19,8 +19,7 @@ private:
 public:
     WQ_Chart(QWidget* parent, QSize tamano);
     ~WQ_Chart();
-    void adicionarCurva(QString nombreCurva);
-    void agregarDatosACurva(QString nombreCurva, QVector<QPointF>* datos);
+    void agregarCurva(QString nombreCurva, QVector<QPointF>* datos);
     void agregarEtiquetas(QString x, QString y);
     void agregarEtiquetaX(QString x);
     void agregarEtiquetaY(QString y);
