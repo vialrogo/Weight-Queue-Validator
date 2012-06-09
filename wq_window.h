@@ -3,9 +3,12 @@
 
 #include <QMessageBox>
 #include <QMainWindow>
+#include <iostream>
 #include "ui_wq_window.h"
 #include "wq_chart.h"
 #include "wq_validator.h"
+
+using namespace std;
 
 namespace Ui {
     class WQ_Window;
@@ -30,6 +33,7 @@ private:
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart();
+    void eliminarChart(int numChart);
 
 private slots:
     void acercaDe();

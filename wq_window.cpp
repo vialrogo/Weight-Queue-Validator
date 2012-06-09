@@ -63,8 +63,38 @@ int WQ_Window::agregarChart()
     }
     else
     {
-        qDebug("intento agregar un widget de mas");
+        cout<<"intentó agregar un widget que no cabe"<<endl;
         return -1;
+    }
+}
+
+void WQ_Window::eliminarChart(int numChart)
+{
+    if(vectorCharts.size()>numChart)
+    {
+        QWidget* temporal;
+
+        for (int i = numChart+1; i < vectorCharts.size(); ++i)
+        {
+            //Cambio la posición de los widgets en la interfaz (sacar de aquí!!!)
+            arregoWidgets[i]->setGeometry(324+(((i-1)%2)*360), 40+(((i-1)/2)*220), 330, 200);
+            arregoWidgets[i-1]->setGeometry(324+((i%2)*360), 40+((i/2)*220), 330, 200);
+
+            //Troco los widgets en el arreglo
+            temporal=arregoWidgets[i-1];
+            arregoWidgets[i-1] = arregoWidgets[i];
+            arregoWidgets[i]=temporal;
+        }
+
+        //Elimino el último chart y acomodo el último widget
+        delete vectorCharts[numChart];
+        vectorCharts.remove(numChart);
+        agregarQuitarBordeWidgets(numeroWidgetsUsados-1, true);
+        numeroWidgetsUsados--;
+    }
+    else
+    {
+        cout<<"intentó quitar un widget que no existe"<<endl;
     }
 }
 
@@ -103,19 +133,9 @@ void WQ_Window::comparacionFuncionesProbabilidad()
         radioButtonSeleccionado=2;
         qDebug("Escogio comparacion por funciones probabilisticas");
 
-        delete vectorCharts[0];
-        vectorCharts.pop_front();
-        numeroWidgetsUsados--;
-        delete vectorCharts[0];
-        vectorCharts.pop_front();
-        numeroWidgetsUsados--;
-        delete vectorCharts[0];
-        vectorCharts.pop_front();
-        numeroWidgetsUsados--;
-
-        agregarQuitarBordeWidgets(0, true);
-        agregarQuitarBordeWidgets(1, true);
-        agregarQuitarBordeWidgets(2, true);
+//        eliminarChart(2);
+        eliminarChart(1);
+//        eliminarChart(0);
     }
 }
 
@@ -124,5 +144,6 @@ void WQ_Window::comparacion3NombreTemporal()
     if(radioButtonSeleccionado!=3)
     {
         radioButtonSeleccionado=3;
+        eliminarChart(0);
     }
 }
