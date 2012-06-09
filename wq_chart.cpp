@@ -6,7 +6,7 @@ WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :QwtPlot(parent)
     setMinimumSize(tamano.width(),tamano.height());
     setMaximumSize(tamano.width(),tamano.height());
 
-    (void) new QwtPlotPanner(canvas()); //Moverse con el botón izquierdo
+    panner = new QwtPlotPanner(canvas()); //Moverse con el botón izquierdo
     magnifier = new QwtPlotMagnifier(canvas()); //zoom con el scroll
 
     //Pendiente a sacar de aquí
@@ -17,6 +17,15 @@ WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :QwtPlot(parent)
     canvas()->setFrameStyle(QFrame::Box | QFrame::Plain);
     canvas()->setBorderRadius(5);
     canvas()->setPalette(Qt::white); //Fondo del canvas
+}
+
+WQ_Chart::~WQ_Chart()
+{
+    delete panner;
+    delete magnifier;
+    foreach (QwtPlotCurve* curva, hashCurvas) {
+        delete curva;
+    }
 }
 
 void WQ_Chart::adicionarCurva(QString nombreCurva)

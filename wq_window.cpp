@@ -102,5 +102,9 @@ void WQ_Window::comparacionFuncionesProbabilidad()
     {
         radioButtonSeleccionado=2;
         qDebug("Escogio comparacion por funciones probabilisticas");
+
+        delete grafico1;
+        delete grafico2;
+        delete grafico3;
     }
 }
