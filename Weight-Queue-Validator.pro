@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     wq_gen_poisson.cpp \
     wq_gen_heavytail.cpp \
     wq_iofile.cpp \
-    wq_chart.cpp
+    wq_chart.cpp \
+    wq_chart_widget.cpp
 
 HEADERS  += \
     wq_window.h \
@@ -26,9 +27,11 @@ HEADERS  += \
     wq_gen_poisson.h \
     wq_gen_heavytail.h \
     wq_iofile.h \
-    wq_chart.h
+    wq_chart.h \
+    wq_chart_widget.h
 
 FORMS    += \
+    wq_chart_widget.ui \
     wq_window.ui
 
 INCLUDEPATH += /usr/include/qwt
