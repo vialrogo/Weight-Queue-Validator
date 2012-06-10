@@ -8,6 +8,7 @@
 #include "ui_wq_window.h"
 #include "wq_chart.h"
 #include "wq_validator.h"
+#include "wq_chart_widget.h"
 
 namespace Ui {
     class WQ_Window;

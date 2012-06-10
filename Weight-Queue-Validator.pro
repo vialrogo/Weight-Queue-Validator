@@ -31,7 +31,7 @@ HEADERS  += \
     wq_chart_widget.h
 
 FORMS    += \
-    wq_window.ui
+    wq_chart_widget.ui
 
 INCLUDEPATH += /usr/include/qwt
 LIBS += -l qwt

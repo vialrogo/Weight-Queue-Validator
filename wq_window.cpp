@@ -32,18 +32,18 @@ WQ_Window::WQ_Window(QWidget *parent) :
     toolBoxCharts->setGeometry(0,0,310,362);
     toolBoxCharts->setVisible(true);
 
-//    QWidget* prueba1 = new QWidget();
-//    QWidget* prueba2 = new QWidget();
-//    QWidget* prueba3 = new QWidget();
-//    QWidget* prueba4 = new QWidget();
-//    QWidget* prueba5 = new QWidget();
-//    QWidget* prueba6 = new QWidget();
-//    toolBoxCharts->addItem(prueba1,"widget");
-//    toolBoxCharts->addItem(prueba2,"widget");
-//    toolBoxCharts->addItem(prueba3,"widget");
-//    toolBoxCharts->addItem(prueba4,"widget");
-//    toolBoxCharts->addItem(prueba5,"widget");
-//    toolBoxCharts->addItem(prueba6,"widget");
+    WQ_Chart_Widget* prueba1 = new WQ_Chart_Widget();
+    WQ_Chart_Widget* prueba2 = new WQ_Chart_Widget();
+    WQ_Chart_Widget* prueba3 = new WQ_Chart_Widget();
+    WQ_Chart_Widget* prueba4 = new WQ_Chart_Widget();
+    WQ_Chart_Widget* prueba5 = new WQ_Chart_Widget();
+    WQ_Chart_Widget* prueba6 = new WQ_Chart_Widget();
+    toolBoxCharts->addItem(prueba1,"widget");
+    toolBoxCharts->addItem(prueba2,"widget");
+    toolBoxCharts->addItem(prueba3,"widget");
+    toolBoxCharts->addItem(prueba4,"widget");
+    toolBoxCharts->addItem(prueba5,"widget");
+    toolBoxCharts->addItem(prueba6,"widget");
 
     connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
     connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
