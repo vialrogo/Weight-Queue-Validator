@@ -5,6 +5,8 @@ WQ_Window::WQ_Window(QWidget *parent) :
     ui(new Ui::WQ_Window)
 {
     ui->setupUi(this);
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+
     tamanoEstandarGrafico= QSize(330,200);
     radioButtonSeleccionado=0;
     numeroWidgetsUsados=0;
@@ -18,6 +20,30 @@ WQ_Window::WQ_Window(QWidget *parent) :
         colocarWidgetEnPosicion(i,i);
         agregarQuitarBordeWidgets(i,true);
     }
+
+    //Configuraciones de apariencia area
+    QPalette p = ui->plainTextEditConsole->palette();
+    p.setColor(QPalette::Base, Qt::black);
+    p.setColor(QPalette::Text, Qt::white);
+    ui->plainTextEditConsole->setPalette(p);
+
+    //Agregar toolboox
+    QToolBox* toolBoxCharts = new QToolBox(ui->tabExistente);
+    toolBoxCharts->setGeometry(0,0,310,362);
+    toolBoxCharts->setVisible(true);
+
+//    QWidget* prueba1 = new QWidget();
+//    QWidget* prueba2 = new QWidget();
+//    QWidget* prueba3 = new QWidget();
+//    QWidget* prueba4 = new QWidget();
+//    QWidget* prueba5 = new QWidget();
+//    QWidget* prueba6 = new QWidget();
+//    toolBoxCharts->addItem(prueba1,"widget");
+//    toolBoxCharts->addItem(prueba2,"widget");
+//    toolBoxCharts->addItem(prueba3,"widget");
+//    toolBoxCharts->addItem(prueba4,"widget");
+//    toolBoxCharts->addItem(prueba5,"widget");
+//    toolBoxCharts->addItem(prueba6,"widget");
 
     connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
     connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
@@ -52,7 +78,7 @@ void WQ_Window::colocarWidgetEnPosicion(int numWidget, int posicion)
 {
     arregoWidgets[numWidget]->setMaximumSize(tamanoEstandarGrafico.width(),tamanoEstandarGrafico.height());
     arregoWidgets[numWidget]->setMinimumSize(tamanoEstandarGrafico.width(),tamanoEstandarGrafico.height());
-    arregoWidgets[numWidget]->setGeometry(324+((posicion%2)*(tamanoEstandarGrafico.width()+30) ),
+    arregoWidgets[numWidget]->setGeometry(334+((posicion%2)*(tamanoEstandarGrafico.width()+20) ),
                                           40 +((posicion/2)*(tamanoEstandarGrafico.height()+20)),
                                           tamanoEstandarGrafico.width(),
                                           tamanoEstandarGrafico.height() );
@@ -74,11 +100,12 @@ int WQ_Window::agregarChart()
 
         nuevoChart->setVisible(true);
         numeroWidgetsUsados++;
+        salidaInformacion("Chart agregado exitosamente");
         return vectorCharts.size()-1;
     }
     else
     {
-        cout<<"intentó agregar un chart que no cabe"<<endl;
+        salidaError("Intentó agregar un chart y no cabe");
         return -1;
     }
 }
@@ -119,7 +146,7 @@ void WQ_Window::eliminarChart(int numChart)
     }
     else
     {
-        cout<<"intentó quitar un chart que no existe"<<endl;
+        salidaError("intentó quitar un chart que no existe");
     }
 }
 
@@ -144,9 +171,9 @@ void WQ_Window::comparacionEscalasDeTiempo()
         int chart3 = agregarChart();
 
         //Creo las curvas que voy a pintar y la serie que corresponde
-        agregarCurvaAChart(chart1,nombreSeries,vectoresGraficas[0]);
-        agregarCurvaAChart(chart2,nombreSeries,vectoresGraficas[1]);
-        agregarCurvaAChart(chart3,nombreSeries,vectoresGraficas[2]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,nombreSeries,vectoresGraficas[0]);
+        if(chart2!=-1) agregarCurvaAChart(chart2,nombreSeries,vectoresGraficas[1]);
+        if(chart3!=-1) agregarCurvaAChart(chart3,nombreSeries,vectoresGraficas[2]);
 
         //Agrego las etiquetas a los ejes
 //        vectorCharts[chart1]->agregarEtiquetas("Tiempo","Datos");
@@ -154,7 +181,7 @@ void WQ_Window::comparacionEscalasDeTiempo()
 //        vectorCharts[chart3]->agregarEtiquetas("Tiempo","Datos");
 
         //Temporal
-        vectorCharts[chart1]->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
+        if(chart1!=-1) vectorCharts[chart1]->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
     }
 }
 
@@ -175,4 +202,14 @@ void WQ_Window::comparacion3NombreTemporal()
         radioButtonSeleccionado=3;
         qDebug("Escogio comparacion por 3");
     }
+}
+
+void WQ_Window::salidaInformacion(QString mensaje)
+{
+    ui->plainTextEditConsole->appendPlainText(mensaje);
+}
+
+void WQ_Window::salidaError(QString mensaje)
+{
+    ui->plainTextEditConsole->appendPlainText("**** Error ****\n"+mensaje);
 }

@@ -3,12 +3,11 @@
 
 #include <QMessageBox>
 #include <QMainWindow>
-#include <iostream>
+#include <QTextCodec>
+#include <QToolBox>
 #include "ui_wq_window.h"
 #include "wq_chart.h"
 #include "wq_validator.h"
-
-using namespace std;
 
 namespace Ui {
     class WQ_Window;
@@ -37,6 +36,8 @@ private:
     void eliminarChart(int numChart);
     void colocarWidgetEnPosicion(int numWidget, int posicion);
     void agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QPointF>* datos);
+    void salidaInformacion(QString mensaje);
+    void salidaError(QString mensaje);
 
 private slots:
     void acercaDe();
