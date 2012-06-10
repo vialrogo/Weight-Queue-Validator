@@ -146,7 +146,7 @@ void WQ_Window::eliminarChart(int numChart)
     }
     else
     {
-        salidaError("intentó quitar un chart que no existe");
+        salidaError("Intentó quitar un chart y no existe");
     }
 }
 
