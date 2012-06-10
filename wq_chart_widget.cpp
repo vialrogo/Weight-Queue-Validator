@@ -1,16 +1,18 @@
 #include "wq_chart_widget.h"
 #include "ui_wq_chart_widget.h"
 
-WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent) :
+WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     QWidget(parent),
     ui(new Ui::WQ_Chart_Widget)
 {
     ui->setupUi(this);
+    numeroChart=numChart_in;
     vectorNombres = new QVector<QLabel*>();
     vectorBotonesView = new QVector<QPushButton*>();
     vectorBotonesRemove = new QVector<QPushButton*>();
+    ui->widgetCurvas->setMinimumSize(290,5);
 
-    ui->widgetCurvas->setMaximumSize(290,5);
+    connect(ui->botonDeleteChart,SIGNAL(clicked()),this,SLOT(clickBotonEliminarChart()));
 }
 
 WQ_Chart_Widget::~WQ_Chart_Widget()
@@ -36,4 +38,19 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     ui->widgetCurvas->setMinimumSize(290,(numCurvas+1)*30);
 
     return numCurvas;
+}
+
+void WQ_Chart_Widget::clickBotonEliminarChart()
+{
+    emit eliminarChart(numeroChart);
+}
+
+int WQ_Chart_Widget::getNumChart()
+{
+    return numeroChart;
+}
+
+void WQ_Chart_Widget::setNumChart(int numeroChart_in)
+{
+    numeroChart=numeroChart_in;
 }

@@ -137,8 +137,11 @@
       <height>400</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -160,7 +163,7 @@
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">background-color:white;</string>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox">
@@ -198,7 +201,7 @@
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true"/>
+       <string notr="true">background-color:white;</string>
       </property>
       <property name="title">
        <string/>
@@ -282,6 +285,9 @@
      </widget>
     </widget>
     <widget class="QWidget" name="tabExistente">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <attribute name="title">
       <string>Current Charts</string>
      </attribute>
