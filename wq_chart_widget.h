@@ -27,6 +27,7 @@ private:
     QVector<QLabel*>* vectorNombres;
     QVector<WQ_Chart_Widget_Button*>* vectorBotonesView;
     QVector<WQ_Chart_Widget_Button*>* vectorBotonesRemove;
+    QVector<bool>* vectorEstadoView;
 
 private slots:
     void clickBotonEliminarChart();
