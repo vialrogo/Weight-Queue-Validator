@@ -36,7 +36,8 @@ private slots:
 
 signals:
     void eliminarChart(int numeroChart);
-    void eliminarCurvaChart(int numChart, int numCurva);
+    void eliminarCurvaChart(int numCurva);
+    void mostrarOcultarCurvaChart(int numCurva, bool estado);
 };
 
 #endif // WQ_CHART_WIDGET_H

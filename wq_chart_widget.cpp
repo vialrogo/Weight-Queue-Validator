@@ -75,6 +75,7 @@ void WQ_Chart_Widget::eliminarCurva(int numCurva)
     }
 
     ui->widgetCurvas->setGeometry(0,0,290,(vectorNombres->size())*31+3);
+    emit eliminarCurvaChart(numCurva);
 }
 
 void WQ_Chart_Widget::mostrarOcultarCurva(int numCurva)
@@ -82,15 +83,8 @@ void WQ_Chart_Widget::mostrarOcultarCurva(int numCurva)
     bool estado = vectorEstadoView->at(numCurva);
     vectorEstadoView->remove(numCurva);
     vectorEstadoView->insert(numCurva, !estado);
-
-    if(estado)
-    {
-        vectorBotonesView->at(numCurva)->setIcon(QIcon("Imagenes/View2.png"));
-    }
-    else
-    {
-        vectorBotonesView->at(numCurva)->setIcon(QIcon("Imagenes/View1.png"));
-    }
+    vectorBotonesView->at(numCurva)->setIcon(QIcon(estado? "Imagenes/View2.png" : "Imagenes/View1.png"));
+    emit mostrarOcultarCurvaChart(numCurva, !estado);
 }
 
 void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)

@@ -13,13 +13,13 @@ QVector<QPointF>** WQ_Validator::comparacionEscalasDeTiempo()
     QVector<QPointF>* samples2 = new QVector<QPointF>;
     QVector<QPointF>* samples3 = new QVector<QPointF>;
 
-    for (int i = 0; i < 2000000; ++i)
+    for (int i = 0; i < 2000; ++i)
         samples1->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/10.0) ));
 
-    for (int i = 0; i < 1000000; ++i)
+    for (int i = 0; i < 1000; ++i)
         samples2->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/7.0) ));
 
-    for (int i = 0; i < 3000000; ++i)
+    for (int i = 0; i < 3000; ++i)
         samples3->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/13.0) ));
 
     salida[0]=samples1;

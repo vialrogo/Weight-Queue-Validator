@@ -20,6 +20,7 @@ public:
     WQ_Chart(QWidget* parent, QSize tamano);
     ~WQ_Chart();
     void agregarCurva(QVector<QPointF>* datos);
+    void elimiarCurva(int numCurva);
     void agregarEtiquetas(QString x, QString y);
     void agregarEtiquetaX(QString x);
     void agregarEtiquetaY(QString y);
