@@ -27,14 +27,17 @@ private:
     QVector<QLabel*>* vectorNombres;
     QVector<WQ_Chart_Widget_Button*>* vectorBotonesView;
     QVector<WQ_Chart_Widget_Button*>* vectorBotonesRemove;
+    QVector<bool>* vectorEstadoView;
 
 private slots:
     void clickBotonEliminarChart();
     void eliminarCurva(int numCurva);
+    void mostrarOcultarCurva(int numCurva);
 
 signals:
     void eliminarChart(int numeroChart);
-    void eliminarCurvaChart(int numChart, int numCurva);
+    void eliminarCurvaChart(int numCurva);
+    void mostrarOcultarCurvaChart(int numCurva, bool estado);
 };
 
 #endif // WQ_CHART_WIDGET_H

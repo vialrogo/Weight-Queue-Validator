@@ -8,8 +8,9 @@ WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :QwtPlot(parent)
 
     panner = new QwtPlotPanner(canvas()); //Moverse con el botón izquierdo
     magnifier = new QwtPlotMagnifier(canvas()); //zoom con el scroll
+    vectorCurvas = new QVector<QwtPlotCurve*>();
+    vectorDatosCurvas = new QVector<QVector<QPointF>* >();
 
-    //Pendiente a sacar de aquí
     magnifier->setAxisEnabled(yLeft, false); //Desabilita el scroll sobre el eje vertical
 
     //Canvas
@@ -23,12 +24,22 @@ WQ_Chart::~WQ_Chart()
 {
     delete panner;
     delete magnifier;
-    foreach (QwtPlotCurve* curva, hashCurvas) {
-        delete curva;
+
+    while (vectorCurvas->size()>0) {
+        vectorCurvas->at(0)->detach();
+        delete vectorCurvas->at(0);
+        vectorCurvas->remove(0);
     }
+    delete vectorCurvas;
+
+    while (vectorDatosCurvas->size()>0) {
+        delete vectorDatosCurvas->at(0);
+        vectorDatosCurvas->remove(0);
+    }
+    delete vectorDatosCurvas;
 }
 
-void WQ_Chart::agregarCurva(QString nombreCurva, QVector<QPointF>* datos)
+void WQ_Chart::agregarCurva(QVector<QPointF>* datos)
 {
     QwtPointSeriesData* seriesData = new QwtPointSeriesData;
     seriesData->setSamples(*datos);
@@ -37,7 +48,8 @@ void WQ_Chart::agregarCurva(QString nombreCurva, QVector<QPointF>* datos)
     nuevacurva->attach(this);
 
     nuevacurva->setData(seriesData);
-    hashCurvas[nombreCurva]=nuevacurva;
+    vectorCurvas->push_back(nuevacurva);
+    vectorDatosCurvas->push_back(datos);
 }
 
 void WQ_Chart::agregarEtiquetas(QString x, QString y)

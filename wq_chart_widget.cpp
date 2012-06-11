@@ -10,6 +10,7 @@ WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     vectorNombres = new QVector<QLabel*>();
     vectorBotonesView = new QVector<WQ_Chart_Widget_Button*>();
     vectorBotonesRemove = new QVector<WQ_Chart_Widget_Button*>();
+    vectorEstadoView = new QVector<bool>();
     ui->widgetCurvas->setGeometry(0,0,290,152);
 
     connect(ui->botonDeleteChart,SIGNAL(clicked()),this,SLOT(clickBotonEliminarChart()));
@@ -30,7 +31,7 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
 
     //Hago los connects necesarios
     connect(botonRemove,SIGNAL(pulsado(int)),this,SLOT(eliminarCurva(int)));
-    //Falta un connect!!!!
+    connect(botonView,SIGNAL(pulsado(int)),this,SLOT(mostrarOcultarCurva(int)));
 
     //los agrego a la interfaz
     etiqueta->setGeometry(10, numCurvas*31+3, 205, 25);
@@ -41,9 +42,9 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     vectorNombres->push_back(etiqueta);
     vectorBotonesView->push_back(botonView);
     vectorBotonesRemove->push_back(botonRemove);
+    vectorEstadoView->push_back(true);
 
     ui->widgetCurvas->setGeometry(0,0,290,(numCurvas+1)*31+3);
-
     return numCurvas;
 }
 
@@ -58,6 +59,8 @@ void WQ_Chart_Widget::eliminarCurva(int numCurva)
     delete vectorBotonesRemove->at(numCurva);
     vectorBotonesRemove->remove(numCurva);
 
+    vectorEstadoView->remove(numCurva);
+
     //Actualizar posición de los demás widgets
     int totalCurvas = vectorNombres->size();
     for (int i = numCurva; i < totalCurvas; ++i)
@@ -71,6 +74,16 @@ void WQ_Chart_Widget::eliminarCurva(int numCurva)
     }
 
     ui->widgetCurvas->setGeometry(0,0,290,(vectorNombres->size())*31+3);
+    emit eliminarCurvaChart(numCurva);
+}
+
+void WQ_Chart_Widget::mostrarOcultarCurva(int numCurva)
+{
+    bool estado = vectorEstadoView->at(numCurva);
+    vectorEstadoView->remove(numCurva);
+    vectorEstadoView->insert(numCurva, !estado);
+    vectorBotonesView->at(numCurva)->setIcon(QIcon(estado? "Imagenes/View2.png" : "Imagenes/View1.png"));
+    emit mostrarOcultarCurvaChart(numCurva, !estado);
 }
 
 void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)
