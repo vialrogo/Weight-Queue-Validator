@@ -10,7 +10,7 @@ WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     vectorNombres = new QVector<QLabel*>();
     vectorBotonesView = new QVector<WQ_Chart_Widget_Button*>();
     vectorBotonesRemove = new QVector<WQ_Chart_Widget_Button*>();
-    ui->widgetCurvas->setMinimumSize(290,5);
+    ui->widgetCurvas->setGeometry(0,0,290,152);
 
     connect(ui->botonDeleteChart,SIGNAL(clicked()),this,SLOT(clickBotonEliminarChart()));
 }
@@ -42,7 +42,7 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     vectorBotonesView->push_back(botonView);
     vectorBotonesRemove->push_back(botonRemove);
 
-    ui->widgetCurvas->setMinimumSize(290,(numCurvas+1)*31+3);
+    ui->widgetCurvas->setGeometry(0,0,290,(numCurvas+1)*31+3);
 
     return numCurvas;
 }
@@ -70,19 +70,23 @@ void WQ_Chart_Widget::eliminarCurva(int numCurva)
         vectorBotonesRemove->at(i)->setNumeroCurva(i);
     }
 
-    ui->widgetCurvas->setMinimumSize(290,(vectorNombres->size())*31+3);
+    ui->widgetCurvas->setGeometry(0,0,290,(vectorNombres->size())*31+3);
 }
 
 void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)
 {
     int delta = (6-numCharts)*35;
-    setMinimumSize(305,152+delta);
-    ui->widgetTotal->setMinimumSize(305,152+delta);
-    ui->scrollArea->setGeometry(0,0,305,115+delta);
-    ui->widgetCurvas->setGeometry(0,0,290,113+delta);
-    ui->checkBoxXScroll->setGeometry(5,120+delta,75,30);
-    ui->checkBoxYScroll->setGeometry(85,120+delta,75,30);
-    ui->botonDeleteChart->setGeometry(210,120+delta,94,30);
+    int anchoBase =305;
+    int largoBase = 139;
+
+    setMinimumSize(anchoBase,largoBase+delta);
+    setMaximumSize(anchoBase,largoBase+delta);
+    ui->widgetTotal->setGeometry(0,0,anchoBase,largoBase+delta);
+    ui->scrollArea->setGeometry(0,0,anchoBase,largoBase-37+delta);
+    ui->widgetCurvas->setGeometry(0,0,anchoBase-15,largoBase-39+delta);
+    ui->checkBoxXScroll->setGeometry(5,largoBase-32+delta,75,30);
+    ui->checkBoxYScroll->setGeometry(85,largoBase-32+delta,75,30);
+    ui->botonDeleteChart->setGeometry(210,largoBase-32+delta,94,30);
 }
 
 void WQ_Chart_Widget::clickBotonEliminarChart()
