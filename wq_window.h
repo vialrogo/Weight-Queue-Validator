@@ -29,12 +29,13 @@ private:
     QSize tamanoEstandarGrafico;
     WQ_Validator* validador;
     QWidget** arregoWidgets;
-    QVector<WQ_Chart*> vectorCharts;
+    QVector<WQ_Chart*>* vectorCharts;
     QVector<QVector <QVector<QPointF>* >* >* vectorCurvasPorChart;
+    QVector<WQ_Chart_Widget*>* vectorChartWidgets;
+    QToolBox* toolBoxCharts;
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
-    int agregarChart();
-    void eliminarChart(int numChart);
+    int agregarChart(QString nombreChart);
     void colocarWidgetEnPosicion(int numWidget, int posicion);
     void agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QPointF>* datos);
     void salidaInformacion(QString mensaje);
@@ -45,6 +46,7 @@ private slots:
     void comparacionEscalasDeTiempo();
     void comparacionFuncionesProbabilidad();
     void comparacion3NombreTemporal();
+    void eliminarChart(int numChart);
 };
 
 #endif // WQ_WINDOW_H

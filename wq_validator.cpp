@@ -17,10 +17,10 @@ QVector<QPointF>** WQ_Validator::comparacionEscalasDeTiempo()
         samples1->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/10.0) ));
 
     for (int i = 0; i < 1000; ++i)
-        samples2->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/10.0) ));
+        samples2->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/7.0) ));
 
     for (int i = 0; i < 3000; ++i)
-        samples3->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/10.0) ));
+        samples3->push_back(QPointF( ((double)(i))/10.0, sin(((double)(i))/13.0) ));
 
     salida[0]=samples1;
     salida[1]=samples2;
