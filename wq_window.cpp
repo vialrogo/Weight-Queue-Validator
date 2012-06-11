@@ -14,7 +14,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     arregoWidgets = new QWidget*[6];
     vectorCurvasPorChart = new QVector<QVector <QVector<QPointF>* >* >();
     vectorCharts = new QVector<WQ_Chart*>();
-    vectroChartWidgets = new QVector<WQ_Chart_Widget*>();
+    vectorChartWidgets = new QVector<WQ_Chart_Widget*>();
 
     for (int i = 0; i < 6; ++i)
     {
@@ -89,10 +89,16 @@ int WQ_Window::agregarChart(QString nombreChart)
         vectorCurvasPorChart->push_back(vectorCurvas);
 
         //Agrego el chart widget
-        WQ_Chart_Widget* chartWidget = new WQ_Chart_Widget(this,vectroChartWidgets->size());
+        WQ_Chart_Widget* chartWidget = new WQ_Chart_Widget(this,vectorChartWidgets->size());
         toolBoxCharts->addItem(chartWidget,nombreChart);
         connect(chartWidget,SIGNAL(eliminarChart(int)),this,SLOT(eliminarChart(int)));
-        vectroChartWidgets->push_back(chartWidget);
+        vectorChartWidgets->push_back(chartWidget);
+
+        //Actualizar el tamaño de todos los chartWidgets
+        int numChartWidgets = vectorChartWidgets->size();
+        for (int i = 0; i < numChartWidgets; ++i) {
+            vectorChartWidgets->at(i)->cambiarGeometriaNumeroCharts(numChartWidgets);
+        }
 
         //Otros
         numeroWidgetsUsados++;
@@ -124,7 +130,7 @@ void WQ_Window::eliminarChart(int numChart)
             arregoWidgets[i]=temporal;
 
             //Actualizo los valores de los ChartWidget
-            vectroChartWidgets->at(i)->setNumChart(vectroChartWidgets->at(i)->getNumChart()-1);
+            vectorChartWidgets->at(i)->setNumChart(vectorChartWidgets->at(i)->getNumChart()-1);
         }
 
         //Elimino el Chart
@@ -132,9 +138,9 @@ void WQ_Window::eliminarChart(int numChart)
         vectorCharts->remove(numChart);
 
         //Elimino el ChartWidget
-        toolBoxCharts->removeItem(toolBoxCharts->indexOf(vectroChartWidgets->at(numChart)));
-        delete vectroChartWidgets->at(numChart);
-        vectroChartWidgets->remove(numChart);
+        toolBoxCharts->removeItem(toolBoxCharts->indexOf(vectorChartWidgets->at(numChart)));
+        delete vectorChartWidgets->at(numChart);
+        vectorChartWidgets->remove(numChart);
 
         //Elimino todas las curvas del chart
         for (int i = 0; i < vectorCurvasPorChart->at(numChart)->size(); ++i) {
@@ -143,6 +149,12 @@ void WQ_Window::eliminarChart(int numChart)
         }
         delete vectorCurvasPorChart->at(numChart);
         vectorCurvasPorChart->remove(numChart);
+
+        //Actualizar el tamaño de todos los chartWidgets
+        int numChartWidgets = vectorChartWidgets->size();
+        for (int i = 0; i < numChartWidgets; ++i) {
+            vectorChartWidgets->at(i)->cambiarGeometriaNumeroCharts(numChartWidgets);
+        }
 
         //Acomodo el último widget
         agregarQuitarBordeWidgets(numeroWidgetsUsados-1, true);
@@ -159,7 +171,7 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
     QVector<QVector<QPointF>* >* vectorCurvas = vectorCurvasPorChart->at(numChart);
     vectorCurvas->push_back(datos);
     vectorCharts->at(numChart)->agregarCurva(nombreCurva,datos);
-    vectroChartWidgets->at(numChart)->agregarCurva(nombreCurva);
+    vectorChartWidgets->at(numChart)->agregarCurva(nombreCurva);
 }
 
 void WQ_Window::comparacionEscalasDeTiempo()
@@ -167,18 +179,19 @@ void WQ_Window::comparacionEscalasDeTiempo()
     if(radioButtonSeleccionado!=1) //Esto hay que hacerlo dinámico
     {
         radioButtonSeleccionado=1;
-        QString nombreSeries="Serie De Tiempo";
         QVector<QPointF>** vectoresGraficas = validador->comparacionEscalasDeTiempo();
 
         //Quito los punteados, defino los gráficos que se van a dibujar y hago que las gráficas se vean
         int chart1 = agregarChart("Grafica 1");
-        int chart2 = agregarChart("Grafica 2");
-        int chart3 = agregarChart("Grafica 3");
+//        int chart2 = agregarChart("Grafica 2");
+//        int chart3 = agregarChart("Grafica 3");
 
         //Creo las curvas que voy a pintar y la serie que corresponde
-        if(chart1!=-1) agregarCurvaAChart(chart1,nombreSeries,vectoresGraficas[0]);
-        if(chart2!=-1) agregarCurvaAChart(chart2,nombreSeries,vectoresGraficas[1]);
-        if(chart3!=-1) agregarCurvaAChart(chart3,nombreSeries,vectoresGraficas[2]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 1",vectoresGraficas[0]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 2",vectoresGraficas[1]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 3",vectoresGraficas[2]);
+//        if(chart2!=-1) agregarCurvaAChart(chart2,nombreSeries,vectoresGraficas[1]);
+//        if(chart3!=-1) agregarCurvaAChart(chart3,nombreSeries,vectoresGraficas[2]);
 
         //Agrego las etiquetas a los ejes
 //        vectorCharts[chart1]->agregarEtiquetas("Tiempo","Datos");

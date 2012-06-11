@@ -18,7 +18,8 @@ SOURCES += main.cpp \
     wq_gen_heavytail.cpp \
     wq_iofile.cpp \
     wq_chart.cpp \
-    wq_chart_widget.cpp
+    wq_chart_widget.cpp \
+    wq_chart_widget_button.cpp
 
 HEADERS  += \
     wq_window.h \
@@ -28,7 +29,8 @@ HEADERS  += \
     wq_gen_heavytail.h \
     wq_iofile.h \
     wq_chart.h \
-    wq_chart_widget.h
+    wq_chart_widget.h \
+    wq_chart_widget_button.h
 
 FORMS    += \
     wq_chart_widget.ui \
