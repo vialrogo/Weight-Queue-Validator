@@ -30,7 +30,6 @@ private:
     WQ_Validator* validador;
     QWidget** arregoWidgets;
     QVector<WQ_Chart*>* vectorCharts;
-    QVector<QVector <QVector<QPointF>* >* >* vectorCurvasPorChart;
     QVector<WQ_Chart_Widget*>* vectorChartWidgets;
     QToolBox* toolBoxCharts;
 

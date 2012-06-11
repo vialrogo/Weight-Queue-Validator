@@ -1,7 +1,6 @@
 #ifndef WQ_CHART_H
 #define WQ_CHART_H
 
-//Includes de QWT
 #include <qwt_plot_curve.h>
 #include <qwt_plot.h>
 #include <qwt_series_data.h>
@@ -13,6 +12,7 @@ class WQ_Chart: public QwtPlot
 {
 private:
     QVector<QwtPlotCurve*>* vectorCurvas;
+    QVector<QVector<QPointF>* >* vectorDatosCurvas;
     QwtPlotMagnifier* magnifier;
     QwtPlotPanner* panner;
 

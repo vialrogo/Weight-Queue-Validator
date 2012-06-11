@@ -45,7 +45,6 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     vectorEstadoView->push_back(true);
 
     ui->widgetCurvas->setGeometry(0,0,290,(numCurvas+1)*31+3);
-
     return numCurvas;
 }
 
