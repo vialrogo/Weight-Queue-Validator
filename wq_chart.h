@@ -12,14 +12,14 @@
 class WQ_Chart: public QwtPlot
 {
 private:
-    QHash<QString, QwtPlotCurve*> hashCurvas;
+    QVector<QwtPlotCurve*>* vectorCurvas;
     QwtPlotMagnifier* magnifier;
     QwtPlotPanner* panner;
 
 public:
     WQ_Chart(QWidget* parent, QSize tamano);
     ~WQ_Chart();
-    void agregarCurva(QString nombreCurva, QVector<QPointF>* datos);
+    void agregarCurva(QVector<QPointF>* datos);
     void agregarEtiquetas(QString x, QString y);
     void agregarEtiquetaX(QString x);
     void agregarEtiquetaY(QString y);

@@ -170,7 +170,7 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
 {
     QVector<QVector<QPointF>* >* vectorCurvas = vectorCurvasPorChart->at(numChart);
     vectorCurvas->push_back(datos);
-    vectorCharts->at(numChart)->agregarCurva(nombreCurva,datos);
+    vectorCharts->at(numChart)->agregarCurva(datos);
     vectorChartWidgets->at(numChart)->agregarCurva(nombreCurva);
 }
 
