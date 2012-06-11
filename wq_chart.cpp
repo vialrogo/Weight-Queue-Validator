@@ -24,9 +24,9 @@ WQ_Chart::~WQ_Chart()
 {
     delete panner;
     delete magnifier;
-    int largo = vectorCurvas->size();
-    for (int i = 0; i < largo; ++i) {
-        delete vectorCurvas->at(largo-i-1);
+    while (vectorCurvas->size()>0) {
+        delete vectorCurvas->at(0);
+        vectorCurvas->remove(0);
     }
     delete vectorCurvas;
 }

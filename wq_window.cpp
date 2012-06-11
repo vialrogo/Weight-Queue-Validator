@@ -183,15 +183,15 @@ void WQ_Window::comparacionEscalasDeTiempo()
 
         //Quito los punteados, defino los gráficos que se van a dibujar y hago que las gráficas se vean
         int chart1 = agregarChart("Grafica 1");
-//        int chart2 = agregarChart("Grafica 2");
-//        int chart3 = agregarChart("Grafica 3");
+        int chart2 = agregarChart("Grafica 2");
+        int chart3 = agregarChart("Grafica 3");
 
         //Creo las curvas que voy a pintar y la serie que corresponde
         if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 1",vectoresGraficas[0]);
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 2",vectoresGraficas[1]);
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 3",vectoresGraficas[2]);
-//        if(chart2!=-1) agregarCurvaAChart(chart2,nombreSeries,vectoresGraficas[1]);
-//        if(chart3!=-1) agregarCurvaAChart(chart3,nombreSeries,vectoresGraficas[2]);
+//        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 2",vectoresGraficas[1]);
+//        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 3",vectoresGraficas[2]);
+        if(chart2!=-1) agregarCurvaAChart(chart2,"Serie De Tiempo 2",vectoresGraficas[1]);
+        if(chart3!=-1) agregarCurvaAChart(chart3,"Serie De Tiempo 3",vectoresGraficas[2]);
 
         //Agrego las etiquetas a los ejes
 //        vectorCharts[chart1]->agregarEtiquetas("Tiempo","Datos");
