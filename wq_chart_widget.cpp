@@ -30,7 +30,7 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
 
     //Hago los connects necesarios
     connect(botonRemove,SIGNAL(pulsado(int)),this,SLOT(eliminarCurva(int)));
-    //Falta un connect!!!!
+    connect(botonView,SIGNAL(pulsado(int)),this,SLOT(mostrarOcultarCurva(int)));
 
     //los agrego a la interfaz
     etiqueta->setGeometry(10, numCurvas*31+3, 205, 25);
@@ -71,6 +71,11 @@ void WQ_Chart_Widget::eliminarCurva(int numCurva)
     }
 
     ui->widgetCurvas->setGeometry(0,0,290,(vectorNombres->size())*31+3);
+}
+
+void WQ_Chart_Widget::mostrarOcultarCurva(int numCurva)
+{
+    vectorBotonesView->at(numCurva)->setIcon(QIcon("Imagenes/View2.png"));
 }
 
 void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)
