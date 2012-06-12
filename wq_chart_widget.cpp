@@ -11,9 +11,12 @@ WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     vectorBotonesView = new QVector<WQ_Chart_Widget_Button*>();
     vectorBotonesRemove = new QVector<WQ_Chart_Widget_Button*>();
     vectorEstadoView = new QVector<bool>();
-    ui->widgetCurvas->setGeometry(0,0,290,152);
+    ui->widgetCurvas->setMinimumSize(290,152);
+    ui->widgetCurvas->setMaximumSize(290,152);
 
     connect(ui->botonDeleteChart,SIGNAL(clicked()),this,SLOT(clickBotonEliminarChart()));
+    connect(ui->checkBoxXScroll,SIGNAL(stateChanged(int)),this,SLOT(pulsoCheckboxX(int)));
+    connect(ui->checkBoxYScroll,SIGNAL(stateChanged(int)),this,SLOT(pulsoCheckboxY(int)));
 }
 
 WQ_Chart_Widget::~WQ_Chart_Widget()
@@ -121,4 +124,14 @@ int WQ_Chart_Widget::getNumChart()
 void WQ_Chart_Widget::setNumChart(int numeroChart_in)
 {
     numeroChart=numeroChart_in;
+}
+
+void WQ_Chart_Widget::pulsoCheckboxX(int iestado)
+{
+    emit cambiarScrollX(iestado!=0);
+}
+
+void WQ_Chart_Widget::pulsoCheckboxY(int iestado)
+{
+    emit cambiarScrollY(iestado!=0);
 }

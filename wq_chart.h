@@ -29,6 +29,8 @@ public:
 public slots:
     void elimiarCurvaPlot(int numCurva);
     void mostrarOcultarCurva(int numCurva, bool estado);
+    void desHabilitarXScroll(bool estado);
+    void desHabilitarYScroll(bool estado);
 };
 
 #endif // WQ_CHART_H

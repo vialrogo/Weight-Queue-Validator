@@ -33,11 +33,15 @@ public slots:
     void clickBotonEliminarChart();
     void eliminarCurvaChartWidget(int numCurva);
     void mostrarOcultarCurva(int numCurva);
+    void pulsoCheckboxX(int iestado);
+    void pulsoCheckboxY(int iestado);
 
 signals:
     void eliminarChart(int numeroChart);
     void eliminarCurvaChart(int numCurva);
     void mostrarOcultarCurvaChart(int numCurva, bool estado);
+    void cambiarScrollX(bool estado);
+    void cambiarScrollY(bool estado);
 };
 
 #endif // WQ_CHART_WIDGET_H

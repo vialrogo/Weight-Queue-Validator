@@ -91,3 +91,13 @@ void WQ_Chart::agregarEtiquetaY(QString y)
 {
     setAxisTitle(yLeft, y);
 }
+
+void WQ_Chart::desHabilitarXScroll(bool estado)
+{
+    magnifier->setAxisEnabled(xBottom, estado);
+}
+
+void WQ_Chart::desHabilitarYScroll(bool estado)
+{
+    magnifier->setAxisEnabled(yLeft, estado);
+}
