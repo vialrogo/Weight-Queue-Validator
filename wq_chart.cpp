@@ -53,7 +53,7 @@ void WQ_Chart::agregarCurva(QVector<QPointF>* datos)
     vectorDatosCurvas->push_back(datos);
 }
 
-void WQ_Chart::elimiarCurva(int numCurva)
+void WQ_Chart::elimiarCurvaPlot(int numCurva)
 {
     vectorCurvas->at(numCurva)->detach();
 

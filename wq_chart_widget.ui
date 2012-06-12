@@ -104,7 +104,7 @@ QWidget#scrollArea { background-color: white }</string>
      <property name="minimumSize">
       <size>
        <width>290</width>
-       <height>0</height>
+       <height>113</height>
       </size>
      </property>
      <property name="maximumSize">

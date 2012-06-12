@@ -30,7 +30,7 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     WQ_Chart_Widget_Button* botonRemove = new WQ_Chart_Widget_Button(QIcon("Imagenes/Remove1.png"),"",ui->widgetCurvas, numCurvas);
 
     //Hago los connects necesarios
-    connect(botonRemove,SIGNAL(pulsado(int)),this,SLOT(eliminarCurva(int)));
+    connect(botonRemove,SIGNAL(pulsado(int)),this,SLOT(eliminarCurvaChartWidget(int)));
     connect(botonView,SIGNAL(pulsado(int)),this,SLOT(mostrarOcultarCurva(int)));
 
     //los agrego a la interfaz
@@ -44,11 +44,12 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     vectorBotonesRemove->push_back(botonRemove);
     vectorEstadoView->push_back(true);
 
-    ui->widgetCurvas->setGeometry(0,0,290,(numCurvas+1)*31+3);
+    ui->widgetCurvas->setMinimumSize(290,(numCurvas+1)*31+3);
+    ui->widgetCurvas->setMaximumSize(290,(numCurvas+1)*31+3);
     return numCurvas;
 }
 
-void WQ_Chart_Widget::eliminarCurva(int numCurva)
+void WQ_Chart_Widget::eliminarCurvaChartWidget(int numCurva)
 {
     delete vectorNombres->at(numCurva);
     vectorNombres->remove(numCurva);
@@ -73,7 +74,8 @@ void WQ_Chart_Widget::eliminarCurva(int numCurva)
         vectorBotonesRemove->at(i)->setNumeroCurva(i);
     }
 
-    ui->widgetCurvas->setGeometry(0,0,290,(vectorNombres->size())*31+3);
+    ui->widgetCurvas->setMinimumSize(290,(vectorNombres->size())*31+3);
+    ui->widgetCurvas->setMaximumSize(290,(vectorNombres->size())*31+3);
     emit eliminarCurvaChart(numCurva);
 }
 
@@ -94,9 +96,13 @@ void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)
 
     setMinimumSize(anchoBase,largoBase+delta);
     setMaximumSize(anchoBase,largoBase+delta);
-    ui->widgetTotal->setGeometry(0,0,anchoBase,largoBase+delta);
-    ui->scrollArea->setGeometry(0,0,anchoBase,largoBase-37+delta);
-    ui->widgetCurvas->setGeometry(0,0,anchoBase-15,largoBase-39+delta);
+
+    ui->widgetTotal->setMinimumSize(anchoBase,largoBase+delta);
+    ui->widgetTotal->setMaximumSize(anchoBase,largoBase+delta);
+
+    ui->scrollArea->setMinimumSize(anchoBase,largoBase-37+delta);
+    ui->scrollArea->setMaximumSize(anchoBase,largoBase-37+delta);
+
     ui->checkBoxXScroll->setGeometry(5,largoBase-32+delta,75,30);
     ui->checkBoxYScroll->setGeometry(85,largoBase-32+delta,75,30);
     ui->botonDeleteChart->setGeometry(210,largoBase-32+delta,94,30);

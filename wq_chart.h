@@ -27,7 +27,7 @@ public:
     void agregarEtiquetaY(QString y);
 
 public slots:
-    void elimiarCurva(int numCurva);
+    void elimiarCurvaPlot(int numCurva);
     void mostrarOcultarCurva(int numCurva, bool estado);
 };
 

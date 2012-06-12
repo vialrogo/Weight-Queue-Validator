@@ -31,7 +31,7 @@ private:
 
 public slots:
     void clickBotonEliminarChart();
-    void eliminarCurva(int numCurva);
+    void eliminarCurvaChartWidget(int numCurva);
     void mostrarOcultarCurva(int numCurva);
 
 signals:
