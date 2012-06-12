@@ -55,7 +55,15 @@ void WQ_Chart::agregarCurva(QVector<QPointF>* datos)
 
 void WQ_Chart::elimiarCurva(int numCurva)
 {
-    qDebug("Intento eliminar curva");
+    vectorCurvas->at(numCurva)->detach();
+
+    delete vectorCurvas->at(numCurva);
+    vectorCurvas->remove(numCurva);
+
+    delete vectorDatosCurvas->at(numCurva);
+    vectorDatosCurvas->remove(numCurva);
+
+    replot();
 }
 
 void WQ_Chart::mostrarOcultarCurva(int numCurva, bool estado)
