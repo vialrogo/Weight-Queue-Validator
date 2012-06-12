@@ -141,7 +141,7 @@
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -151,7 +151,7 @@
     </property>
     <widget class="QWidget" name="widget">
      <attribute name="title">
-      <string>Add New Chart</string>
+      <string>New Chart</string>
      </attribute>
      <widget class="QWidget" name="widgetParametros" native="true">
       <property name="geometry">
@@ -289,8 +289,46 @@
       <string notr="true"/>
      </property>
      <attribute name="title">
-      <string>Current Charts</string>
+      <string>Current Chart</string>
      </attribute>
+    </widget>
+    <widget class="QWidget" name="tabData">
+     <attribute name="title">
+      <string>Current Data</string>
+     </attribute>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>211</width>
+        <height>30</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>130</x>
+        <y>150</y>
+        <width>30</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Imagenes/Add1.png</normaloff>Imagenes/Add1.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>22</width>
+        <height>22</height>
+       </size>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>
