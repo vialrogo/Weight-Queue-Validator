@@ -10,6 +10,8 @@
 
 class WQ_Chart: public QwtPlot
 {
+    Q_OBJECT
+
 private:
     QVector<QwtPlotCurve*>* vectorCurvas;
     QVector<QVector<QPointF>* >* vectorDatosCurvas;
@@ -20,10 +22,15 @@ public:
     WQ_Chart(QWidget* parent, QSize tamano);
     ~WQ_Chart();
     void agregarCurva(QVector<QPointF>* datos);
-    void elimiarCurva(int numCurva);
     void agregarEtiquetas(QString x, QString y);
     void agregarEtiquetaX(QString x);
     void agregarEtiquetaY(QString y);
+
+public slots:
+    void elimiarCurvaPlot(int numCurva);
+    void mostrarOcultarCurva(int numCurva, bool estado);
+    void desHabilitarXScroll(bool estado);
+    void desHabilitarYScroll(bool estado);
 };
 
 #endif // WQ_CHART_H

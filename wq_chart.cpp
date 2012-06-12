@@ -1,6 +1,7 @@
 #include "wq_chart.h"
 
-WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :QwtPlot(parent)
+WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :
+    QwtPlot(parent)
 {
     setAutoReplot(true);
     setMinimumSize(tamano.width(),tamano.height());
@@ -52,6 +53,29 @@ void WQ_Chart::agregarCurva(QVector<QPointF>* datos)
     vectorDatosCurvas->push_back(datos);
 }
 
+void WQ_Chart::elimiarCurvaPlot(int numCurva)
+{
+    vectorCurvas->at(numCurva)->detach();
+
+    delete vectorCurvas->at(numCurva);
+    vectorCurvas->remove(numCurva);
+
+    delete vectorDatosCurvas->at(numCurva);
+    vectorDatosCurvas->remove(numCurva);
+
+    replot();
+}
+
+void WQ_Chart::mostrarOcultarCurva(int numCurva, bool estado)
+{
+    if(estado)
+        vectorCurvas->at(numCurva)->attach(this);
+    else
+        vectorCurvas->at(numCurva)->detach();
+
+    replot();
+}
+
 void WQ_Chart::agregarEtiquetas(QString x, QString y)
 {
     agregarEtiquetaX(x);
@@ -66,4 +90,14 @@ void WQ_Chart::agregarEtiquetaX(QString x)
 void WQ_Chart::agregarEtiquetaY(QString y)
 {
     setAxisTitle(yLeft, y);
+}
+
+void WQ_Chart::desHabilitarXScroll(bool estado)
+{
+    magnifier->setAxisEnabled(xBottom, estado);
+}
+
+void WQ_Chart::desHabilitarYScroll(bool estado)
+{
+    magnifier->setAxisEnabled(yLeft, estado);
 }

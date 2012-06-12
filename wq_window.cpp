@@ -85,8 +85,14 @@ int WQ_Window::agregarChart(QString nombreChart)
         //Creo y agrego el chart widget
         WQ_Chart_Widget* chartWidget = new WQ_Chart_Widget(this,vectorChartWidgets->size());
         toolBoxCharts->addItem(chartWidget,nombreChart);
-        connect(chartWidget,SIGNAL(eliminarChart(int)),this,SLOT(eliminarChart(int)));
         vectorChartWidgets->push_back(chartWidget);
+
+        //Hago los connect
+        connect(chartWidget,SIGNAL(eliminarChart(int)),this,SLOT(eliminarChart(int)));
+        connect(chartWidget,SIGNAL(mostrarOcultarCurvaChart(int,bool)),nuevoChart,SLOT(mostrarOcultarCurva(int,bool)));
+        connect(chartWidget,SIGNAL(eliminarCurvaChart(int)),nuevoChart,SLOT(elimiarCurvaPlot(int)));
+        connect(chartWidget,SIGNAL(cambiarScrollX(bool)),nuevoChart,SLOT(desHabilitarXScroll(bool)));
+        connect(chartWidget,SIGNAL(cambiarScrollY(bool)),nuevoChart,SLOT(desHabilitarYScroll(bool)));
 
         //Actualizar el tamaño de todos los chartWidgets
         int numChartWidgets = vectorChartWidgets->size();
@@ -165,15 +171,18 @@ void WQ_Window::comparacionEscalasDeTiempo()
 
         //Quito los punteados, defino los gráficos que se van a dibujar y hago que las gráficas se vean
         int chart1 = agregarChart("Grafica 1");
-        int chart2 = agregarChart("Grafica 2");
-        int chart3 = agregarChart("Grafica 3");
+//        int chart2 = agregarChart("Grafica 2");
+//        int chart3 = agregarChart("Grafica 3");
 
         //Creo las curvas que voy a pintar y la serie que corresponde
         if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 1",vectoresGraficas[0]);
-//        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 2",vectoresGraficas[1]);
-//        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 3",vectoresGraficas[2]);
-        if(chart2!=-1) agregarCurvaAChart(chart2,"Serie De Tiempo 2",vectoresGraficas[1]);
-        if(chart3!=-1) agregarCurvaAChart(chart3,"Serie De Tiempo 3",vectoresGraficas[2]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 2",vectoresGraficas[1]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 3",vectoresGraficas[2]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 4",vectoresGraficas[3]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 5",vectoresGraficas[4]);
+        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 6",vectoresGraficas[5]);
+//        if(chart2!=-1) agregarCurvaAChart(chart2,"Serie De Tiempo 2",vectoresGraficas[1]);
+//        if(chart3!=-1) agregarCurvaAChart(chart3,"Serie De Tiempo 3",vectoresGraficas[2]);
 
         //Agrego las etiquetas a los ejes
 //        vectorCharts[chart1]->agregarEtiquetas("Tiempo","Datos");
