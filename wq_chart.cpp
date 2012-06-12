@@ -1,6 +1,7 @@
 #include "wq_chart.h"
 
-WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :QwtPlot(parent)
+WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :
+    QwtPlot(parent)
 {
     setAutoReplot(true);
     setMinimumSize(tamano.width(),tamano.height());
@@ -50,6 +51,21 @@ void WQ_Chart::agregarCurva(QVector<QPointF>* datos)
     nuevacurva->setData(seriesData);
     vectorCurvas->push_back(nuevacurva);
     vectorDatosCurvas->push_back(datos);
+}
+
+void WQ_Chart::elimiarCurva(int numCurva)
+{
+    qDebug("Intento eliminar curva");
+}
+
+void WQ_Chart::mostrarOcultarCurva(int numCurva, bool estado)
+{
+    if(estado)
+        vectorCurvas->at(numCurva)->attach(this);
+    else
+        vectorCurvas->at(numCurva)->detach();
+
+    replot();
 }
 
 void WQ_Chart::agregarEtiquetas(QString x, QString y)

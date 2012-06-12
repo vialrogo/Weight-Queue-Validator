@@ -154,6 +154,12 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
 {
     vectorCharts->at(numChart)->agregarCurva(datos);
     vectorChartWidgets->at(numChart)->agregarCurva(nombreCurva);
+
+    WQ_Chart_Widget* chartWidget = vectorChartWidgets->at(numChart);
+    WQ_Chart* chart = vectorCharts->at(numChart);
+
+    connect(chartWidget,SIGNAL(mostrarOcultarCurvaChart(int,bool)),chart,SLOT(mostrarOcultarCurva(int,bool)));
+    connect(chartWidget,SIGNAL(eliminarCurvaChart(int)),chart,SLOT(elimiarCurva(int)));
 }
 
 void WQ_Window::comparacionEscalasDeTiempo()

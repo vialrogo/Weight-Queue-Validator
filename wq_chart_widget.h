@@ -29,7 +29,7 @@ private:
     QVector<WQ_Chart_Widget_Button*>* vectorBotonesRemove;
     QVector<bool>* vectorEstadoView;
 
-private slots:
+public slots:
     void clickBotonEliminarChart();
     void eliminarCurva(int numCurva);
     void mostrarOcultarCurva(int numCurva);
