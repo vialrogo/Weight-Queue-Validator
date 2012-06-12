@@ -14,6 +14,11 @@ WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     ui->widgetCurvas->setMinimumSize(290,152);
     ui->widgetCurvas->setMaximumSize(290,152);
 
+    //Creo las fuentes para los labels
+    fontNormal = new QFont();
+    fontHide = new QFont();
+    fontHide->setStrikeOut(true);
+
     connect(ui->botonDeleteChart,SIGNAL(clicked()),this,SLOT(clickBotonEliminarChart()));
     connect(ui->checkBoxXScroll,SIGNAL(stateChanged(int)),this,SLOT(pulsoCheckboxX(int)));
     connect(ui->checkBoxYScroll,SIGNAL(stateChanged(int)),this,SLOT(pulsoCheckboxY(int)));
@@ -29,6 +34,7 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     //Creo los objetos
     int numCurvas = vectorNombres->size();
     QLabel* etiqueta = new QLabel(nombreCurva,ui->widgetCurvas);
+    etiqueta->setFont(*fontNormal);
     WQ_Chart_Widget_Button* botonView = new WQ_Chart_Widget_Button(QIcon("Imagenes/View1.png"),"",ui->widgetCurvas, numCurvas);
     WQ_Chart_Widget_Button* botonRemove = new WQ_Chart_Widget_Button(QIcon("Imagenes/Remove1.png"),"",ui->widgetCurvas, numCurvas);
 
@@ -85,6 +91,7 @@ void WQ_Chart_Widget::eliminarCurvaChartWidget(int numCurva)
 void WQ_Chart_Widget::mostrarOcultarCurva(int numCurva)
 {
     bool estado = vectorEstadoView->at(numCurva);
+    vectorNombres->at(numCurva)->setFont(estado? *fontHide : *fontNormal);
     vectorEstadoView->remove(numCurva);
     vectorEstadoView->insert(numCurva, !estado);
     vectorBotonesView->at(numCurva)->setIcon(QIcon(estado? "Imagenes/View2.png" : "Imagenes/View1.png"));

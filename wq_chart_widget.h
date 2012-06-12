@@ -28,6 +28,8 @@ private:
     QVector<WQ_Chart_Widget_Button*>* vectorBotonesView;
     QVector<WQ_Chart_Widget_Button*>* vectorBotonesRemove;
     QVector<bool>* vectorEstadoView;
+    QFont* fontNormal;
+    QFont* fontHide;
 
 public slots:
     void clickBotonEliminarChart();
