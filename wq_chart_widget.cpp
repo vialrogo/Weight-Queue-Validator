@@ -101,7 +101,7 @@ void WQ_Chart_Widget::mostrarOcultarCurva(int numCurva)
 void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)
 {
     int delta = (6-numCharts)*35;
-    int anchoBase =305;
+    int anchoBase =309;
     int largoBase = 139;
 
     setMinimumSize(anchoBase,largoBase+delta);
@@ -113,9 +113,9 @@ void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)
     ui->scrollArea->setMinimumSize(anchoBase,largoBase-37+delta);
     ui->scrollArea->setMaximumSize(anchoBase,largoBase-37+delta);
 
-    ui->checkBoxXScroll->setGeometry(5,largoBase-32+delta,75,30);
-    ui->checkBoxYScroll->setGeometry(85,largoBase-32+delta,75,30);
-    ui->botonDeleteChart->setGeometry(210,largoBase-32+delta,94,30);
+    ui->checkBoxXScroll->setGeometry(5,largoBase-33+delta,75,30);
+    ui->checkBoxYScroll->setGeometry(85,largoBase-33+delta,75,30);
+    ui->botonDeleteChart->setGeometry(210,largoBase-33+delta,94,30);
 }
 
 void WQ_Chart_Widget::clickBotonEliminarChart()

@@ -28,7 +28,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     ui->plainTextEditConsole->setPalette(p);
 
     //Agregar toolboox
-    toolBoxCharts = new QToolBox(ui->tabExistente);
+    toolBoxCharts = new QToolBox(ui->widgetTabCurrent);
     toolBoxCharts->setGeometry(0,0,310,362);
     toolBoxCharts->setVisible(true);
 
@@ -149,6 +149,8 @@ void WQ_Window::eliminarChart(int numChart)
         //Acomodo el último widget
         agregarQuitarBordeWidgets(numeroWidgetsUsados-1, true);
         numeroWidgetsUsados--;
+
+        salidaInformacion("Chart eliminado exitosamente");
     }
     else
     {

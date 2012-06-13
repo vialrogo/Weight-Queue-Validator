@@ -138,10 +138,14 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">QWidget#widgetTabNew { background-color: white}
+
+QWidget#widgetTabCurrent { background-color: white}
+
+QWidget#widgetTabData { background-color: white}</string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>1</number>
     </property>
     <property name="tabsClosable">
      <bool>false</bool>
@@ -149,7 +153,7 @@
     <property name="movable">
      <bool>true</bool>
     </property>
-    <widget class="QWidget" name="widget">
+    <widget class="QWidget" name="widgetTabNew">
      <attribute name="title">
       <string>New Chart</string>
      </attribute>
@@ -158,7 +162,7 @@
        <rect>
         <x>0</x>
         <y>103</y>
-        <width>305</width>
+        <width>306</width>
         <height>262</height>
        </rect>
       </property>
@@ -171,7 +175,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>305</width>
+        <width>306</width>
         <height>100</height>
        </rect>
       </property>
@@ -284,7 +288,7 @@
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="tabExistente">
+    <widget class="QWidget" name="widgetTabCurrent">
      <property name="styleSheet">
       <string notr="true"/>
      </property>
@@ -292,7 +296,7 @@
       <string>Current Chart</string>
      </attribute>
     </widget>
-    <widget class="QWidget" name="tabData">
+    <widget class="QWidget" name="widgetTabData">
      <attribute name="title">
       <string>Current Data</string>
      </attribute>
@@ -300,8 +304,8 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
-        <width>211</width>
+        <y>20</y>
+        <width>253</width>
         <height>30</height>
        </rect>
       </property>
@@ -309,8 +313,8 @@
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>130</x>
-        <y>150</y>
+        <x>260</x>
+        <y>20</y>
         <width>30</width>
         <height>30</height>
        </rect>
@@ -328,6 +332,71 @@
         <height>22</height>
        </size>
       </property>
+     </widget>
+     <widget class="QScrollArea" name="scrollArea_2">
+      <property name="geometry">
+       <rect>
+        <x>-1</x>
+        <y>70</y>
+        <width>308</width>
+        <height>294</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>308</width>
+        <height>294</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>308</width>
+        <height>294</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QWidget#widgetDatos { background-color: white}</string>
+      </property>
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="widgetDatos">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>306</width>
+         <height>292</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>306</width>
+         <height>292</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>306</width>
+         <height>292</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+      </widget>
      </widget>
     </widget>
    </widget>

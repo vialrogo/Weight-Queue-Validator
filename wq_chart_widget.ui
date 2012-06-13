@@ -68,9 +68,9 @@ QWidget#scrollArea { background-color: white }</string>
    <widget class="QScrollArea" name="scrollArea">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>305</width>
+      <x>-1</x>
+      <y>-1</y>
+      <width>309</width>
       <height>115</height>
      </rect>
     </property>
@@ -125,7 +125,7 @@ QWidget#scrollArea { background-color: white }</string>
     <property name="geometry">
      <rect>
       <x>210</x>
-      <y>120</y>
+      <y>119</y>
       <width>94</width>
       <height>30</height>
      </rect>
@@ -155,7 +155,7 @@ QWidget#scrollArea { background-color: white }</string>
     <property name="geometry">
      <rect>
       <x>5</x>
-      <y>120</y>
+      <y>119</y>
       <width>75</width>
       <height>30</height>
      </rect>
@@ -177,7 +177,7 @@ QWidget#scrollArea { background-color: white }</string>
     <property name="geometry">
      <rect>
       <x>85</x>
-      <y>120</y>
+      <y>119</y>
       <width>75</width>
       <height>30</height>
      </rect>
