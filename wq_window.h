@@ -5,10 +5,16 @@
 #include <QMainWindow>
 #include <QTextCodec>
 #include <QToolBox>
+#include <QFileDialog>
 #include "ui_wq_window.h"
 #include "wq_chart.h"
 #include "wq_validator.h"
 #include "wq_chart_widget.h"
+#include "wq_data_widget.h"
+
+//Temporal
+#include <QFile>
+#include <QMessageBox>
 
 namespace Ui {
     class WQ_Window;
@@ -32,6 +38,7 @@ private:
     QVector<WQ_Chart*>* vectorCharts;
     QVector<WQ_Chart_Widget*>* vectorChartWidgets;
     QToolBox* toolBoxCharts;
+    WQ_Data_Widget* widgetFiles;
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart(QString nombreChart);
@@ -46,6 +53,8 @@ private slots:
     void comparacionFuncionesProbabilidad();
     void comparacion3NombreTemporal();
     void eliminarChart(int numChart);
+    void cargarArchivo();
+    void cargarOtrosArchivos();
 };
 
 #endif // WQ_WINDOW_H

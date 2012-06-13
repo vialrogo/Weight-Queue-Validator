@@ -15,6 +15,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     vectorCharts = new QVector<WQ_Chart*>();
     vectorChartWidgets = new QVector<WQ_Chart_Widget*>();
 
+    //Agrego y acomodo los widgets de los charts
     for (int i = 0; i < 6; ++i) {
         arregoWidgets[i]=new QWidget(this);
         colocarWidgetEnPosicion(i,i);
@@ -32,9 +33,16 @@ WQ_Window::WQ_Window(QWidget *parent) :
     toolBoxCharts->setGeometry(0,0,310,362);
     toolBoxCharts->setVisible(true);
 
+    //Agrego el widget de los archivos
+    widgetFiles = new WQ_Data_Widget(ui->widgetTabData);
+    widgetFiles->setGeometry(-1,70,308,294);
+    widgetFiles->setVisible(true);
+
     connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
     connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
     connect(ui->radioButtonAnalisis3,SIGNAL(clicked()),this,SLOT(comparacion3NombreTemporal()));
+    connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
+    connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
 }
@@ -215,12 +223,45 @@ void WQ_Window::comparacion3NombreTemporal()
     }
 }
 
+void WQ_Window::cargarArchivo()
+{
+//    QString pathFull = QApplication::applicationDirPath() + "/";
+    QString nombreArchivo = ui->lineEditLoadFile->text();
+//    nombreArchivo = pathFull+nombreArchivo;
+
+    salidaInformacion("Intentó cargar el archivo \""+nombreArchivo+"\"");
+
+    QFile* file;
+    if (nombreArchivo.isEmpty())
+             return;
+     else {
+         file = new QFile(nombreArchivo);
+         if (!file->open(QIODevice::ReadOnly)) {
+             QMessageBox::information(this, "Unable to open file", file->errorString());
+             return;
+         }
+         else
+         {
+             QMessageBox::information(this, "Carga de archivo","yuju!! lei el archivo :D");
+             salidaInformacion( QString( file->readAll() ));
+         }
+    }
+
+    file->close();
+}
+
+void WQ_Window::cargarOtrosArchivos()
+{
+    QString nombreArchivo = QFileDialog::getOpenFileName(this, "Load times file", "./Datos", "Time data (*.times);;All Files (*)");
+    ui->lineEditLoadFile->setText(nombreArchivo);
+}
+
 void WQ_Window::salidaInformacion(QString mensaje)
 {
-    ui->plainTextEditConsole->appendPlainText(mensaje);
+    ui->plainTextEditConsole->appendPlainText(mensaje+"\n");
 }
 
 void WQ_Window::salidaError(QString mensaje)
 {
-    ui->plainTextEditConsole->appendPlainText("**** Error ****\n"+mensaje);
+    ui->plainTextEditConsole->appendPlainText("**** Error ****\n"+mensaje+"\n");
 }
