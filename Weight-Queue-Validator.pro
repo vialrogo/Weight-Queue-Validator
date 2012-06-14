@@ -16,11 +16,11 @@ SOURCES += main.cpp \
     wq_generator.cpp \
     wq_gen_poisson.cpp \
     wq_gen_heavytail.cpp \
-    wq_iofile.cpp \
     wq_chart.cpp \
     wq_chart_widget.cpp \
-    wq_chart_widget_button.cpp \
-    wq_data_widget.cpp
+    wq_data_widget.cpp \
+    wq_button.cpp \
+    wq_iofiles.cpp
 
 HEADERS  += \
     wq_window.h \
@@ -28,11 +28,11 @@ HEADERS  += \
     wq_generator.h \
     wq_gen_poisson.h \
     wq_gen_heavytail.h \
-    wq_iofile.h \
     wq_chart.h \
     wq_chart_widget.h \
-    wq_chart_widget_button.h \
-    wq_data_widget.h
+    wq_data_widget.h \
+    wq_button.h \
+    wq_iofiles.h
 
 FORMS    += \
     wq_chart_widget.ui \

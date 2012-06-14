@@ -8,8 +8,8 @@ WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     ui->setupUi(this);
     numeroChart=numChart_in;
     vectorNombres = new QVector<QLabel*>();
-    vectorBotonesView = new QVector<WQ_Chart_Widget_Button*>();
-    vectorBotonesRemove = new QVector<WQ_Chart_Widget_Button*>();
+    vectorBotonesView = new QVector<WQ_Button*>();
+    vectorBotonesRemove = new QVector<WQ_Button*>();
     vectorEstadoView = new QVector<bool>();
     ui->widgetCurvas->setMinimumSize(290,152);
     ui->widgetCurvas->setMaximumSize(290,152);
@@ -29,14 +29,16 @@ WQ_Chart_Widget::~WQ_Chart_Widget()
     delete ui;
 }
 
-int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
+void WQ_Chart_Widget::agregarCurva(QString nombreCurva)
 {
     //Creo los objetos
     int numCurvas = vectorNombres->size();
     QLabel* etiqueta = new QLabel(nombreCurva,ui->widgetCurvas);
     etiqueta->setFont(*fontNormal);
-    WQ_Chart_Widget_Button* botonView = new WQ_Chart_Widget_Button(QIcon("Imagenes/View1.png"),"",ui->widgetCurvas, numCurvas);
-    WQ_Chart_Widget_Button* botonRemove = new WQ_Chart_Widget_Button(QIcon("Imagenes/Remove1.png"),"",ui->widgetCurvas, numCurvas);
+    WQ_Button* botonView = new WQ_Button(QIcon("Imagenes/View1.png"),"",ui->widgetCurvas, numCurvas);
+    WQ_Button* botonRemove = new WQ_Button(QIcon("Imagenes/Remove1.png"),"",ui->widgetCurvas, numCurvas);
+    botonView->setIconSize(QSize(19,19));
+    botonRemove->setIconSize(QSize(19,19));
 
     //Hago los connects necesarios
     connect(botonRemove,SIGNAL(pulsado(int)),this,SLOT(eliminarCurvaChartWidget(int)));
@@ -53,9 +55,9 @@ int WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     vectorBotonesRemove->push_back(botonRemove);
     vectorEstadoView->push_back(true);
 
+    //Actualizo el tamaño del widget
     ui->widgetCurvas->setMinimumSize(290,(numCurvas+1)*31+3);
     ui->widgetCurvas->setMaximumSize(290,(numCurvas+1)*31+3);
-    return numCurvas;
 }
 
 void WQ_Chart_Widget::eliminarCurvaChartWidget(int numCurva)
@@ -79,12 +81,14 @@ void WQ_Chart_Widget::eliminarCurvaChartWidget(int numCurva)
         vectorBotonesView->at(i)->setGeometry(225, i*31+3, 25, 25);
         vectorBotonesRemove->at(i)->setGeometry(260, i*31+3, 25, 25);
 
-        vectorBotonesView->at(i)->setNumeroCurva(i);
-        vectorBotonesRemove->at(i)->setNumeroCurva(i);
+        vectorBotonesView->at(i)->setNumeroItem(i);
+        vectorBotonesRemove->at(i)->setNumeroItem(i);
     }
 
-    ui->widgetCurvas->setMinimumSize(290,(vectorNombres->size())*31+3);
-    ui->widgetCurvas->setMaximumSize(290,(vectorNombres->size())*31+3);
+    //Actualizo el tamaño de la interfaz
+    ui->widgetCurvas->setMinimumSize(290,totalCurvas*31+3);
+    ui->widgetCurvas->setMaximumSize(290,totalCurvas*31+3);
+
     emit eliminarCurvaChart(numCurva);
 }
 

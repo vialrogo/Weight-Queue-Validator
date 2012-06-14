@@ -225,25 +225,23 @@ void WQ_Window::comparacion3NombreTemporal()
 
 void WQ_Window::cargarArchivo()
 {
-//    QString pathFull = QApplication::applicationDirPath() + "/";
-    QString nombreArchivo = ui->lineEditLoadFile->text();
-//    nombreArchivo = pathFull+nombreArchivo;
-
-    salidaInformacion("Intentó cargar el archivo \""+nombreArchivo+"\"");
+    QString rutaArchivo = ui->lineEditLoadFile->text();
+    int posUltimoSlash = rutaArchivo.lastIndexOf("/");
+    QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-posUltimoSlash-1);
 
     QFile* file;
-    if (nombreArchivo.isEmpty())
+    if (rutaArchivo.isEmpty())
              return;
      else {
-         file = new QFile(nombreArchivo);
+         file = new QFile(rutaArchivo);
          if (!file->open(QIODevice::ReadOnly)) {
              QMessageBox::information(this, "Unable to open file", file->errorString());
              return;
          }
          else
          {
-             QMessageBox::information(this, "Carga de archivo","yuju!! lei el archivo :D");
-             salidaInformacion( QString( file->readAll() ));
+             QMessageBox::information(this,"Carga de archivo","yuju!! lei el archivo :D");
+             widgetFiles->agregarArchivo(nombreArchivo);
          }
     }
 
