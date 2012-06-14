@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QLabel>
+#include <QColorDialog>
 #include "wq_button.h"
 
 namespace Ui {
@@ -25,6 +26,7 @@ private:
     Ui::WQ_Chart_Widget *ui;
     int numeroChart;
     QVector<QLabel*>* vectorNombres;
+    QVector<WQ_Button*>* vectorBotonesColors;
     QVector<WQ_Button*>* vectorBotonesView;
     QVector<WQ_Button*>* vectorBotonesRemove;
     QVector<bool>* vectorEstadoView;
@@ -35,6 +37,7 @@ public slots:
     void clickBotonEliminarChart();
     void eliminarCurvaChartWidget(int numCurva);
     void mostrarOcultarCurva(int numCurva);
+    void cambiarColorCurva(int numCurva);
     void pulsoCheckboxX(int iestado);
     void pulsoCheckboxY(int iestado);
 
@@ -42,6 +45,7 @@ signals:
     void eliminarChart(int numeroChart);
     void eliminarCurvaChart(int numCurva);
     void mostrarOcultarCurvaChart(int numCurva, bool estado);
+    void cambiarColorCurvaChart(int numCurva, QColor colorCurva);
     void cambiarScrollX(bool estado);
     void cambiarScrollY(bool estado);
 };

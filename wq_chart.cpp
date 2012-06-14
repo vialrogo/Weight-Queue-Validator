@@ -76,6 +76,12 @@ void WQ_Chart::mostrarOcultarCurva(int numCurva, bool estado)
     replot();
 }
 
+void WQ_Chart::cambiarColorCuva(int numCurva, QColor colorCurva)
+{
+    qDebug("va a cambiar el color de la curva %d",numCurva);
+    vectorCurvas->at(numCurva)->setPen(QPen(colorCurva));
+}
+
 void WQ_Chart::agregarEtiquetas(QString x, QString y)
 {
     agregarEtiquetaX(x);

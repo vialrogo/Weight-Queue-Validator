@@ -8,6 +8,7 @@ WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     ui->setupUi(this);
     numeroChart=numChart_in;
     vectorNombres = new QVector<QLabel*>();
+    vectorBotonesColors = new QVector<WQ_Button*>();
     vectorBotonesView = new QVector<WQ_Button*>();
     vectorBotonesRemove = new QVector<WQ_Button*>();
     vectorEstadoView = new QVector<bool>();
@@ -35,22 +36,27 @@ void WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     int numCurvas = vectorNombres->size();
     QLabel* etiqueta = new QLabel(nombreCurva,ui->widgetCurvas);
     etiqueta->setFont(*fontNormal);
+    WQ_Button* botonColor = new WQ_Button(QIcon("Imagenes/Colors1.png"),"",ui->widgetCurvas, numCurvas);
     WQ_Button* botonView = new WQ_Button(QIcon("Imagenes/View1.png"),"",ui->widgetCurvas, numCurvas);
     WQ_Button* botonRemove = new WQ_Button(QIcon("Imagenes/Remove1.png"),"",ui->widgetCurvas, numCurvas);
     botonView->setIconSize(QSize(19,19));
     botonRemove->setIconSize(QSize(19,19));
+    botonColor->setIconSize(QSize(19,19));
 
     //Hago los connects necesarios
+    connect(botonColor,SIGNAL(pulsado(int)),this,SLOT(cambiarColorCurva(int)));
     connect(botonRemove,SIGNAL(pulsado(int)),this,SLOT(eliminarCurvaChartWidget(int)));
     connect(botonView,SIGNAL(pulsado(int)),this,SLOT(mostrarOcultarCurva(int)));
 
     //los agrego a la interfaz
-    etiqueta->setGeometry(10, numCurvas*31+3, 205, 25);
-    botonView->setGeometry(225, numCurvas*31+3, 25, 25);
+    etiqueta->setGeometry(10, numCurvas*31+3, 195, 25);
+    botonColor->setGeometry(200, numCurvas*31+3, 25, 25);
+    botonView->setGeometry(230, numCurvas*31+3, 25, 25);
     botonRemove->setGeometry(260, numCurvas*31+3, 25, 25);
 
     //agrego los objetos a los vectores
     vectorNombres->push_back(etiqueta);
+    vectorBotonesColors->push_back(botonColor);
     vectorBotonesView->push_back(botonView);
     vectorBotonesRemove->push_back(botonRemove);
     vectorEstadoView->push_back(true);
@@ -100,6 +106,12 @@ void WQ_Chart_Widget::mostrarOcultarCurva(int numCurva)
     vectorEstadoView->insert(numCurva, !estado);
     vectorBotonesView->at(numCurva)->setIcon(QIcon(estado? "Imagenes/View2.png" : "Imagenes/View1.png"));
     emit mostrarOcultarCurvaChart(numCurva, !estado);
+}
+
+void WQ_Chart_Widget::cambiarColorCurva(int numCurva)
+{
+    QColor colorElegido = QColorDialog::getColor(QColor(Qt::white),this);
+    emit cambiarColorCurvaChart(numCurva, colorElegido);
 }
 
 void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)

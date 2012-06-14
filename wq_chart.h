@@ -1,6 +1,7 @@
 #ifndef WQ_CHART_H
 #define WQ_CHART_H
 
+#include <QColor>
 #include <qwt_plot_curve.h>
 #include <qwt_plot.h>
 #include <qwt_series_data.h>
@@ -29,6 +30,7 @@ public:
 public slots:
     void elimiarCurvaPlot(int numCurva);
     void mostrarOcultarCurva(int numCurva, bool estado);
+    void cambiarColorCuva(int numCurva, QColor colorCurva);
     void desHabilitarXScroll(bool estado);
     void desHabilitarYScroll(bool estado);
 };

@@ -101,6 +101,7 @@ int WQ_Window::agregarChart(QString nombreChart)
         connect(chartWidget,SIGNAL(eliminarChart(int)),this,SLOT(eliminarChart(int)));
         connect(chartWidget,SIGNAL(mostrarOcultarCurvaChart(int,bool)),nuevoChart,SLOT(mostrarOcultarCurva(int,bool)));
         connect(chartWidget,SIGNAL(eliminarCurvaChart(int)),nuevoChart,SLOT(elimiarCurvaPlot(int)));
+        connect(chartWidget,SIGNAL(cambiarColorCurvaChart(int,QColor)),nuevoChart,SLOT(cambiarColorCuva(int,QColor)));
         connect(chartWidget,SIGNAL(cambiarScrollX(bool)),nuevoChart,SLOT(desHabilitarXScroll(bool)));
         connect(chartWidget,SIGNAL(cambiarScrollY(bool)),nuevoChart,SLOT(desHabilitarYScroll(bool)));
 
