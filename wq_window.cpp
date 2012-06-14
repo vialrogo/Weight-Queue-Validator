@@ -254,10 +254,10 @@ void WQ_Window::cargarOtrosArchivos()
 
 void WQ_Window::salidaInformacion(QString mensaje)
 {
-    ui->plainTextEditConsole->appendPlainText(mensaje+"\n");
+    ui->plainTextEditConsole->appendPlainText("-> "+mensaje);
 }
 
 void WQ_Window::salidaError(QString mensaje)
 {
-    ui->plainTextEditConsole->appendPlainText("**** Error ****\n"+mensaje+"\n");
+    ui->plainTextEditConsole->appendPlainText("**** Error ****\n-> "+mensaje);
 }
