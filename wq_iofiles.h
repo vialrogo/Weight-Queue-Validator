@@ -2,6 +2,7 @@
 #define WQ_IOFILE_H
 
 #include <QFile>
+#include <QTextStream>
 #include <QVector>
 
 class WQ_IOFiles : public QObject
@@ -10,6 +11,7 @@ class WQ_IOFiles : public QObject
 
 private:
     QVector<QFile*>* vectorFiles;
+    QVector<QVector<double>* >* vectorDatosFiles;
 
 public:
     WQ_IOFiles(QObject *parent = 0);

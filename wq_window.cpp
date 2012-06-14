@@ -15,6 +15,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     vectorCharts = new QVector<WQ_Chart*>();
     vectorChartWidgets = new QVector<WQ_Chart_Widget*>();
     ioFiles = new WQ_IOFiles(this);
+    ventanaPreferencias = new WQ_Window_Preferences(this);
 
     //Agrego y acomodo los widgets de los charts
     for (int i = 0; i < 6; ++i) {
@@ -47,6 +48,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
+    connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
 }
 
 WQ_Window::~WQ_Window()

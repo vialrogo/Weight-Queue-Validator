@@ -12,9 +12,7 @@
 #include "wq_chart_widget.h"
 #include "wq_data_widget.h"
 #include "wq_iofiles.h"
-
-//Temporal
-#include <QMessageBox>
+#include "wq_window_preferences.h"
 
 namespace Ui {
     class WQ_Window;
@@ -40,6 +38,7 @@ private:
     QToolBox* toolBoxCharts;
     WQ_Data_Widget* widgetFiles;
     WQ_IOFiles* ioFiles;
+    WQ_Window_Preferences* ventanaPreferencias;
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart(QString nombreChart);
