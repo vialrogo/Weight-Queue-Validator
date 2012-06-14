@@ -1,10 +1,23 @@
 #ifndef WQ_IOFILE_H
 #define WQ_IOFILE_H
 
-class WQ_IOFiles
+#include <QFile>
+#include <QVector>
+
+class WQ_IOFiles : public QObject
 {
+    Q_OBJECT
+
+private:
+    QVector<QFile*>* vectorFiles;
+
 public:
-    WQ_IOFiles();
+    WQ_IOFiles(QObject *parent = 0);
+    ~WQ_IOFiles();
+    bool agregarArchivo(QString nombrearchivo);
+
+public slots:
+    void elimiarArchivo(int numArchivo);
 };
 
 #endif // WQ_IOFILE_H

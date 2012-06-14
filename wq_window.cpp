@@ -14,6 +14,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     arregoWidgets = new QWidget*[6];
     vectorCharts = new QVector<WQ_Chart*>();
     vectorChartWidgets = new QVector<WQ_Chart_Widget*>();
+    ioFiles = new WQ_IOFiles(this);
 
     //Agrego y acomodo los widgets de los charts
     for (int i = 0; i < 6; ++i) {
@@ -43,6 +44,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ui->radioButtonAnalisis3,SIGNAL(clicked()),this,SLOT(comparacion3NombreTemporal()));
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
+    connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
 }
@@ -226,26 +228,22 @@ void WQ_Window::comparacion3NombreTemporal()
 void WQ_Window::cargarArchivo()
 {
     QString rutaArchivo = ui->lineEditLoadFile->text();
-    int posUltimoSlash = rutaArchivo.lastIndexOf("/");
-    QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-posUltimoSlash-1);
 
-    QFile* file;
-    if (rutaArchivo.isEmpty())
-             return;
-     else {
-         file = new QFile(rutaArchivo);
-         if (!file->open(QIODevice::ReadOnly)) {
-             QMessageBox::information(this, "Unable to open file", file->errorString());
-             return;
-         }
-         else
-         {
-             QMessageBox::information(this,"Carga de archivo","yuju!! lei el archivo :D");
-             widgetFiles->agregarArchivo(nombreArchivo);
-         }
+    if (!rutaArchivo.isEmpty())
+    {
+        QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
+        bool archivoCargado = ioFiles->agregarArchivo(rutaArchivo);
+
+        if(archivoCargado)
+        {
+            widgetFiles->agregarArchivo(nombreArchivo);
+            salidaInformacion("yuju!! lei el archivo :D");
+        }
+        else
+        {
+            salidaError("No pudo abrir el archivo T-T");
+        }
     }
-
-    file->close();
 }
 
 void WQ_Window::cargarOtrosArchivos()

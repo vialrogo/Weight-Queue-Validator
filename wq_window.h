@@ -11,9 +11,9 @@
 #include "wq_validator.h"
 #include "wq_chart_widget.h"
 #include "wq_data_widget.h"
+#include "wq_iofiles.h"
 
 //Temporal
-#include <QFile>
 #include <QMessageBox>
 
 namespace Ui {
@@ -39,6 +39,7 @@ private:
     QVector<WQ_Chart_Widget*>* vectorChartWidgets;
     QToolBox* toolBoxCharts;
     WQ_Data_Widget* widgetFiles;
+    WQ_IOFiles* ioFiles;
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart(QString nombreChart);
