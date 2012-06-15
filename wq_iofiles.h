@@ -12,7 +12,7 @@ class WQ_IOFiles : public QObject
 private:
     QVector<QFile*>* vectorFiles;
     QVector<double* >* vectorDatosFiles;
-    QVector<int> vectorNumeroDatosFiles;
+    QVector<int>* vectorNumeroDatosFiles;
 
 public:
     WQ_IOFiles(QObject *parent = 0);
