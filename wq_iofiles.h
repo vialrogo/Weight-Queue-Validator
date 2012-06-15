@@ -20,6 +20,7 @@ public:
 
 public slots:
     void elimiarArchivo(int numArchivo);
+    QVector<double>* obtenerDatosArchivo(int numArchivo);
 };
 
 #endif // WQ_IOFILE_H
