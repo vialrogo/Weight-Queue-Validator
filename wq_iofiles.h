@@ -11,12 +11,13 @@ class WQ_IOFiles : public QObject
 
 private:
     QVector<QFile*>* vectorFiles;
-    QVector<QVector<double>* >* vectorDatosFiles;
+    QVector<double* >* vectorDatosFiles;
+    QVector<int> vectorNumeroDatosFiles;
 
 public:
     WQ_IOFiles(QObject *parent = 0);
     ~WQ_IOFiles();
-    bool agregarArchivo(QString nombrearchivo);
+    bool agregarArchivo(QString nombrearchivo, int numTruncamiento, int numRedondeo, double numEscala);
 
 public slots:
     void elimiarArchivo(int numArchivo);

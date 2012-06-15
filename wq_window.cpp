@@ -235,7 +235,7 @@ void WQ_Window::cargarArchivo()
     if (!rutaArchivo.isEmpty())
     {
         QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
-        bool archivoCargado = ioFiles->agregarArchivo(rutaArchivo);
+        bool archivoCargado = ioFiles->agregarArchivo(rutaArchivo,8,0,1.0);
 
         if(archivoCargado)
         {

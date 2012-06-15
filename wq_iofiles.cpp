@@ -4,7 +4,8 @@ WQ_IOFiles::WQ_IOFiles(QObject *parent) :
     QObject(parent)
 {
     vectorFiles = new QVector<QFile*>();
-    vectorDatosFiles = new QVector<QVector<double>*>();
+    vectorDatosFiles = new QVector<double*>();
+    vectorNumeroDatosFiles = new QVector<int>();
 }
 
 WQ_IOFiles::~WQ_IOFiles()
@@ -13,18 +14,17 @@ WQ_IOFiles::~WQ_IOFiles()
         vectorFiles->at(0)->close();
         delete vectorFiles->at(0);
         vectorFiles->remove(0);
+
+        delete vectorDatosFiles->at(0);
+        vectorNumeroDatosFiles.remove(0);
     }
     delete vectorFiles;
+    delete vectorDatosFiles;
+    delete vectorNumeroDatosFiles;
 }
 
-bool WQ_IOFiles::agregarArchivo(QString nombrearchivo)
+bool WQ_IOFiles::agregarArchivo(QString nombrearchivo, int numTruncamiento, int numRedondeo, double numEscala)
 {
-    /// /////// Temporales ///////
-    int numTruncamiento=8;
-    int numRedondeo=0;
-    double numEscala=1.0;
-    /// //////////////////////////
-
     QFile* file = new QFile(nombrearchivo);
     bool abrioArchivo = file->open(QIODevice::ReadOnly);
     QString linea;
@@ -55,7 +55,6 @@ bool WQ_IOFiles::agregarArchivo(QString nombrearchivo)
             }
         }
         vectorDatosFiles->push_back(vectorDatos);
-//        qDebug("%d",vectorDatos->size());
     }
     else
     {
