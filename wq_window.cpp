@@ -46,6 +46,8 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
+    connect(ioFiles,SIGNAL(archivoCargado(QString)),this,SLOT(archivoCargadoExitoamente(QString)));
+    connect(ioFiles,SIGNAL(archivoNoCargado(QString)),this,SLOT(noSePudoCargarArchivo(QString)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
@@ -233,20 +235,20 @@ void WQ_Window::cargarArchivo()
     QString rutaArchivo = ui->lineEditLoadFile->text();
 
     if (!rutaArchivo.isEmpty())
-    {
-        QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
-        bool archivoCargado = ioFiles->agregarArchivo(rutaArchivo,8,0,1.0);
+        ioFiles->agregarArchivo(rutaArchivo);
+}
 
-        if(archivoCargado)
-        {
-            widgetFiles->agregarArchivo(nombreArchivo);
-            salidaInformacion("yuju!! lei el archivo :D");
-        }
-        else
-        {
-            salidaError("No pudo abrir el archivo T-T");
-        }
-    }
+void WQ_Window::archivoCargadoExitoamente(QString rutaArchivo)
+{
+    QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
+    widgetFiles->agregarArchivo(nombreArchivo);
+    salidaInformacion("Carga completa del archivo "+nombreArchivo);
+}
+
+void WQ_Window::noSePudoCargarArchivo(QString rutaArchivo)
+{
+    QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
+    salidaError("Imposible cargar el archivo "+nombreArchivo);
 }
 
 void WQ_Window::cargarOtrosArchivos()
@@ -257,10 +259,10 @@ void WQ_Window::cargarOtrosArchivos()
 
 void WQ_Window::salidaInformacion(QString mensaje)
 {
-    ui->plainTextEditConsole->appendPlainText("-> "+mensaje);
+    ui->plainTextEditConsole->appendHtml("<span style=\"color:green\">-> "+mensaje+"</span>");
 }
 
 void WQ_Window::salidaError(QString mensaje)
 {
-    ui->plainTextEditConsole->appendPlainText("**** Error ****\n-> "+mensaje);
+    ui->plainTextEditConsole->appendHtml("<span style=\"color:red\">-> Error: "+mensaje+"</span>");
 }

@@ -1,11 +1,10 @@
 #include "wq_iofiles.h"
 
 WQ_IOFiles::WQ_IOFiles(QObject *parent) :
-    QObject(parent)
+    QThread(parent)
 {
     vectorFiles = new QVector<QFile*>();
-    vectorDatosFiles = new QVector<double*>();
-    vectorNumeroDatosFiles = new QVector<int>();
+    vectorDatosFiles = new QVector<short*>();
 }
 
 WQ_IOFiles::~WQ_IOFiles()
@@ -16,52 +15,49 @@ WQ_IOFiles::~WQ_IOFiles()
         vectorFiles->remove(0);
 
         delete vectorDatosFiles->at(0);
-        vectorNumeroDatosFiles.remove(0);
+        vectorDatosFiles->remove(0);
     }
     delete vectorFiles;
     delete vectorDatosFiles;
-    delete vectorNumeroDatosFiles;
 }
 
-bool WQ_IOFiles::agregarArchivo(QString nombrearchivo, int numTruncamiento, int numRedondeo, double numEscala)
+void WQ_IOFiles::run() //Tiene constantes quemadas en el código!
+{
+    //Esta función lee los archivos de una manera muy, muy específica, si se quere que ea mas archivos
+    // habría que especificarlos y mirar como se hace para que no se trague toda la ram cargandolos
+
+    QFile* file = vectorFiles->at(vectorFiles->size()-1);
+    short* arreglo = new short[60000000]; //microsegundos!
+    QTextStream textStream(file);
+    QString linea;
+
+    while (!textStream.atEnd())
+    {
+        linea = textStream.readLine();
+        linea = linea.right(linea.size()-8); //corto los 8 número de la izquierda de la marca de tiempo para que queda en un double
+        linea = linea.left(linea.size()-3); //redondeo a microsegundos
+        linea = linea.remove(2,1); //quito el punto
+        arreglo[linea.toInt()]++;
+    }
+    vectorDatosFiles->push_back(arreglo);
+
+    emit archivoCargado(file->fileName());
+}
+
+void WQ_IOFiles::agregarArchivo(QString nombrearchivo)
 {
     QFile* file = new QFile(nombrearchivo);
-    bool abrioArchivo = file->open(QIODevice::ReadOnly);
-    QString linea;
-    bool ok;
-    double valorTotal=0.0;
-    int contadorEscala=numEscala;
 
-    if(abrioArchivo)
+    if(file->open(QIODevice::ReadOnly))
     {
         vectorFiles->push_back(file);
-        QVector<double>* vectorDatos = new QVector<double>();
-
-        QTextStream textStream(file);
-
-        while (!textStream.atEnd())
-        {
-            linea = textStream.readLine();
-            linea = linea.right(linea.size()-numTruncamiento); //corto los 8 número de la izquierda de la marca de tiempo para que queda en un double
-            linea = linea.left(linea.size()-numRedondeo);
-            valorTotal+=linea.toDouble(&ok);
-            contadorEscala--;
-
-            if(contadorEscala==0) //Cuando se han sumado los datos correspondientes los agrego al vector
-            {
-                vectorDatos->push_back(valorTotal/numEscala);
-                contadorEscala=numEscala;
-                valorTotal=0.0;
-            }
-        }
-        vectorDatosFiles->push_back(vectorDatos);
+        start();
     }
     else
     {
         delete file;
+        emit archivoNoCargado(nombrearchivo);
     }
-
-    return abrioArchivo;
 }
 
 void WQ_IOFiles::elimiarArchivo(int numArchivo)
@@ -74,7 +70,7 @@ void WQ_IOFiles::elimiarArchivo(int numArchivo)
     vectorDatosFiles->remove(numArchivo);
 }
 
-QVector<double>* WQ_IOFiles::obtenerDatosArchivo(int numArchivo)
+short* WQ_IOFiles::obtenerDatosArchivo(int numArchivo)
 {
     return vectorDatosFiles->at(numArchivo);
 }

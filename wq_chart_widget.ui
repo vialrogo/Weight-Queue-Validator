@@ -124,9 +124,9 @@ QWidget#scrollArea { background-color: white }</string>
    <widget class="QPushButton" name="botonDeleteChart">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>180</x>
       <y>119</y>
-      <width>94</width>
+      <width>124</width>
       <height>30</height>
      </rect>
     </property>
@@ -144,11 +144,17 @@ QWidget#scrollArea { background-color: white }</string>
      </font>
     </property>
     <property name="text">
-     <string> Delete</string>
+     <string>Delete Chart</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>Imagenes/Delete1.png</normaloff>Imagenes/Delete1.png</iconset>
+      <normaloff>Imagenes/Remove3.png</normaloff>Imagenes/Remove3.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>22</width>
+      <height>22</height>
+     </size>
     </property>
    </widget>
    <widget class="QCheckBox" name="checkBoxXScroll">

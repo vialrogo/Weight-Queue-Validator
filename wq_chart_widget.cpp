@@ -131,7 +131,7 @@ void WQ_Chart_Widget::cambiarGeometriaNumeroCharts(int numCharts)
 
     ui->checkBoxXScroll->setGeometry(5,largoBase-33+delta,75,30);
     ui->checkBoxYScroll->setGeometry(85,largoBase-33+delta,75,30);
-    ui->botonDeleteChart->setGeometry(210,largoBase-33+delta,94,30);
+    ui->botonDeleteChart->setGeometry(180,largoBase-33+delta,124,30);
 }
 
 void WQ_Chart_Widget::clickBotonEliminarChart()

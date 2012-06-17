@@ -55,6 +55,8 @@ private slots:
     void eliminarChart(int numChart);
     void cargarArchivo();
     void cargarOtrosArchivos();
+    void archivoCargadoExitoamente(QString rutaArchivo);
+    void noSePudoCargarArchivo(QString rutaArchivo);
 };
 
 #endif // WQ_WINDOW_H
