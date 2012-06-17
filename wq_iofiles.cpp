@@ -28,6 +28,7 @@ void WQ_IOFiles::run() //Tiene constantes quemadas en el código!
 
     QFile* file = vectorFiles->at(vectorFiles->size()-1);
     short* arreglo = new short[60000000]; //microsegundos!
+    for (int i = 0; i < 60000000; ++i) arreglo[i]=0;
     QTextStream textStream(file);
     QString linea;
 
