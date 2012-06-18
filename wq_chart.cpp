@@ -46,6 +46,7 @@ void WQ_Chart::agregarCurva(QVector<QPointF>* datos)
     seriesData->setSamples(*datos);
 
     QwtPlotCurve* nuevacurva = new QwtPlotCurve();
+//    nuevacurva->setPen(QPen(QColor(Qt::white)));
     nuevacurva->attach(this);
 
     nuevacurva->setData(seriesData);

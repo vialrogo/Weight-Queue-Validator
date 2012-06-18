@@ -148,7 +148,7 @@ QWidget#scrollArea { background-color: white }</string>
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>Imagenes/Remove3.png</normaloff>Imagenes/Remove3.png</iconset>
+      <normaloff>Imagenes/Remove2.png</normaloff>Imagenes/Remove2.png</iconset>
     </property>
     <property name="iconSize">
      <size>

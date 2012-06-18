@@ -16,6 +16,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     vectorChartWidgets = new QVector<WQ_Chart_Widget*>();
     ioFiles = new WQ_IOFiles(this);
     ventanaPreferencias = new WQ_Window_Preferences(this);
+    widgetNewChart = new WQ_NewChart_Widget(ui->widgetTabNew);
 
     //Agrego y acomodo los widgets de los charts
     for (int i = 0; i < 6; ++i) {
@@ -40,9 +41,12 @@ WQ_Window::WQ_Window(QWidget *parent) :
     widgetFiles->setGeometry(-1,70,308,294);
     widgetFiles->setVisible(true);
 
-    connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
-    connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
-    connect(ui->radioButtonAnalisis3,SIGNAL(clicked()),this,SLOT(comparacion3NombreTemporal()));
+    //Agrego el widget de los nuevos chart
+    widgetNewChart->setGeometry(0,0,306,363);
+    widgetNewChart->setVisible(true);
+
+//    connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
+//    connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
@@ -217,16 +221,6 @@ void WQ_Window::comparacionFuncionesProbabilidad()
     {
         radioButtonSeleccionado=2;
         qDebug("Escogio comparacion por funciones probabilisticas");
-        eliminarChart(0);
-    }
-}
-
-void WQ_Window::comparacion3NombreTemporal()
-{
-    if(radioButtonSeleccionado!=3)
-    {
-        radioButtonSeleccionado=3;
-        qDebug("Escogio comparacion por 3");
     }
 }
 

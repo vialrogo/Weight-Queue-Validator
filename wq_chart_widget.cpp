@@ -84,7 +84,7 @@ void WQ_Chart_Widget::eliminarCurvaChartWidget(int numCurva)
     for (int i = numCurva; i < totalCurvas; ++i)
     {
         vectorNombres->at(i)->setGeometry(10, i*31+3, 205, 25);
-        vectorBotonesView->at(i)->setGeometry(225, i*31+3, 25, 25);
+        vectorBotonesView->at(i)->setGeometry(230, i*31+3, 25, 25);
         vectorBotonesRemove->at(i)->setGeometry(260, i*31+3, 25, 25);
 
         vectorBotonesView->at(i)->setNumeroItem(i);
