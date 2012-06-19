@@ -1,5 +1,5 @@
-#ifndef WQ_CHART_WIDGET_BUTTON_H
-#define WQ_CHART_WIDGET_BUTTON_H
+#ifndef WQ_BUTTON_H
+#define WQ_BUTTON_H
 
 #include <QPushButton>
 
@@ -22,4 +22,4 @@ signals:
     void pulsado(int numeroItem_in);
 };
 
-#endif // WQ_CHART_WIDGET_BUTTON_H
+#endif // WQ_BUTTON_H

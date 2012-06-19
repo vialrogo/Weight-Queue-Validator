@@ -155,20 +155,12 @@ QWidget#widgetTabData { background-color: white}</string>
     </property>
     <widget class="QWidget" name="widgetTabNew">
      <attribute name="title">
-      <string>New Chart</string>
-     </attribute>
-    </widget>
-    <widget class="QWidget" name="widgetTabCurrent">
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
-     <attribute name="title">
-      <string>Current Chart</string>
+      <string>Analysing</string>
      </attribute>
     </widget>
     <widget class="QWidget" name="widgetTabData">
      <attribute name="title">
-      <string>Current Data</string>
+      <string>Data</string>
      </attribute>
      <widget class="QLineEdit" name="lineEditLoadFile">
       <property name="geometry">
@@ -219,6 +211,14 @@ QWidget#widgetTabData { background-color: white}</string>
        <string>...</string>
       </property>
      </widget>
+    </widget>
+    <widget class="QWidget" name="widgetTabCurrent">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <attribute name="title">
+      <string>Current Charts</string>
+     </attribute>
     </widget>
    </widget>
   </widget>

@@ -284,7 +284,7 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QRadioButton" name="radioButtonAnalisis1">
+    <widget class="QRadioButton" name="radioButtonAnalisis">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -294,10 +294,10 @@
       </rect>
      </property>
      <property name="text">
-      <string>Data analysing</string>
+      <string>Time View</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButtonAnalisis2">
+    <widget class="QRadioButton" name="radioButtonSimulacion">
      <property name="geometry">
       <rect>
        <x>166</x>
@@ -307,7 +307,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Simulation</string>
+      <string>Data analysing</string>
      </property>
     </widget>
     <widget class="Line" name="line">

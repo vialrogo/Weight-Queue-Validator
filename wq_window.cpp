@@ -16,7 +16,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     vectorChartWidgets = new QVector<WQ_Chart_Widget*>();
     ioFiles = new WQ_IOFiles(this);
     ventanaPreferencias = new WQ_Window_Preferences(this);
-    widgetNewChart = new WQ_NewChart_Widget(ui->widgetTabNew);
+    widgetNewChart = new WQ_Analysing_Widget(ui->widgetTabNew);
 
     //Agrego y acomodo los widgets de los charts
     for (int i = 0; i < 6; ++i) {
@@ -45,8 +45,8 @@ WQ_Window::WQ_Window(QWidget *parent) :
     widgetNewChart->setGeometry(0,0,306,363);
     widgetNewChart->setVisible(true);
 
-//    connect(ui->radioButtonAnalisis1,SIGNAL(clicked()),this,SLOT(comparacionEscalasDeTiempo()));
-//    connect(ui->radioButtonAnalisis2,SIGNAL(clicked()),this,SLOT(comparacionFuncionesProbabilidad()));
+    connect(widgetNewChart,SIGNAL(analizar()),this,SLOT(analizarDatos()));
+    connect(widgetNewChart,SIGNAL(simular()),this,SLOT(simularDatos()));
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
@@ -183,7 +183,7 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
     vectorChartWidgets->at(numChart)->agregarCurva(nombreCurva);
 }
 
-void WQ_Window::comparacionEscalasDeTiempo()
+void WQ_Window::analizarDatos()
 {
     if(radioButtonSeleccionado!=1) //Esto hay que hacerlo dinámico
     {
@@ -215,7 +215,7 @@ void WQ_Window::comparacionEscalasDeTiempo()
     }
 }
 
-void WQ_Window::comparacionFuncionesProbabilidad()
+void WQ_Window::simularDatos()
 {
     if(radioButtonSeleccionado!=2)
     {

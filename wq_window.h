@@ -13,7 +13,7 @@
 #include "wq_data_widget.h"
 #include "wq_iofiles.h"
 #include "wq_window_preferences.h"
-#include "wq_newchart_widget.h"
+#include "wq_analysing_widget.h"
 
 namespace Ui {
     class WQ_Window;
@@ -40,7 +40,7 @@ private:
     WQ_Data_Widget* widgetFiles;
     WQ_IOFiles* ioFiles;
     WQ_Window_Preferences* ventanaPreferencias;
-    WQ_NewChart_Widget* widgetNewChart;
+    WQ_Analysing_Widget* widgetNewChart;
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart(QString nombreChart);
@@ -51,8 +51,8 @@ private:
 
 private slots:
     void acercaDe();
-    void comparacionEscalasDeTiempo();
-    void comparacionFuncionesProbabilidad();
+    void analizarDatos();
+    void simularDatos();
     void eliminarChart(int numChart);
     void cargarArchivo();
     void cargarOtrosArchivos();
