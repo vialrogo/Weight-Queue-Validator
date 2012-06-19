@@ -35,10 +35,18 @@ private:
     QComboBox* comboDatos;
     QLabel* labelDuration;
     QLabel* labelStart;
-    QSpinBox* spinDuration;
-    QSpinBox* spinStart;
-    QComboBox* comboDuration;
-    QComboBox* comboStart;
+    QSpinBox* spinDurationSegundos;
+    QSpinBox* spinStartSegundos;
+    QSpinBox* spinDurationMilis;
+    QSpinBox* spinStartMilis;
+    QSpinBox* spinDurationMicros;
+    QSpinBox* spinStartMicros;
+    QLabel* labelDurationSegundos;
+    QLabel* labelStartSegundos;
+    QLabel* labelDurationMilis;
+    QLabel* labelStartMilis;
+    QLabel* labelDurationMicros;
+    QLabel* labelStartMicros;
     QComboBox* comboChart;
     QCheckBox* checkBoxReplace;
     QFont* fuenteBotones;
@@ -55,8 +63,6 @@ public slots:
     void configurarWidgetTiempo();
     void configurarWidgetDatos();
     void eliminarDatos(int numDatos);
-    void cambioComboDuration(int indice);
-    void cambioComboStart(int indice);
     void agregarSerieTiempoManual();
 
 signals:
