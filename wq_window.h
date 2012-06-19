@@ -29,7 +29,6 @@ public:
 
 private:
     Ui::WQ_Window *ui;
-    int radioButtonSeleccionado;
     int numeroWidgetsUsados;
     QSize tamanoEstandarGrafico;
     WQ_Validator* validador;
@@ -51,13 +50,12 @@ private:
 
 private slots:
     void acercaDe();
-    void analizarDatos();
-    void simularDatos();
     void eliminarChart(int numChart);
     void cargarArchivo();
     void cargarOtrosArchivos();
-    void archivoCargadoExitoamente(QString rutaArchivo);
+    void archivoCargadoExitoamente(QString rutaArchivo, short* datos);
     void noSePudoCargarArchivo(QString rutaArchivo);
+    void agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar);
 };
 
 #endif // WQ_WINDOW_H

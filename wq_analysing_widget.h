@@ -66,7 +66,7 @@ public slots:
     void agregarSerieTiempoManual();
 
 signals:
-
+    void graficarUnaSerieTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar);
 ;};
 
 #endif // WQ_ANALYSING_WIDGET_H

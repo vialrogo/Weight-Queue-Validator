@@ -1,17 +1,22 @@
 #ifndef WQ_VALIDATOR_H
 #define WQ_VALIDATOR_H
 
+#define LIMITE_GRAFICA 1000000
+
 #include <QVector>
 #include <QPointF>
 
-//Includes Temporales
-#include <math.h>
-
 class WQ_Validator
 {
+private:
+    QVector<short*> vectorDatos;
+
 public:
     WQ_Validator();
-    QVector<QPointF>** comparacionEscalasDeTiempo(/*Parametros pendientes*/);
+    ~WQ_Validator();
+    void agregarDatos(short* datos);
+    void eliminarDatos(int numDato);
+    QVector<QPointF>* obtenerVectorDatos(int numDatos, int inicio, int fin);
 };
 
 #endif // WQ_VALIDATOR_H

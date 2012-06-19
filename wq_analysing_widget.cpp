@@ -137,8 +137,6 @@ void WQ_Analysing_Widget::agregarSerieTiempoManual()
     bool remplazando = checkBoxReplace->isChecked();
 
     emit graficarUnaSerieTiempo(numDatos,inicio,fin,numChart,remplazando);
-
-    qDebug("Va a graficar los datos %d, desde %d us hasta %d us, en el chart %d con opcion de remplazo %d", numDatos, inicio, fin, numChart, remplazando);
 }
 
 void WQ_Analysing_Widget::configurarInterfaz(bool cual)

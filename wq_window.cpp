@@ -8,7 +8,6 @@ WQ_Window::WQ_Window(QWidget *parent) :
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 
     tamanoEstandarGrafico= QSize(330,200);
-    radioButtonSeleccionado=0;
     numeroWidgetsUsados=0;
     validador = new WQ_Validator();
     arregoWidgets = new QWidget*[6];
@@ -48,9 +47,10 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
-    connect(ioFiles,SIGNAL(archivoCargado(QString)),this,SLOT(archivoCargadoExitoamente(QString)));
+    connect(ioFiles,SIGNAL(archivoCargado(QString, short*)),this,SLOT(archivoCargadoExitoamente(QString, short*)));
     connect(ioFiles,SIGNAL(archivoNoCargado(QString)),this,SLOT(noSePudoCargarArchivo(QString)));
     connect(ioFiles,SIGNAL(archivoEliminado(int)),widgetNewChart,SLOT(eliminarDatos(int)));
+    connect(widgetNewChart,SIGNAL(graficarUnaSerieTiempo(int,int,int,int,bool)),this,SLOT(agregarSerieDeTiempo(int,int,int,int,bool)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
@@ -186,45 +186,12 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
     vectorChartWidgets->at(numChart)->agregarCurva(nombreCurva);
 }
 
-void WQ_Window::analizarDatos()
+void WQ_Window::agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar)
 {
-    if(radioButtonSeleccionado!=1) //Esto hay que hacerlo dinámico
-    {
-        radioButtonSeleccionado=1;
-        QVector<QPointF>** vectoresGraficas = validador->comparacionEscalasDeTiempo();
-
-        //Quito los punteados, defino los gráficos que se van a dibujar y hago que las gráficas se vean
-        int chart1 = agregarChart("Grafica 1");
-//        int chart2 = agregarChart("Grafica 2");
-//        int chart3 = agregarChart("Grafica 3");
-
-        //Creo las curvas que voy a pintar y la serie que corresponde
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 1",vectoresGraficas[0]);
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 2",vectoresGraficas[1]);
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 3",vectoresGraficas[2]);
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 4",vectoresGraficas[3]);
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 5",vectoresGraficas[4]);
-        if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 6",vectoresGraficas[5]);
-//        if(chart2!=-1) agregarCurvaAChart(chart2,"Serie De Tiempo 2",vectoresGraficas[1]);
-//        if(chart3!=-1) agregarCurvaAChart(chart3,"Serie De Tiempo 3",vectoresGraficas[2]);
-
-        //Agrego las etiquetas a los ejes
-//        vectorCharts[chart1]->agregarEtiquetas("Tiempo","Datos");
-//        vectorCharts[chart2]->agregarEtiquetas("Tiempo","Datos");
-//        vectorCharts[chart3]->agregarEtiquetas("Tiempo","Datos");
-
-        //Temporal
-        if(chart1!=-1) vectorCharts->at(chart1)->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
-    }
-}
-
-void WQ_Window::simularDatos()
-{
-    if(radioButtonSeleccionado!=2)
-    {
-        radioButtonSeleccionado=2;
-        qDebug("Escogio comparacion por funciones probabilisticas");
-    }
+    QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,fin);
+    int chart1 = agregarChart("Grafica 1");
+    if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 1",vectorDatos);
+//    if(chart1!=-1) vectorCharts->at(chart1)->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
 }
 
 void WQ_Window::cargarArchivo()
@@ -235,11 +202,12 @@ void WQ_Window::cargarArchivo()
         ioFiles->agregarArchivo(rutaArchivo);
 }
 
-void WQ_Window::archivoCargadoExitoamente(QString rutaArchivo)
+void WQ_Window::archivoCargadoExitoamente(QString rutaArchivo, short* datos)
 {
     QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
     widgetFiles->agregarArchivo(nombreArchivo);
     widgetNewChart->agregarDatos(nombreArchivo);
+    validador->agregarDatos(datos);
     salidaInformacion("Carga completa del archivo "+nombreArchivo);
 }
 

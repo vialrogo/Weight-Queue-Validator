@@ -21,14 +21,15 @@ protected:
 public:
     WQ_IOFiles(QObject *parent = 0);
     ~WQ_IOFiles();
-    void agregarArchivo(QString nombrearchivo);
+    void agregarArchivo(QString nombreArchivo);
+    void agregarDatosSinteticos(QString nombreDatos, short* datos);
 
 public slots:
     void elimiarArchivo(int numArchivo);
     short* obtenerDatosArchivo(int numArchivo);
 
 signals:
-    void archivoCargado(QString nombreArchivo);
+    void archivoCargado(QString nombreArchivo, short* datos);
     void archivoNoCargado(QString nombreArchivo);
     void archivoEliminado(int numArchivo);
 };

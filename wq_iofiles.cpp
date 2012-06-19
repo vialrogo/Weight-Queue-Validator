@@ -42,12 +42,12 @@ void WQ_IOFiles::run() //Tiene constantes quemadas en el código!
     }
     vectorDatosFiles->push_back(arreglo);
 
-    emit archivoCargado(file->fileName());
+    emit archivoCargado(file->fileName(), arreglo);
 }
 
-void WQ_IOFiles::agregarArchivo(QString nombrearchivo)
+void WQ_IOFiles::agregarArchivo(QString nombreArchivo)
 {
-    QFile* file = new QFile(nombrearchivo);
+    QFile* file = new QFile(nombreArchivo);
 
     if(file->open(QIODevice::ReadOnly))
     {
@@ -57,8 +57,14 @@ void WQ_IOFiles::agregarArchivo(QString nombrearchivo)
     else
     {
         delete file;
-        emit archivoNoCargado(nombrearchivo);
+        emit archivoNoCargado(nombreArchivo);
     }
+}
+
+void WQ_IOFiles::agregarDatosSinteticos(QString nombreDatos, short *datos)
+{
+    vectorFiles->push_back(new QFile(nombreDatos));
+    vectorDatosFiles->push_back(datos);
 }
 
 void WQ_IOFiles::elimiarArchivo(int numArchivo)
