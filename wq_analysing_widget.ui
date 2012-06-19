@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WQ_NewChart_Widget</class>
- <widget class="QWidget" name="WQ_NewChart_Widget">
+ <class>WQ_Analysing_Widget</class>
+ <widget class="QWidget" name="WQ_Analysing_Widget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -32,7 +32,11 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QWidget#widgetTotalNew {background-color: white}</string>
+   <string notr="true">QWidget#widgetTotalNew {background-color: white}
+
+QWidget#widgetDatos { background-color: white }
+
+QWidget#scrollArea { background-color: white }</string>
   </property>
   <widget class="QWidget" name="widgetTotalNew" native="true">
    <property name="geometry">
@@ -64,214 +68,6 @@
    <property name="styleSheet">
     <string notr="true"/>
    </property>
-   <widget class="QComboBox" name="comboBoxDatos">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>54</y>
-      <width>296</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>nombre super largo de los datos ejemplo 1</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>nombre super largo de los datos ejemplo 2</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QComboBox" name="comboBoxUnidades">
-    <property name="geometry">
-     <rect>
-      <x>125</x>
-      <y>120</y>
-      <width>45</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>s</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>ms</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>us</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QComboBox" name="comboBoxUnidades_2">
-    <property name="geometry">
-     <rect>
-      <x>125</x>
-      <y>90</y>
-      <width>45</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>s</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>ms</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>us</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>90</y>
-      <width>60</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Duration</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>120</y>
-      <width>60</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Start</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>150</y>
-      <width>100</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <item>
-     <property name="text">
-      <string>New Chart</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Chart 1</string>
-     </property>
-    </item>
-   </widget>
-   <widget class="QSpinBox" name="spinBox">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>90</y>
-      <width>55</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>999</number>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="spinBox_2">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>120</y>
-      <width>55</width>
-      <height>26</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>999</number>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>150</y>
-      <width>60</width>
-      <height>27</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Chart</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>178</x>
-      <y>142</y>
-      <width>120</width>
-      <height>35</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string> Add Curve</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>Imagenes/Add1.png</normaloff>Imagenes/Add1.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>25</width>
-      <height>25</height>
-     </size>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>193</x>
-      <y>101</y>
-      <width>90</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Automatic</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>Imagenes/Automatic1.png</normaloff>Imagenes/Automatic1.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>14</width>
-      <height>22</height>
-     </size>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
@@ -284,11 +80,11 @@
     <property name="title">
      <string/>
     </property>
-    <widget class="QRadioButton" name="radioButtonAnalisis">
+    <widget class="QRadioButton" name="radioButtonTiempo">
      <property name="geometry">
       <rect>
        <x>20</x>
-       <y>8</y>
+       <y>5</y>
        <width>130</width>
        <height>30</height>
       </rect>
@@ -297,11 +93,11 @@
       <string>Time View</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButtonSimulacion">
+    <widget class="QRadioButton" name="radioButtonDatos">
      <property name="geometry">
       <rect>
        <x>166</x>
-       <y>8</y>
+       <y>5</y>
        <width>130</width>
        <height>30</height>
       </rect>
@@ -314,13 +110,72 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>41</y>
+       <y>34</y>
        <width>306</width>
        <height>10</height>
       </rect>
      </property>
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QScrollArea" name="scrollArea">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>205</y>
+      <width>296</width>
+      <height>153</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>296</width>
+      <height>153</height>
+     </size>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>296</width>
+      <height>153</height>
+     </size>
+    </property>
+    <property name="widgetResizable">
+     <bool>true</bool>
+    </property>
+    <widget class="QWidget" name="widgetDatos">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>280</width>
+       <height>150</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>280</width>
+       <height>150</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>280</width>
+       <height>150</height>
+      </size>
      </property>
     </widget>
    </widget>

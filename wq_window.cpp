@@ -45,8 +45,8 @@ WQ_Window::WQ_Window(QWidget *parent) :
     widgetNewChart->setGeometry(0,0,306,363);
     widgetNewChart->setVisible(true);
 
-    connect(widgetNewChart,SIGNAL(analizar()),this,SLOT(analizarDatos()));
-    connect(widgetNewChart,SIGNAL(simular()),this,SLOT(simularDatos()));
+//    connect(widgetNewChart,SIGNAL(analizar()),this,SLOT(analizarDatos()));
+//    connect(widgetNewChart,SIGNAL(simular()),this,SLOT(simularDatos()));
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
