@@ -69,6 +69,8 @@ void WQ_IOFiles::elimiarArchivo(int numArchivo)
 
     delete vectorDatosFiles->at(numArchivo);
     vectorDatosFiles->remove(numArchivo);
+
+    emit archivoEliminado(numArchivo);
 }
 
 short* WQ_IOFiles::obtenerDatosArchivo(int numArchivo)

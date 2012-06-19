@@ -153,11 +153,6 @@ QWidget#widgetTabData { background-color: white}</string>
     <property name="movable">
      <bool>true</bool>
     </property>
-    <widget class="QWidget" name="widgetTabNew">
-     <attribute name="title">
-      <string>Analysing</string>
-     </attribute>
-    </widget>
     <widget class="QWidget" name="widgetTabData">
      <attribute name="title">
       <string>Data</string>
@@ -211,6 +206,11 @@ QWidget#widgetTabData { background-color: white}</string>
        <string>...</string>
       </property>
      </widget>
+    </widget>
+    <widget class="QWidget" name="widgetTabNew">
+     <attribute name="title">
+      <string>Analysing</string>
+     </attribute>
     </widget>
     <widget class="QWidget" name="widgetTabCurrent">
      <property name="styleSheet">

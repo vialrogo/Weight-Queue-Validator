@@ -45,13 +45,12 @@ WQ_Window::WQ_Window(QWidget *parent) :
     widgetNewChart->setGeometry(0,0,306,363);
     widgetNewChart->setVisible(true);
 
-//    connect(widgetNewChart,SIGNAL(analizar()),this,SLOT(analizarDatos()));
-//    connect(widgetNewChart,SIGNAL(simular()),this,SLOT(simularDatos()));
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
     connect(ioFiles,SIGNAL(archivoCargado(QString)),this,SLOT(archivoCargadoExitoamente(QString)));
     connect(ioFiles,SIGNAL(archivoNoCargado(QString)),this,SLOT(noSePudoCargarArchivo(QString)));
+    connect(ioFiles,SIGNAL(archivoEliminado(int)),widgetNewChart,SLOT(eliminarDatos(int)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
@@ -120,6 +119,7 @@ int WQ_Window::agregarChart(QString nombreChart)
 
         //Otros
         numeroWidgetsUsados++;
+        widgetNewChart->agregarChart(nombreChart); //Agrego el chart al comboBox en Analysing_Widget
         salidaInformacion("Chart agregado exitosamente");
         return vectorCharts->size()-1;
     }
@@ -164,6 +164,9 @@ void WQ_Window::eliminarChart(int numChart)
         int numChartWidgets = vectorChartWidgets->size();
         for (int i = 0; i < numChartWidgets; ++i)
             vectorChartWidgets->at(i)->cambiarGeometriaNumeroCharts(numChartWidgets);
+
+        //Elimino el chart al comboBox en Analysing_Widget
+        widgetNewChart->eliminarChart(numChart);
 
         //Acomodo el último widget
         agregarQuitarBordeWidgets(numeroWidgetsUsados-1, true);
@@ -236,6 +239,7 @@ void WQ_Window::archivoCargadoExitoamente(QString rutaArchivo)
 {
     QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
     widgetFiles->agregarArchivo(nombreArchivo);
+    widgetNewChart->agregarDatos(nombreArchivo);
     salidaInformacion("Carga completa del archivo "+nombreArchivo);
 }
 

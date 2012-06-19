@@ -13,35 +13,35 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     comboDatos->setVisible(false);
 
     labelDuration=new QLabel("Duration",this);
-    labelDuration->setGeometry(5,85,60,30);
+    labelDuration->setGeometry(5,120,60,30);
     labelDuration->setVisible(false);
 
     labelStart=new QLabel("Start",this);
-    labelStart->setGeometry(5,120,60,30);
+    labelStart->setGeometry(5,85,60,30);
     labelStart->setVisible(false);
 
     spinDuration=new QSpinBox(this);
-    spinDuration->setMaximum(999);
-    spinDuration->setGeometry(70,85,55,30);
+    spinDuration->setMaximum(60);
+    spinDuration->setGeometry(70,120,55,30);
     spinDuration->setVisible(false);
 
     spinStart=new QSpinBox(this);
-    spinStart->setMaximum(999);
-    spinStart->setGeometry(70,120,55,30);
+    spinStart->setMaximum(60);
+    spinStart->setGeometry(70,85,55,30);
     spinStart->setVisible(false);
 
     comboDuration=new QComboBox(this);
     comboDuration->addItem("s");
     comboDuration->addItem("ms");
     comboDuration->addItem("us");
-    comboDuration->setGeometry(125,85,45,30);
+    comboDuration->setGeometry(125,120,45,30);
     comboDuration->setVisible(false);
 
     comboStart=new QComboBox(this);
     comboStart->addItem("s");
     comboStart->addItem("ms");
     comboStart->addItem("us");
-    comboStart->setGeometry(125,120,45,30);
+    comboStart->setGeometry(125,85,45,30);
     comboStart->setVisible(false);
 
     comboChart=new QComboBox(this);
@@ -50,7 +50,7 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     comboChart->setVisible(false);
 
     checkBoxReplace=new QCheckBox("Replace",this);
-    checkBoxReplace->setGeometry(201,120,100,30);
+    checkBoxReplace->setGeometry(211,120,80,30);
     checkBoxReplace->setVisible(false);
 
     fuenteBotones = new QFont();
@@ -85,16 +85,14 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     scrollArea->setWidget(widgetDatos);
     scrollArea->setVisible(false);
 
+    deshabilitarPorDatos(true);
+    configurarWidgetTiempo();
+
     connect(ui->radioButtonTiempo,SIGNAL(clicked()),this,SLOT(configurarWidgetTiempo()));
     connect(ui->radioButtonDatos,SIGNAL(clicked()),this,SLOT(configurarWidgetDatos()));
-
-    //Temporal
-    comboDatos->addItem("Algo muy largo que solo sirve de ejemplo 1");
-    comboDatos->addItem("Algo muy largo que solo sirve de ejemplo 2");
-    comboDatos->addItem("Algo muy largo que solo sirve de ejemplo 3");
-    comboChart->addItem("Chart 1");
-    comboChart->addItem("Chart 2");
-    comboChart->addItem("Chart 3");
+    connect(comboDuration,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioComboDuration(int)));
+    connect(comboStart,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioComboStart(int)));
+    connect(botonAddCurve,SIGNAL(clicked()),this,SLOT(agregarSerieTiempoManual()));
 }
 
 WQ_Analysing_Widget::~WQ_Analysing_Widget()
@@ -102,8 +100,27 @@ WQ_Analysing_Widget::~WQ_Analysing_Widget()
     delete ui;
 }
 
+void WQ_Analysing_Widget::agregarSerieTiempoManual()
+{
+    int escala = 1; //Valor en microsegundos
+    if(comboStart->currentIndex()==1) escala=1000; //Valor en milisegundos
+    if(comboStart->currentIndex()==0) escala=1000000; //Valor en milisegundos
+    int inicio = spinStart->value() * escala;
+
+    escala = 1; //Valor en microsegundos
+    if(comboDuration->currentIndex()==1) escala=1000; //Valor en milisegundos
+    if(comboDuration->currentIndex()==0) escala=1000000; //Valor en milisegundos
+
+    int fin = (spinDuration->value() * escala) + inicio;
+
+    int numDatos = comboDatos->currentIndex();
+
+    qDebug("Va a graficar los datos %d, desde %d us hasta %d us", numDatos, inicio, fin);
+}
+
 void WQ_Analysing_Widget::configurarInterfaz(bool cual)
 {
+    //Analisis por tiempo
     comboDatos->setVisible(cual);
     labelDuration->setVisible(cual);
     labelStart->setVisible(cual);
@@ -121,6 +138,22 @@ void WQ_Analysing_Widget::configurarInterfaz(bool cual)
     widgetDatos->setVisible(true);
 }
 
+void WQ_Analysing_Widget::deshabilitarPorDatos(bool estado)
+{
+    //Analisis por tiempo
+    comboDatos->setDisabled(estado);
+    labelDuration->setDisabled(estado);
+    labelStart->setDisabled(estado);
+    spinDuration->setDisabled(estado);
+    spinStart->setDisabled(estado);
+    comboDuration->setDisabled(estado);
+    comboStart->setDisabled(estado);
+    comboChart->setDisabled(estado);
+    checkBoxReplace->setDisabled(estado);
+    botonAutomatic->setDisabled(estado);
+    botonAddCurve->setDisabled(estado);
+}
+
 void WQ_Analysing_Widget::configurarWidgetTiempo()
 {
     configurarInterfaz(true);
@@ -129,6 +162,40 @@ void WQ_Analysing_Widget::configurarWidgetTiempo()
 void WQ_Analysing_Widget::configurarWidgetDatos()
 {
     configurarInterfaz(false);
+}
+
+void WQ_Analysing_Widget::agregarDatos(QString nombreDatos)
+{
+    comboDatos->addItem(nombreDatos);
+    deshabilitarPorDatos(false);
+}
+
+void WQ_Analysing_Widget::eliminarDatos(int numDatos)
+{
+    comboDatos->removeItem(numDatos);
+    if(comboDatos->count()==0) deshabilitarPorDatos(true);
+}
+
+void WQ_Analysing_Widget::agregarChart(QString nombreChart)
+{
+    comboChart->addItem(nombreChart);
+}
+
+void WQ_Analysing_Widget::eliminarChart(int numChart)
+{
+    comboChart->removeItem(numChart);
+}
+
+void WQ_Analysing_Widget::cambioComboDuration(int indice)
+{
+    if(indice==0) spinDuration->setMaximum(60);
+    else spinDuration->setMaximum(999);
+}
+
+void WQ_Analysing_Widget::cambioComboStart(int indice)
+{
+    if(indice==0) spinStart->setMaximum(60);
+    else spinStart->setMaximum(999);
 }
 
 

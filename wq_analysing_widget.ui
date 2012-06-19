@@ -90,6 +90,9 @@
      <property name="text">
       <string>Time View</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QRadioButton" name="radioButtonDatos">
      <property name="geometry">

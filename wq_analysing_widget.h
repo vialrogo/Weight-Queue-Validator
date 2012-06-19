@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QFont>
 #include <QScrollArea>
+#include <math.h>
 
 namespace Ui {
 class WQ_Analysing_Widget;
@@ -21,6 +22,10 @@ class WQ_Analysing_Widget : public QWidget
 public:
     explicit WQ_Analysing_Widget(QWidget *parent = 0);
     ~WQ_Analysing_Widget();
+    void agregarDatos(QString nombreDatos);
+    void agregarChart(QString nombreChart);
+    void eliminarChart(int numChart);
+    void deshabilitarPorDatos(bool estado);
     
 private:
     Ui::WQ_Analysing_Widget *ui;
@@ -49,6 +54,10 @@ private:
 public slots:
     void configurarWidgetTiempo();
     void configurarWidgetDatos();
+    void eliminarDatos(int numDatos);
+    void cambioComboDuration(int indice);
+    void cambioComboStart(int indice);
+    void agregarSerieTiempoManual();
 
 signals:
 

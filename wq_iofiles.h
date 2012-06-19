@@ -30,6 +30,7 @@ public slots:
 signals:
     void archivoCargado(QString nombreArchivo);
     void archivoNoCargado(QString nombreArchivo);
+    void archivoEliminado(int numArchivo);
 };
 
 #endif // WQ_IOFILE_H
