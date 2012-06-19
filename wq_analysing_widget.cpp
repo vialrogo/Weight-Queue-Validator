@@ -71,6 +71,20 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
 
     //Objetos data analysing
 
+    //Objetos Comunes
+    widgetDatos = new QWidget(this);
+    widgetDatos->setMaximumSize(280,150);
+    widgetDatos->setMinimumSize(280,150);
+    widgetDatos->setGeometry(0,0,280,150);
+    widgetDatos->setVisible(false);
+
+    scrollArea = new QScrollArea(this);
+    scrollArea->setMaximumSize(296,153);
+    scrollArea->setMinimumSize(296,153);
+    scrollArea->setGeometry(5,205,296,153);
+    scrollArea->setWidget(widgetDatos);
+    scrollArea->setVisible(false);
+
     connect(ui->radioButtonTiempo,SIGNAL(clicked()),this,SLOT(configurarWidgetTiempo()));
     connect(ui->radioButtonDatos,SIGNAL(clicked()),this,SLOT(configurarWidgetDatos()));
 
@@ -101,6 +115,10 @@ void WQ_Analysing_Widget::configurarInterfaz(bool cual)
     checkBoxReplace->setVisible(cual);
     botonAutomatic->setVisible(cual);
     botonAddCurve->setVisible(cual);
+
+    //Objetos comunes
+    scrollArea->setVisible(true);
+    widgetDatos->setVisible(true);
 }
 
 void WQ_Analysing_Widget::configurarWidgetTiempo()

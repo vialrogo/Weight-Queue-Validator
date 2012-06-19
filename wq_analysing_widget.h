@@ -8,6 +8,7 @@
 #include <QCheckBox>
 #include <QPushButton>
 #include <QFont>
+#include <QScrollArea>
 
 namespace Ui {
 class WQ_Analysing_Widget;
@@ -40,6 +41,10 @@ private:
     QPushButton* botonAddCurve;
 
     //Objetos data analysing
+
+    //Objetos comunes
+    QScrollArea* scrollArea;
+    QWidget* widgetDatos;
 
 public slots:
     void configurarWidgetTiempo();
