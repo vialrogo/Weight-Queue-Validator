@@ -20,7 +20,10 @@ void WQ_Validator::eliminarDatos(int numDato)
 
 QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int inicio, int fin)
 {
+    double limiteGrafica = 1000000.0;
+
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
+    int saltos = ceil( ((double)(fin-inicio)) / limiteGrafica);
 
     for (int i = inicio; i < fin; ++i) {
         vectorSalida->push_back(QPointF(i,vectorDatos.at(numDatos)[i]));

@@ -1,10 +1,9 @@
 #ifndef WQ_VALIDATOR_H
 #define WQ_VALIDATOR_H
 
-#define LIMITE_GRAFICA 1000000
-
 #include <QVector>
 #include <QPointF>
+#include <math.h>
 
 class WQ_Validator
 {
