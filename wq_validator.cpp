@@ -20,24 +20,14 @@ void WQ_Validator::eliminarDatos(int numDato)
 
 QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int inicio, int fin)
 {
-    double limiteGrafica = 4000000.0; //Limite de puntos que puedo graficar sin que se muera
+    double limiteGrafica = 5000000.0; //Limite de puntos que puedo graficar sin que se muera
 
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
     int saltos = ceil( ((double)(fin-inicio)) / limiteGrafica);
-    int contador=0;
-    int acumulador=0;
 
-    for (int i = inicio; i < fin; ++i)
+    for (int i = inicio; i < fin; i+=saltos)
     {
-        contador++;
-        acumulador+=vectorDatos.at(numDatos)[i];
-
-        if(contador==saltos)
-        {
-            vectorSalida->push_back(QPointF(i-(saltos/2),acumulador));
-            contador=0;
-            acumulador=0;
-        }
+        vectorSalida->push_back(QPointF(i,vectorDatos.at(numDatos)[i]));
     }
 
     return vectorSalida;

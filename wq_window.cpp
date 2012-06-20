@@ -189,9 +189,14 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
 void WQ_Window::agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar)
 {
     QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,fin);
-    int chart1 = agregarChart("Grafica 1");
-    if(chart1!=-1) agregarCurvaAChart(chart1,"Serie De Tiempo 1",vectorDatos);
-//    if(chart1!=-1) vectorCharts->at(chart1)->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
+//    QString nombreChart = "Serie Datos "+numDatos+" de "+inicio+" a "+fin;
+    int chart1 = agregarChart("??");
+    if(chart1!=-1)
+    {
+//        QString nombreChart = "Serie  de "+inicio+" a "+fin;
+        agregarCurvaAChart(chart1,"??",vectorDatos);
+        vectorCharts->at(chart1)->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
+    }
 }
 
 void WQ_Window::cargarArchivo()
