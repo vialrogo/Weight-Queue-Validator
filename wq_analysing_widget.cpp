@@ -121,6 +121,7 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     connect(ui->radioButtonTiempo,SIGNAL(clicked()),this,SLOT(configurarWidgetTiempo()));
     connect(ui->radioButtonDatos,SIGNAL(clicked()),this,SLOT(configurarWidgetDatos()));
     connect(botonAddCurve,SIGNAL(clicked()),this,SLOT(agregarSerieTiempoManual()));
+    connect(botonAutomatic,SIGNAL(clicked()),this, SLOT(agregarSerieTiempoAutomatico()));
 }
 
 WQ_Analysing_Widget::~WQ_Analysing_Widget()
@@ -137,6 +138,14 @@ void WQ_Analysing_Widget::agregarSerieTiempoManual()
     bool remplazando = checkBoxReplace->isChecked();
 
     emit graficarUnaSerieTiempo(numDatos,inicio,fin,numChart,remplazando);
+}
+
+void WQ_Analysing_Widget::agregarSerieTiempoAutomatico()
+{
+    int numDatos = comboDatos->currentIndex();
+    bool remplazando = checkBoxReplace->isChecked();
+
+    emit graficarTodasSeriesTiempo(numDatos,remplazando);
 }
 
 void WQ_Analysing_Widget::configurarInterfaz(bool cual)

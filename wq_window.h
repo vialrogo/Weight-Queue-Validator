@@ -56,6 +56,7 @@ private slots:
     void archivoCargadoExitoamente(QString rutaArchivo, short* datos);
     void noSePudoCargarArchivo(QString rutaArchivo);
     void agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar);
+    void agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar);
 };
 
 #endif // WQ_WINDOW_H

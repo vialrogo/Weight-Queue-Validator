@@ -19,6 +19,7 @@ public:
     ~WQ_Chart_Widget();
     void agregarCurva(QString nombreCurva);
     int getNumChart();
+    int getNumeroCurvas();
     void setNumChart(int numeroChart_in);
     void cambiarGeometriaNumeroCharts(int numCharts);
     

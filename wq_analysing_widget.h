@@ -64,9 +64,11 @@ public slots:
     void configurarWidgetDatos();
     void eliminarDatos(int numDatos);
     void agregarSerieTiempoManual();
+    void agregarSerieTiempoAutomatico();
 
 signals:
     void graficarUnaSerieTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar);
+    void graficarTodasSeriesTiempo(int numDatos, bool remplazar);
 ;};
 
 #endif // WQ_ANALYSING_WIDGET_H

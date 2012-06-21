@@ -51,6 +51,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ioFiles,SIGNAL(archivoNoCargado(QString)),this,SLOT(noSePudoCargarArchivo(QString)));
     connect(ioFiles,SIGNAL(archivoEliminado(int)),widgetNewChart,SLOT(eliminarDatos(int)));
     connect(widgetNewChart,SIGNAL(graficarUnaSerieTiempo(int,int,int,int,bool)),this,SLOT(agregarSerieDeTiempo(int,int,int,int,bool)));
+    connect(widgetNewChart,SIGNAL(graficarTodasSeriesTiempo(int,bool)),this,SLOT(agregarTodasLasSeriesDeTiempo(int,bool)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
@@ -189,14 +190,58 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
 void WQ_Window::agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar)
 {
     QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,fin);
-//    QString nombreChart = "Serie Datos "+numDatos+" de "+inicio+" a "+fin;
-    int chart1 = agregarChart("??");
-    if(chart1!=-1)
+
+    if(remplazar)
     {
-//        QString nombreChart = "Serie  de "+inicio+" a "+fin;
-        agregarCurvaAChart(chart1,"??",vectorDatos);
-        vectorCharts->at(chart1)->setAxisScale(WQ_Chart::xBottom, 0.0, 10.0);
+        int numCurvasViejas = vectorChartWidgets->at(numChart)->getNumeroCurvas();
+        for (int i = 0; i < numCurvasViejas; ++i) vectorChartWidgets->at(numChart)->eliminarCurvaChartWidget(0);
+        agregarCurvaAChart(numChart,"Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
     }
+    else
+    {
+        if(numChart==vectorCharts->size()) agregarChart("Serie de Datos "+QString::number(numDatos));
+        if(numChart<6) agregarCurvaAChart(numChart,"Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
+    }
+}
+
+void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
+{
+    QVector<QPointF>* vectorDatos;
+
+    while (vectorCharts->size()>0 && remplazar==true)
+    {
+        eliminarChart(0);
+    }
+
+    //Primer gráfico: 1 minuto
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,60000000);
+    if(vectorCharts->size()<1) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
+    agregarCurvaAChart(0,"Serie de 0us a 60000000us",vectorDatos);
+
+    //Segundo gráfico: 10 segundo
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,10000000);
+    if(vectorCharts->size()<2) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
+    agregarCurvaAChart(1,"Serie de 0us a 10000000us",vectorDatos);
+
+    //Tercer gráfico: 1 segundo
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,1000000);
+    if(vectorCharts->size()<3) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
+    agregarCurvaAChart(2,"Serie de 0us a 1000000us",vectorDatos);
+
+    //Cuarto gráfico: 100 milisegundos
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,100000);
+    if(vectorCharts->size()<4) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
+    agregarCurvaAChart(3,"Serie de 0us a 100000us",vectorDatos);
+
+    //Quinto gráfico: 10 milisegundos
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,10000);
+    if(vectorCharts->size()<5) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
+    agregarCurvaAChart(4,"Serie de 0us a 10000us",vectorDatos);
+
+    //Sexto gráfico: 1 milisegundo
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,1000);
+    if(vectorCharts->size()<6) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
+    agregarCurvaAChart(5,"Serie de 0us a 1000us",vectorDatos);
 }
 
 void WQ_Window::cargarArchivo()

@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include <QPointF>
+#include <QTime>
 #include <math.h>
 
 class WQ_Validator
