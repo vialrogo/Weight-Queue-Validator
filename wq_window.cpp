@@ -37,7 +37,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
 
     //Agrego el widget de los archivos
     widgetFiles = new WQ_Data_Widget(ui->widgetTabData);
-    widgetFiles->setGeometry(-1,70,308,294);
+    widgetFiles->setGeometry(-1,160,308,204);
     widgetFiles->setVisible(true);
 
     //Agrego el widget de los nuevos chart

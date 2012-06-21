@@ -8,8 +8,8 @@ WQ_Data_Widget::WQ_Data_Widget(QWidget *parent) :
     ui->setupUi(this);
     vectorNombres = new QVector<QLabel*>();
     vectorBotonesRemove = new QVector<WQ_Button*>();
-    ui->widgetTotalFiles->setMinimumSize(293,292);
-    ui->widgetTotalFiles->setMaximumSize(293,292);
+    ui->widgetTotalFiles->setMinimumSize(293,202);
+    ui->widgetTotalFiles->setMaximumSize(293,202);
 }
 
 WQ_Data_Widget::~WQ_Data_Widget()

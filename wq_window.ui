@@ -161,7 +161,7 @@ QWidget#widgetTabData { background-color: white}</string>
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
+        <y>40</y>
         <width>220</width>
         <height>30</height>
        </rect>
@@ -174,7 +174,7 @@ QWidget#widgetTabData { background-color: white}</string>
       <property name="geometry">
        <rect>
         <x>260</x>
-        <y>20</y>
+        <y>40</y>
         <width>30</width>
         <height>30</height>
        </rect>
@@ -197,13 +197,63 @@ QWidget#widgetTabData { background-color: white}</string>
       <property name="geometry">
        <rect>
         <x>230</x>
-        <y>20</y>
+        <y>40</y>
         <width>30</width>
         <height>30</height>
        </rect>
       </property>
       <property name="text">
        <string>...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>160</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Load data from file:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>180</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Generate sintetic data:</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>200</width>
+        <height>30</height>
+       </rect>
       </property>
      </widget>
     </widget>
