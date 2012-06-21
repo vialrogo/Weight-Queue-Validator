@@ -1,10 +1,17 @@
 #ifndef WQ_GENERATOR_H
 #define WQ_GENERATOR_H
 
-class WQ_Generator
+#include <QTime>
+#include <cmath>
+
+class WQ_Generator: public QObject
 {
+    Q_OBJECT
+
 public:
-    WQ_Generator();
+    WQ_Generator(QObject *parent = 0);
+    virtual ~WQ_Generator();
+    double generarNumeroAleatorio();
 };
 
 #endif // WQ_GENERATOR_H
