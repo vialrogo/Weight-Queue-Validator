@@ -23,7 +23,6 @@ QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int inicio, int
     QTime midnight(0, 0, 0);
     qsrand(midnight.secsTo(QTime::currentTime()));
     double limiteGrafica = 1000000.0; //Limite de puntos que puedo graficar sin que se muera
-
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
     int saltos = ceil( ((double)(fin-inicio)) / limiteGrafica);
     int aleatorio=0;
