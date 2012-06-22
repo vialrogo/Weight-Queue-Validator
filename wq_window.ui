@@ -206,7 +206,7 @@ QWidget#widgetTabData { background-color: white}</string>
        <string>...</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
+     <widget class="QLabel" name="labelLoadFile">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -226,7 +226,7 @@ QWidget#widgetTabData { background-color: white}</string>
        <string>Load data from file:</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="labelGenerateSintetic">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -246,14 +246,75 @@ QWidget#widgetTabData { background-color: white}</string>
        <string>Generate sintetic data:</string>
       </property>
      </widget>
-     <widget class="QComboBox" name="comboBox">
+     <widget class="QComboBox" name="comboBoxGeneradas">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>110</y>
-        <width>200</width>
+        <width>151</width>
         <height>30</height>
        </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Poisson serie Data</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Heavy-Tailed serie Data</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QPushButton" name="pushButtonLoadSintetic">
+      <property name="geometry">
+       <rect>
+        <x>260</x>
+        <y>110</y>
+        <width>30</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="icon">
+       <iconset>
+        <normaloff>Imagenes/Add1.png</normaloff>Imagenes/Add1.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>22</width>
+        <height>22</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QDoubleSpinBox" name="spinParametro">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>110</y>
+        <width>60</width>
+        <height>31</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="labelGeneradas">
+      <property name="geometry">
+       <rect>
+        <x>185</x>
+        <y>110</y>
+        <width>15</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>λ:</string>
       </property>
      </widget>
     </widget>

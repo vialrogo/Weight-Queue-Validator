@@ -6,6 +6,7 @@
 #include <QTextCodec>
 #include <QToolBox>
 #include <QFileDialog>
+#include <QTime>
 #include "ui_wq_window.h"
 #include "wq_chart.h"
 #include "wq_validator.h"
@@ -14,6 +15,8 @@
 #include "wq_iofiles.h"
 #include "wq_window_preferences.h"
 #include "wq_analysing_widget.h"
+#include "wq_gen_poisson.h"
+#include "wq_gen_heavytail.h"
 
 namespace Ui {
     class WQ_Window;
@@ -40,6 +43,8 @@ private:
     WQ_IOFiles* ioFiles;
     WQ_Window_Preferences* ventanaPreferencias;
     WQ_Analysing_Widget* widgetNewChart;
+    WQ_Gen_Poisson* genPoisson;
+    WQ_Gen_HeavyTail* genHeavyTail;
 
     void agregarQuitarBordeWidgets(int numWidget, bool bordeBool);
     int agregarChart(QString nombreChart);
@@ -57,6 +62,8 @@ private slots:
     void noSePudoCargarArchivo(QString rutaArchivo);
     void agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar);
     void agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar);
+    void cambiarEqiquetaGeneradas(int opcion);
+    void crearDatosSinteticos();
 };
 
 #endif // WQ_WINDOW_H

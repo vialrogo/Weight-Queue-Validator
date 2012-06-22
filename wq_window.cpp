@@ -16,6 +16,8 @@ WQ_Window::WQ_Window(QWidget *parent) :
     ioFiles = new WQ_IOFiles(this);
     ventanaPreferencias = new WQ_Window_Preferences(this);
     widgetNewChart = new WQ_Analysing_Widget(ui->widgetTabNew);
+    genPoisson = new WQ_Gen_Poisson(this);
+    genHeavyTail = new WQ_Gen_HeavyTail(this);
 
     //Agrego y acomodo los widgets de los charts
     for (int i = 0; i < 6; ++i) {
@@ -52,6 +54,8 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ioFiles,SIGNAL(archivoEliminado(int)),widgetNewChart,SLOT(eliminarDatos(int)));
     connect(widgetNewChart,SIGNAL(graficarUnaSerieTiempo(int,int,int,int,bool)),this,SLOT(agregarSerieDeTiempo(int,int,int,int,bool)));
     connect(widgetNewChart,SIGNAL(graficarTodasSeriesTiempo(int,bool)),this,SLOT(agregarTodasLasSeriesDeTiempo(int,bool)));
+    connect(ui->comboBoxGeneradas, SIGNAL(currentIndexChanged(int)),this,SLOT(cambiarEqiquetaGeneradas(int)));
+    connect(ui->pushButtonLoadSintetic,SIGNAL(clicked()),this,SLOT(crearDatosSinteticos()));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
@@ -206,42 +210,62 @@ void WQ_Window::agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numC
 
 void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
 {
+    QTime midnight(0, 0, 0);
+    qsrand(midnight.secsTo(QTime::currentTime()));
     QVector<QPointF>* vectorDatos;
+    int inicio=0;
 
-    while (vectorCharts->size()>0 && remplazar==true)
-    {
-        eliminarChart(0);
-    }
+    //Si es el caso, elimino todos los charts
+    while (vectorCharts->size()>0 && remplazar==true) eliminarChart(0);
 
     //Primer gráfico: 1 minuto
     vectorDatos = validador->obtenerVectorDatos(numDatos,0,60000000);
     if(vectorCharts->size()<1) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(0,"Serie de 0us a 60000000us",vectorDatos);
+    agregarCurvaAChart(0,"0us a 60000000us",vectorDatos);
 
     //Segundo gráfico: 10 segundo
-    vectorDatos = validador->obtenerVectorDatos(numDatos,0,10000000);
+    inicio = qrand()%(60000000-10000000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+10000000);
     if(vectorCharts->size()<2) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(1,"Serie de 0us a 10000000us",vectorDatos);
+    agregarCurvaAChart(1,QString::number(inicio)+"us a "+QString::number(inicio+10000000)+"us",vectorDatos);
 
     //Tercer gráfico: 1 segundo
-    vectorDatos = validador->obtenerVectorDatos(numDatos,0,1000000);
+    inicio = qrand()%(60000000-1000000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+1000000);
     if(vectorCharts->size()<3) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(2,"Serie de 0us a 1000000us",vectorDatos);
+    agregarCurvaAChart(2,QString::number(inicio)+"us a "+QString::number(inicio+1000000)+"us",vectorDatos);
 
     //Cuarto gráfico: 100 milisegundos
-    vectorDatos = validador->obtenerVectorDatos(numDatos,0,100000);
+    inicio = qrand()%(60000000-100000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+100000);
     if(vectorCharts->size()<4) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(3,"Serie de 0us a 100000us",vectorDatos);
+    agregarCurvaAChart(3,QString::number(inicio)+"us a "+QString::number(inicio+100000)+"us",vectorDatos);
 
     //Quinto gráfico: 10 milisegundos
-    vectorDatos = validador->obtenerVectorDatos(numDatos,0,10000);
+    inicio = qrand()%(60000000-10000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+10000);
     if(vectorCharts->size()<5) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(4,"Serie de 0us a 10000us",vectorDatos);
+    agregarCurvaAChart(4,QString::number(inicio)+"us a "+QString::number(inicio+10000)+"us",vectorDatos);
 
     //Sexto gráfico: 1 milisegundo
-    vectorDatos = validador->obtenerVectorDatos(numDatos,0,1000);
+    inicio = qrand()%(60000000-1000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+1000);
     if(vectorCharts->size()<6) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(5,"Serie de 0us a 1000us",vectorDatos);
+    agregarCurvaAChart(5,QString::number(inicio)+"us a "+QString::number(inicio+1000)+"us",vectorDatos);
+}
+
+void WQ_Window::crearDatosSinteticos()
+{
+    int opcion = ui->comboBoxGeneradas->currentIndex();
+
+    if(opcion==0)
+    {
+
+    }
+    else
+    {
+
+    }
 }
 
 void WQ_Window::cargarArchivo()
@@ -281,4 +305,10 @@ void WQ_Window::salidaInformacion(QString mensaje)
 void WQ_Window::salidaError(QString mensaje)
 {
     ui->plainTextEditConsole->appendHtml("<span style=\"color:red\">-> Error: "+mensaje+"</span>");
+}
+
+void WQ_Window::cambiarEqiquetaGeneradas(int opcion)
+{
+    if(opcion==0) ui->labelGeneradas->setText("λ:");
+    else  ui->labelGeneradas->setText("β:");
 }

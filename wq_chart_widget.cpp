@@ -49,7 +49,7 @@ void WQ_Chart_Widget::agregarCurva(QString nombreCurva)
     connect(botonView,SIGNAL(pulsado(int)),this,SLOT(mostrarOcultarCurva(int)));
 
     //los agrego a la interfaz
-    etiqueta->setGeometry(10, numCurvas*31+3, 195, 25);
+    etiqueta->setGeometry(5, numCurvas*31+3, 200, 25);
     botonColor->setGeometry(200, numCurvas*31+3, 25, 25);
     botonView->setGeometry(230, numCurvas*31+3, 25, 25);
     botonRemove->setGeometry(260, numCurvas*31+3, 25, 25);
@@ -71,6 +71,9 @@ void WQ_Chart_Widget::eliminarCurvaChartWidget(int numCurva)
     delete vectorNombres->at(numCurva);
     vectorNombres->remove(numCurva);
 
+    delete vectorBotonesColors->at(numCurva);
+    vectorBotonesColors->remove(numCurva);
+
     delete vectorBotonesView->at(numCurva);
     vectorBotonesView->remove(numCurva);
 
@@ -83,10 +86,12 @@ void WQ_Chart_Widget::eliminarCurvaChartWidget(int numCurva)
     int totalCurvas = vectorNombres->size();
     for (int i = numCurva; i < totalCurvas; ++i)
     {
-        vectorNombres->at(i)->setGeometry(10, i*31+3, 205, 25);
+        vectorNombres->at(i)->setGeometry(5, i*31+3, 200, 25);
+        vectorBotonesColors->at(i)->setGeometry(200, i*31+3, 25, 25);
         vectorBotonesView->at(i)->setGeometry(230, i*31+3, 25, 25);
         vectorBotonesRemove->at(i)->setGeometry(260, i*31+3, 25, 25);
 
+        vectorBotonesColors->at(i)->setNumeroItem(i);
         vectorBotonesView->at(i)->setNumeroItem(i);
         vectorBotonesRemove->at(i)->setNumeroItem(i);
     }
