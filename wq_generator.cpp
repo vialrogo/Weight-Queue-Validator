@@ -11,11 +11,10 @@ WQ_Generator::~WQ_Generator()
 
 double WQ_Generator::generarNumeroAleatorio()
 {
-    QTime midnight(0, 0, 0);
-    double semilla = midnight.secsTo(QTime::currentTime());
-//    double semilla = 1.0;
-    double a = 16807;
-    double m = 2147483647;
+    //Sacar de aquí!!!
+    semilla = time(NULL);
+    a = 16807;
+    m = 2147483647;
 
     semilla =  fmod((a * semilla), m);
     return (double) (semilla/m);

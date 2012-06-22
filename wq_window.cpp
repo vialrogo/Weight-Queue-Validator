@@ -257,15 +257,25 @@ void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
 void WQ_Window::crearDatosSinteticos()
 {
     int opcion = ui->comboBoxGeneradas->currentIndex();
+    double parametro = ui->spinParametro->value();
+    short* datos;
+    QString nombre;
 
     if(opcion==0)
     {
-
+        datos = genPoisson->generarDatosSinteticos(parametro);
+        nombre = "Poisson with λ="+QString::number(parametro);
     }
     else
     {
-
+        //aquí tiene que llamar a genHeavyTail y generar los datos
+        nombre = "Heavy-Tailed with β="+QString::number(parametro);
     }
+
+//    widgetFiles->agregarArchivo(nombre);
+//    widgetNewChart->agregarDatos(nombre);
+//    ioFiles->agregarDatosSinteticos(nombre, datos);
+//    validador->agregarDatos(datos);
 }
 
 void WQ_Window::cargarArchivo()

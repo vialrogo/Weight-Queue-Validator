@@ -298,6 +298,9 @@ QWidget#widgetTabData { background-color: white}</string>
         <height>31</height>
        </rect>
       </property>
+      <property name="value">
+       <double>1.800000000000000</double>
+      </property>
      </widget>
      <widget class="QLabel" name="labelGeneradas">
       <property name="geometry">
