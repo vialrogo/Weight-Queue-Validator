@@ -49,13 +49,15 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ui->pushButtonLoadFile,SIGNAL(clicked()),this,SLOT(cargarArchivo()));
     connect(ui->pushButtonLoadOthers,SIGNAL(clicked()),this,SLOT(cargarOtrosArchivos()));
     connect(widgetFiles,SIGNAL(eliminarFileDataWidget(int)),ioFiles,SLOT(elimiarArchivo(int)));
-    connect(ioFiles,SIGNAL(archivoCargado(QString, short*)),this,SLOT(archivoCargadoExitoamente(QString, short*)));
+    connect(ioFiles,SIGNAL(archivoCargado(QString, short*)),this,SLOT(archivoCargadoExitosamente(QString, short*)));
     connect(ioFiles,SIGNAL(archivoNoCargado(QString)),this,SLOT(noSePudoCargarArchivo(QString)));
     connect(ioFiles,SIGNAL(archivoEliminado(int)),widgetNewChart,SLOT(eliminarDatos(int)));
     connect(widgetNewChart,SIGNAL(graficarUnaSerieTiempo(int,int,int,int,bool)),this,SLOT(agregarSerieDeTiempo(int,int,int,int,bool)));
     connect(widgetNewChart,SIGNAL(graficarTodasSeriesTiempo(int,bool)),this,SLOT(agregarTodasLasSeriesDeTiempo(int,bool)));
     connect(ui->comboBoxGeneradas, SIGNAL(currentIndexChanged(int)),this,SLOT(cambiarEqiquetaGeneradas(int)));
     connect(ui->pushButtonLoadSintetic,SIGNAL(clicked()),this,SLOT(crearDatosSinteticos()));
+    connect(genPoisson,SIGNAL(datosGeneradosExitosamente(QString,short*)),this,SLOT(datosGeneradosExitosamente(QString,short*)));
+    connect(genHeavyTail,SIGNAL(datosGeneradosExitosamente(QString,short*)),this,SLOT(datosGeneradosExitosamente(QString,short*)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
     connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
@@ -258,25 +260,9 @@ void WQ_Window::crearDatosSinteticos()
 {
     int opcion = ui->comboBoxGeneradas->currentIndex();
     double parametro = ui->spinParametro->value();
-    short* datos;
-    QString nombre;
 
-    if(opcion==0)
-    {
-        datos = genPoisson->generarDatosSinteticos(parametro);
-        nombre = "Poisson with λ="+QString::number(parametro);
-    }
-    else
-    {
-        datos = genHeavyTail->generarDatosSinteticos(parametro);
-        nombre = "Heavy-Tailed with β="+QString::number(parametro);
-    }
-
-    widgetFiles->agregarArchivo(nombre);
-    widgetNewChart->agregarDatos(nombre);
-    ioFiles->agregarDatosSinteticos(nombre, datos);
-    validador->agregarDatos(datos);
-    salidaInformacion("Generación completa de datos "+nombre);
+    if(opcion==0) genPoisson->generarDatosSinteticos(parametro);
+    else genHeavyTail->generarDatosSinteticos(parametro);
 }
 
 void WQ_Window::cargarArchivo()
@@ -287,7 +273,16 @@ void WQ_Window::cargarArchivo()
         ioFiles->agregarArchivo(rutaArchivo);
 }
 
-void WQ_Window::archivoCargadoExitoamente(QString rutaArchivo, short* datos)
+void WQ_Window::datosGeneradosExitosamente(QString nombreDatos, short *datos)
+{
+    widgetFiles->agregarArchivo(nombreDatos);
+    widgetNewChart->agregarDatos(nombreDatos);
+    ioFiles->agregarDatosSinteticos(nombreDatos, datos);
+    validador->agregarDatos(datos);
+    salidaInformacion("Generación completa de datos "+nombreDatos);
+}
+
+void WQ_Window::archivoCargadoExitosamente(QString rutaArchivo, short* datos)
 {
     QString nombreArchivo = rutaArchivo.right(rutaArchivo.size()-rutaArchivo.lastIndexOf("/")-1);
     widgetFiles->agregarArchivo(nombreArchivo);

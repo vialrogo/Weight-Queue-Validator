@@ -7,10 +7,17 @@ class WQ_Gen_HeavyTail: public WQ_Generator
 {
     Q_OBJECT
 
+private:
+    short* datosGenerados;
+    int parametro;
+
+protected:
+    void run();
+
 public:
     WQ_Gen_HeavyTail(QObject *parent = 0);
     ~WQ_Gen_HeavyTail();
-    short* generarDatosSinteticos(double parametro);
+    void generarDatosSinteticos(double parametro_in);
 };
 
 #endif // WQ_GEN_HEAVYTAIL_H

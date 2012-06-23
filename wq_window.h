@@ -58,7 +58,8 @@ private slots:
     void eliminarChart(int numChart);
     void cargarArchivo();
     void cargarOtrosArchivos();
-    void archivoCargadoExitoamente(QString rutaArchivo, short* datos);
+    void archivoCargadoExitosamente(QString rutaArchivo, short* datos);
+    void datosGeneradosExitosamente(QString nombreDatos, short* datos);
     void noSePudoCargarArchivo(QString rutaArchivo);
     void agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar);
     void agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar);

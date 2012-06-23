@@ -7,10 +7,17 @@ class WQ_Gen_Poisson: public WQ_Generator
 {
     Q_OBJECT
 
+private:
+    short* datosGenerados;
+    int parametro;
+
+protected:
+    void run();
+
 public:
     WQ_Gen_Poisson(QObject *parent = 0);
     ~WQ_Gen_Poisson();
-    short* generarDatosSinteticos(double parametro=1.8);
+    void generarDatosSinteticos(double parametro_in=1.8);
 };
 
 #endif // WQ_GEN_POISSON_H
