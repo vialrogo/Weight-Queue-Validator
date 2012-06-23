@@ -199,12 +199,12 @@ void WQ_Window::agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numC
     {
         int numCurvasViejas = vectorChartWidgets->at(numChart)->getNumeroCurvas();
         for (int i = 0; i < numCurvasViejas; ++i) vectorChartWidgets->at(numChart)->eliminarCurvaChartWidget(0);
-        agregarCurvaAChart(numChart,"Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
+        agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
     }
     else
     {
         if(numChart==vectorCharts->size()) agregarChart("Serie de Datos "+QString::number(numDatos));
-        if(numChart<6) agregarCurvaAChart(numChart,"Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
+        if(numChart<6) agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
     }
 }
 
@@ -221,37 +221,37 @@ void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
     //Primer gráfico: 1 minuto
     vectorDatos = validador->obtenerVectorDatos(numDatos,0,60000000);
     if(vectorCharts->size()<1) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(0,"0us a 60000000us",vectorDatos);
+    agregarCurvaAChart(0,QString::number(numDatos)+". 0us a 60000000us",vectorDatos);
 
     //Segundo gráfico: 10 segundo
     inicio = qrand()%(60000000-10000000);
     vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+10000000);
     if(vectorCharts->size()<2) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(1,QString::number(inicio)+"us a "+QString::number(inicio+10000000)+"us",vectorDatos);
+    agregarCurvaAChart(1,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+10000000)+"us",vectorDatos);
 
     //Tercer gráfico: 1 segundo
     inicio = qrand()%(60000000-1000000);
     vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+1000000);
     if(vectorCharts->size()<3) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(2,QString::number(inicio)+"us a "+QString::number(inicio+1000000)+"us",vectorDatos);
+    agregarCurvaAChart(2,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+1000000)+"us",vectorDatos);
 
     //Cuarto gráfico: 100 milisegundos
     inicio = qrand()%(60000000-100000);
     vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+100000);
     if(vectorCharts->size()<4) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(3,QString::number(inicio)+"us a "+QString::number(inicio+100000)+"us",vectorDatos);
+    agregarCurvaAChart(3,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+100000)+"us",vectorDatos);
 
     //Quinto gráfico: 10 milisegundos
     inicio = qrand()%(60000000-10000);
     vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+10000);
     if(vectorCharts->size()<5) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(4,QString::number(inicio)+"us a "+QString::number(inicio+10000)+"us",vectorDatos);
+    agregarCurvaAChart(4,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+10000)+"us",vectorDatos);
 
     //Sexto gráfico: 1 milisegundo
     inicio = qrand()%(60000000-1000);
     vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+1000);
     if(vectorCharts->size()<6) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
-    agregarCurvaAChart(5,QString::number(inicio)+"us a "+QString::number(inicio+1000)+"us",vectorDatos);
+    agregarCurvaAChart(5,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+1000)+"us",vectorDatos);
 }
 
 void WQ_Window::crearDatosSinteticos()
@@ -268,14 +268,15 @@ void WQ_Window::crearDatosSinteticos()
     }
     else
     {
-        //aquí tiene que llamar a genHeavyTail y generar los datos
+        datos = genHeavyTail->generarDatosSinteticos(parametro);
         nombre = "Heavy-Tailed with β="+QString::number(parametro);
     }
 
-//    widgetFiles->agregarArchivo(nombre);
-//    widgetNewChart->agregarDatos(nombre);
-//    ioFiles->agregarDatosSinteticos(nombre, datos);
-//    validador->agregarDatos(datos);
+    widgetFiles->agregarArchivo(nombre);
+    widgetNewChart->agregarDatos(nombre);
+    ioFiles->agregarDatosSinteticos(nombre, datos);
+    validador->agregarDatos(datos);
+    salidaInformacion("Generación completa de datos "+nombre);
 }
 
 void WQ_Window::cargarArchivo()

@@ -18,14 +18,10 @@ short* WQ_Gen_Poisson::generarDatosSinteticos(double parametro)
     double numero = 0.0;
     numero += ((-1.0)/parametro)*log(generarNumeroAleatorio());
 
-    int contador=0;
     while(numero<60000000)
     {
-        contador++;
         arreglo[(int)numero]++;
         numero -= log(generarNumeroAleatorio())/parametro;
-
-        if(contador==10000){ qDebug("numero: %f",numero); contador=0;}
     }
 
     return arreglo;
