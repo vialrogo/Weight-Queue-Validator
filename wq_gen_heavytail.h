@@ -8,8 +8,7 @@ class WQ_Gen_HeavyTail: public WQ_Generator
     Q_OBJECT
 
 private:
-    short* datosGenerados;
-    int parametro;
+    double parametro;
 
 protected:
     void run();

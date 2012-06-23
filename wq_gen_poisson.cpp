@@ -3,7 +3,6 @@
 WQ_Gen_Poisson::WQ_Gen_Poisson(QObject *parent) :
     WQ_Generator(parent)
 {
-    datosGenerados = new short[60000000];
 }
 
 WQ_Gen_Poisson::~WQ_Gen_Poisson()
@@ -19,10 +18,11 @@ void WQ_Gen_Poisson::generarDatosSinteticos(double parametro_in)
 
 void WQ_Gen_Poisson::run()
 {
+    short* datosGenerados = new short[60000000];
     for (int i = 0; i < 60000000; i++) datosGenerados[i] = 0;
 
     double numero = 0.0;
-    numero += ((-1.0)/parametro)*log(generarNumeroAleatorio());
+    numero -= log(generarNumeroAleatorio())/parametro;
 
     while(numero<60000000)
     {
