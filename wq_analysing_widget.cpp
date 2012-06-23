@@ -166,12 +166,12 @@ void WQ_Analysing_Widget::configurarInterfaz(bool cual)
     labelStartMilis->setVisible(cual);
     labelDurationMicros->setVisible(cual);
     labelStartMicros->setVisible(cual);
-    comboChart->setVisible(cual);
-    checkBoxReplace->setVisible(cual);
-    botonAutomatic->setVisible(cual);
-    botonAddCurve->setVisible(cual);
 
     //Objetos comunes
+    comboChart->setVisible(true);
+    checkBoxReplace->setVisible(true);
+    botonAutomatic->setVisible(true);
+    botonAddCurve->setVisible(true);
     scrollArea->setVisible(true);
     widgetDatos->setVisible(true);
 }
