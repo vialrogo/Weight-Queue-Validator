@@ -54,6 +54,7 @@ private:
     QPushButton* botonAddCurve;
 
     //Objetos data analysing
+    QComboBox* comboTipoAnalisis;
 
     //Objetos comunes
     QScrollArea* scrollArea;

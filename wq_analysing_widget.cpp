@@ -100,6 +100,10 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     botonAddCurve->setVisible(false);
 
     //Objetos data analysing
+    comboTipoAnalisis = new QComboBox(this);
+    comboTipoAnalisis->setGeometry(5,85,296,30);
+    comboTipoAnalisis->addItem("Time Series");
+    comboTipoAnalisis->setVisible(false);
 
     //Objetos Comunes
     widgetDatos = new QWidget(this);
@@ -150,8 +154,7 @@ void WQ_Analysing_Widget::agregarSerieTiempoAutomatico()
 
 void WQ_Analysing_Widget::configurarInterfaz(bool cual)
 {
-    //Analisis por tiempo
-    comboDatos->setVisible(cual);
+    //Objetos time view
     labelDuration->setVisible(cual);
     labelStart->setVisible(cual);
     spinDurationSegundos->setVisible(cual);
@@ -167,7 +170,11 @@ void WQ_Analysing_Widget::configurarInterfaz(bool cual)
     labelDurationMicros->setVisible(cual);
     labelStartMicros->setVisible(cual);
 
+    //Objetos data analysing
+    comboTipoAnalisis->setVisible(!cual);
+
     //Objetos comunes
+    comboDatos->setVisible(true);
     comboChart->setVisible(true);
     checkBoxReplace->setVisible(true);
     botonAutomatic->setVisible(true);
@@ -198,6 +205,7 @@ void WQ_Analysing_Widget::deshabilitarPorDatos(bool estado)
     checkBoxReplace->setDisabled(estado);
     botonAutomatic->setDisabled(estado);
     botonAddCurve->setDisabled(estado);
+    comboTipoAnalisis->setDisabled(estado);
 }
 
 void WQ_Analysing_Widget::configurarWidgetTiempo()
