@@ -52,7 +52,7 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ioFiles,SIGNAL(archivoCargado(QString, short*)),this,SLOT(archivoCargadoExitosamente(QString, short*)));
     connect(ioFiles,SIGNAL(archivoNoCargado(QString)),this,SLOT(noSePudoCargarArchivo(QString)));
     connect(ioFiles,SIGNAL(archivoEliminado(int)),widgetNewChart,SLOT(eliminarDatos(int)));
-    connect(widgetNewChart,SIGNAL(graficarUnaSerieTiempo(int,int,int,int,bool)),this,SLOT(agregarSerieDeTiempo(int,int,int,int,bool)));
+    connect(widgetNewChart,SIGNAL(graficarUnaAnalisis(int,int,int,int,int,bool)),this,SLOT(agregarUnAnalisis(int,int,int,int,int,bool)));
     connect(widgetNewChart,SIGNAL(graficarTodasSeriesTiempo(int,bool)),this,SLOT(agregarTodasLasSeriesDeTiempo(int,bool)));
     connect(ui->comboBoxGeneradas, SIGNAL(currentIndexChanged(int)),this,SLOT(cambiarEqiquetaGeneradas(int)));
     connect(ui->pushButtonLoadSintetic,SIGNAL(clicked()),this,SLOT(crearDatosSinteticos()));
@@ -193,21 +193,28 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
     vectorChartWidgets->at(numChart)->agregarCurva(nombreCurva);
 }
 
-void WQ_Window::agregarSerieDeTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar)
+void WQ_Window::agregarUnAnalisis(int numDatos, int numAnalisis, int inicio, int fin, int numChart, bool remplazar)
 {
     QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,fin);
 
-    if(remplazar)
+    if(numAnalisis==0)
     {
-        int numCurvasViejas = vectorChartWidgets->at(numChart)->getNumeroCurvas();
-        for (int i = 0; i < numCurvasViejas; ++i) vectorChartWidgets->at(numChart)->eliminarCurvaChartWidget(0);
-        agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
+        if(remplazar)
+        {
+            int numCurvasViejas = vectorChartWidgets->at(numChart)->getNumeroCurvas();
+            for (int i = 0; i < numCurvasViejas; ++i) vectorChartWidgets->at(numChart)->eliminarCurvaChartWidget(0);
+            agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
+        }
+        else
+        {
+            if(numChart==vectorCharts->size()) agregarChart("Serie de Datos "+QString::number(numDatos));
+            if(numChart<6) agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
+        }
     }
-    else
-    {
-        if(numChart==vectorCharts->size()) agregarChart("Serie de Datos "+QString::number(numDatos));
-        if(numChart<6) agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
-    }
+    if(numAnalisis==1){}
+    if(numAnalisis==2){}
+    if(numAnalisis==3){}
+    if(numAnalisis==4){}
 }
 
 void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)

@@ -8,8 +8,8 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     ui->setupUi(this);
     deshabilitarPorDatos(true);
 
-    connect(ui->botonAddCurve,SIGNAL(clicked()),this,SLOT(agregarSerieTiempoManual()));
-    connect(ui->botonTiempo,SIGNAL(clicked()),this, SLOT(agregarSerieTiempoAutomatico()));
+    connect(ui->botonAddCurve,SIGNAL(clicked()),this,SLOT(agregarAnalisisManual()));
+    connect(ui->botonTiempo,SIGNAL(clicked()),this, SLOT(agregarSeriesTiempoAutomatico()));
 }
 
 WQ_Analysing_Widget::~WQ_Analysing_Widget()
@@ -17,23 +17,31 @@ WQ_Analysing_Widget::~WQ_Analysing_Widget()
     delete ui;
 }
 
-void WQ_Analysing_Widget::agregarSerieTiempoManual()
+void WQ_Analysing_Widget::agregarAnalisisManual()
 {
     int inicio = ui->spinStartSegundos->value()*1000000 + ui->spinStartMilis->value()*1000 + ui->spinStartMicros->value();
     int fin = ui->spinDurationSegundos->value()*1000000 + ui->spinDurationMilis->value()*1000 + ui->spinDurationMicros->value() + inicio;
     int numDatos = ui->comboDatos->currentIndex();
     int numChart = ui->comboChart->currentIndex()==0? ui->comboChart->count()-1 : ui->comboChart->currentIndex()-1;
+    int tipoAnalisis = ui->comboTipoAnalisis->currentIndex();
     bool remplazando = ui->checkBoxReplace->isChecked();
+    bool xlog = ui->checkBoxXLog->isChecked();
+    bool ylog = ui->checkBoxYLog->isChecked();
 
-    emit graficarUnaSerieTiempo(numDatos,inicio,fin,numChart,remplazando);
+    emit graficarUnaAnalisis(numDatos,tipoAnalisis,inicio,fin,numChart,remplazando);
 }
 
-void WQ_Analysing_Widget::agregarSerieTiempoAutomatico()
+void WQ_Analysing_Widget::agregarSeriesTiempoAutomatico()
 {
     int numDatos = ui->comboDatos->currentIndex();
     bool remplazando = ui->checkBoxReplace->isChecked();
 
     emit graficarTodasSeriesTiempo(numDatos,remplazando);
+}
+
+void WQ_Analysing_Widget::agregarAnalisisCompletoAutomatico()
+{
+
 }
 
 void WQ_Analysing_Widget::deshabilitarPorDatos(bool estado)
