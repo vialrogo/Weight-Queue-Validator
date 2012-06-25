@@ -28,7 +28,7 @@ void WQ_Analysing_Widget::agregarAnalisisManual()
     bool xlog = ui->checkBoxXLog->isChecked();
     bool ylog = ui->checkBoxYLog->isChecked();
 
-    emit graficarUnaAnalisis(numDatos,tipoAnalisis,inicio,fin,numChart,remplazando);
+    emit graficarUnaAnalisis(numDatos,tipoAnalisis,inicio,fin,numChart,remplazando, xlog, ylog);
 }
 
 void WQ_Analysing_Widget::agregarSeriesTiempoAutomatico()

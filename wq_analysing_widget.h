@@ -37,7 +37,7 @@ public slots:
     void agregarAnalisisCompletoAutomatico();
 
 signals:
-    void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar);
+    void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog);
     void graficarTodasSeriesTiempo(int numDatos, bool remplazar);
 ;};
 

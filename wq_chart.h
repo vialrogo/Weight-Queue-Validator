@@ -8,6 +8,7 @@
 #include <qwt_plot_magnifier.h>
 #include <qwt_plot_panner.h>
 #include <qwt_plot_canvas.h>
+#include <qwt_scale_engine.h>
 
 class WQ_Chart: public QwtPlot
 {
@@ -18,6 +19,10 @@ private:
     QVector<QVector<QPointF>* >* vectorDatosCurvas;
     QwtPlotMagnifier* magnifier;
     QwtPlotPanner* panner;
+    QwtLog10ScaleEngine* engineLogX;
+    QwtLog10ScaleEngine* engineLogY;
+    QwtLinearScaleEngine* engineLinX;
+    QwtLinearScaleEngine* engineLinY;
 
 public:
     WQ_Chart(QWidget* parent, QSize tamano);
@@ -33,6 +38,8 @@ public slots:
     void cambiarColorCuva(int numCurva, QColor colorCurva);
     void desHabilitarXScroll(bool estado);
     void desHabilitarYScroll(bool estado);
+    void escalaLogEjeX(bool log);
+    void escalaLogEjeY(bool log);
 };
 
 #endif // WQ_CHART_H

@@ -12,7 +12,14 @@ WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :
     vectorCurvas = new QVector<QwtPlotCurve*>();
     vectorDatosCurvas = new QVector<QVector<QPointF>* >();
 
-    magnifier->setAxisEnabled(yLeft, false); //Desabilita el scroll sobre el eje vertical
+    //Desabilita el scroll sobre el eje vertical
+    magnifier->setAxisEnabled(yLeft, false);
+
+    //Axis scale engines
+    engineLogX = new QwtLog10ScaleEngine();
+    engineLogY = new QwtLog10ScaleEngine();
+    engineLinX = new QwtLinearScaleEngine();
+    engineLinY = new QwtLinearScaleEngine();
 
     //Canvas
     canvas()->setLineWidth(1);
@@ -106,4 +113,16 @@ void WQ_Chart::desHabilitarXScroll(bool estado)
 void WQ_Chart::desHabilitarYScroll(bool estado)
 {
     magnifier->setAxisEnabled(yLeft, estado);
+}
+
+void WQ_Chart::escalaLogEjeX(bool log)
+{
+    if(log) setAxisScaleEngine(xBottom, engineLogX);
+    else setAxisScaleEngine(xBottom, engineLinX);
+}
+
+void WQ_Chart::escalaLogEjeY(bool log)
+{
+    if(log) setAxisScaleEngine(yLeft, engineLogY);
+    else setAxisScaleEngine(yLeft, engineLinY);
 }
