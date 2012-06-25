@@ -18,6 +18,8 @@ WQ_Chart_Widget::WQ_Chart_Widget(QWidget *parent, int numChart_in) :
     //Creo las fuentes para los labels
     fontNormal = new QFont();
     fontHide = new QFont();
+    fontNormal->setPointSize(10);
+    fontHide->setPointSize(10);
     fontHide->setStrikeOut(true);
 
     connect(ui->botonDeleteChart,SIGNAL(clicked()),this,SLOT(clickBotonEliminarChart()));

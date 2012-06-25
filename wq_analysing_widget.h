@@ -29,40 +29,8 @@ public:
     
 private:
     Ui::WQ_Analysing_Widget *ui;
-    void configurarInterfaz(bool cual);
-
-    //Objetos time view
-    QComboBox* comboDatos;
-    QLabel* labelDuration;
-    QLabel* labelStart;
-    QSpinBox* spinDurationSegundos;
-    QSpinBox* spinStartSegundos;
-    QSpinBox* spinDurationMilis;
-    QSpinBox* spinStartMilis;
-    QSpinBox* spinDurationMicros;
-    QSpinBox* spinStartMicros;
-    QLabel* labelDurationSegundos;
-    QLabel* labelStartSegundos;
-    QLabel* labelDurationMilis;
-    QLabel* labelStartMilis;
-    QLabel* labelDurationMicros;
-    QLabel* labelStartMicros;
-    QComboBox* comboChart;
-    QCheckBox* checkBoxReplace;
-    QFont* fuenteBotones;
-    QPushButton* botonAutomatic;
-    QPushButton* botonAddCurve;
-
-    //Objetos data analysing
-    QComboBox* comboTipoAnalisis;
-
-    //Objetos comunes
-    QScrollArea* scrollArea;
-    QWidget* widgetDatos;
 
 public slots:
-    void configurarWidgetTiempo();
-    void configurarWidgetDatos();
     void eliminarDatos(int numDatos);
     void agregarSerieTiempoManual();
     void agregarSerieTiempoAutomatico();
