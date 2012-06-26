@@ -195,27 +195,21 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
 
 void WQ_Window::agregarUnAnalisis(int numDatos, int numAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog)
 {
-    QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,fin);
+    QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,numAnalisis, inicio,fin);
 
-    if(numAnalisis==0)
+    if(remplazar)
     {
-        if(remplazar)
-        {
-            int numCurvasViejas = vectorChartWidgets->at(numChart)->getNumeroCurvas();
-            for (int i = 0; i < numCurvasViejas; ++i) vectorChartWidgets->at(numChart)->eliminarCurvaChartWidget(0);
-            agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
-        }
-        else
-        {
-            if(numChart==vectorCharts->size()) agregarChart("Serie de Datos "+QString::number(numDatos));
-            if(numChart<6) agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
-        }
-        vectorCharts->at(numChart)->escalaLogEjeX(xlog);
-        vectorCharts->at(numChart)->escalaLogEjeY(ylog);
+        int numCurvasViejas = vectorChartWidgets->at(numChart)->getNumeroCurvas();
+        for (int i = 0; i < numCurvasViejas; ++i) vectorChartWidgets->at(numChart)->eliminarCurvaChartWidget(0);
+        agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
     }
-    if(numAnalisis==1){}
-    if(numAnalisis==2){}
-    if(numAnalisis==3){}
+    else
+    {
+        if(numChart==vectorCharts->size()) agregarChart("Serie de Datos "+QString::number(numDatos));
+        if(numChart<6) agregarCurvaAChart(numChart,QString::number(numDatos)+". Serie de "+QString::number(inicio)+"us a "+QString::number(fin)+"us",vectorDatos);
+    }
+    vectorCharts->at(numChart)->escalaLogEjeX(xlog);
+    vectorCharts->at(numChart)->escalaLogEjeY(ylog);
 }
 
 void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
@@ -229,37 +223,37 @@ void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
     while (vectorCharts->size()>0 && remplazar==true) eliminarChart(0);
 
     //Primer gráfico: 1 minuto
-    vectorDatos = validador->obtenerVectorDatos(numDatos,0,60000000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,0,60000000);
     if(vectorCharts->size()<1) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(0,QString::number(numDatos)+". 0us a 60000000us",vectorDatos);
 
     //Segundo gráfico: 10 segundo
     inicio = qrand()%(60000000-10000000);
-    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+10000000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+10000000);
     if(vectorCharts->size()<2) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(1,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+10000000)+"us",vectorDatos);
 
     //Tercer gráfico: 1 segundo
     inicio = qrand()%(60000000-1000000);
-    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+1000000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+1000000);
     if(vectorCharts->size()<3) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(2,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+1000000)+"us",vectorDatos);
 
     //Cuarto gráfico: 100 milisegundos
     inicio = qrand()%(60000000-100000);
-    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+100000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+100000);
     if(vectorCharts->size()<4) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(3,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+100000)+"us",vectorDatos);
 
     //Quinto gráfico: 10 milisegundos
     inicio = qrand()%(60000000-10000);
-    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+10000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+10000);
     if(vectorCharts->size()<5) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(4,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+10000)+"us",vectorDatos);
 
     //Sexto gráfico: 1 milisegundo
     inicio = qrand()%(60000000-1000);
-    vectorDatos = validador->obtenerVectorDatos(numDatos,inicio,inicio+1000);
+    vectorDatos = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+1000);
     if(vectorCharts->size()<6) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(5,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+1000)+"us",vectorDatos);
 }
