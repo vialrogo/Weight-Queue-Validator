@@ -17,10 +17,10 @@ public:
     void agregarDatos(short* datos);
     void eliminarDatos(int numDato);
     QVector<QPointF>* obtenerVectorDatos(int numDatos, int tipoAnalisis, int inicio, int fin);
-    short* analisisSeriesTiempo(int numDatos);
-    short* analisisFuncionProbabilidad(int numDatos);
-    short* analisisAutocorrelacionM(int numDatos, int m);
-    short* analisisHvsM(int numDatos);
+    QVector<QPointF>* analisisSeriesTiempo(int numDatos, int inicio, int fin);
+    QVector<QPointF>* analisisFuncionProbabilidad(int numDatos);
+    QVector<QPointF>* analisisAutocorrelacionM(int numDatos, int m);
+    QVector<QPointF>* analisisHvsM(int numDatos);
 };
 
 #endif // WQ_VALIDATOR_H
