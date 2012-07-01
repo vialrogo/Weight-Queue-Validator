@@ -32,11 +32,12 @@ private:
 
 public slots:
     void eliminarDatos(int numDatos);
-    void agregarSerieTiempoManual();
-    void agregarSerieTiempoAutomatico();
+    void agregarAnalisisManual();
+    void agregarSeriesTiempoAutomatico();
+    void agregarAnalisisCompletoAutomatico();
 
 signals:
-    void graficarUnaSerieTiempo(int numDatos, int inicio, int fin, int numChart, bool remplazar);
+    void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog);
     void graficarTodasSeriesTiempo(int numDatos, bool remplazar);
 ;};
 
