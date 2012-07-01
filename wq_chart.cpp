@@ -15,12 +15,6 @@ WQ_Chart::WQ_Chart(QWidget *parent, QSize tamano) :
     //Desabilita el scroll sobre el eje vertical
     magnifier->setAxisEnabled(yLeft, false);
 
-    //Axis scale engines
-    engineLogX = new QwtLog10ScaleEngine();
-    engineLogY = new QwtLog10ScaleEngine();
-    engineLinX = new QwtLinearScaleEngine();
-    engineLinY = new QwtLinearScaleEngine();
-
     //Canvas
     canvas()->setLineWidth(1);
     canvas()->setFrameStyle(QFrame::Box | QFrame::Plain);
@@ -117,12 +111,12 @@ void WQ_Chart::desHabilitarYScroll(bool estado)
 
 void WQ_Chart::escalaLogEjeX(bool log)
 {
-    if(log) setAxisScaleEngine(xBottom, engineLogX);
-    else setAxisScaleEngine(xBottom, engineLinX);
+    if(log) setAxisScaleEngine(xBottom, new QwtLog10ScaleEngine());
+    else setAxisScaleEngine(xBottom, new QwtLinearScaleEngine());
 }
 
 void WQ_Chart::escalaLogEjeY(bool log)
 {
-    if(log) setAxisScaleEngine(yLeft, engineLogY);
-    else setAxisScaleEngine(yLeft, engineLinY);
+    if(log) setAxisScaleEngine(yLeft, new QwtLog10ScaleEngine());
+    else setAxisScaleEngine(yLeft, new QwtLinearScaleEngine());
 }

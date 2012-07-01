@@ -22,9 +22,9 @@ void WQ_Validator::eliminarDatos(int numDato)
 QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int tipoAnalisis, int inicio, int fin)
 {
     if(tipoAnalisis==0) return analisisSeriesTiempo(numDatos, inicio, fin);
-    if(tipoAnalisis==1) return analisisFuncionProbabilidad(numDatos);
-    if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1 /* Ojo!! */);
-    if(tipoAnalisis==3) return analisisHvsM(numDatos);
+    else if(tipoAnalisis==1) return analisisFuncionProbabilidad(numDatos);
+    else if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1 /* Ojo!! */);
+    else return analisisHvsM(numDatos);
 }
 
 QVector<QPointF>* WQ_Validator::analisisSeriesTiempo(int numDatos, int inicio, int fin)
@@ -73,6 +73,7 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
+    /// por el momento voy a ignorar m, ya que luego lo hago
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
     return vectorSalida;
 }
