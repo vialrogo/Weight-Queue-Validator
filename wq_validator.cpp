@@ -67,7 +67,6 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
             break;
         }
     }
-    //fin del proceso para quitar ceros
 
     //Creo el arreglo de salida
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
