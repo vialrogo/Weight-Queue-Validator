@@ -47,20 +47,15 @@ QVector<QPointF>* WQ_Validator::analisisSeriesTiempo(int numDatos, int inicio, i
 
 QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 {
-    //Creo el arreglo con el conteo en milisegundos
-    int* arregloEnMilis = new int[60000];
-    for (int i = 0; i < 60000; ++i) arregloEnMilis[i]=0;
-    for (int i = 0; i < 60000000; ++i) arregloEnMilis[i/1000]+=vectorDatos->at(numDatos)[i];
-
     //Creo el arreglo con el conteo de las ocurrencias
-    int numMaxPkgPorMili = 32000;
-    double* datosSalida = new double[numMaxPkgPorMili];
-    for (int i = 0; i < numMaxPkgPorMili; ++i) datosSalida[i]=0.0;
-    for (int i = 0; i < 60000; ++i) datosSalida[arregloEnMilis[i]]++;
+    int numMaxPkgPorMicro = 2000;
+    double* datosSalida = new double[numMaxPkgPorMicro];
+    for (int i = 0; i < numMaxPkgPorMicro; ++i) datosSalida[i]=0.0;
+    for (int i = 0; i < 60000000; ++i) datosSalida[vectorDatos->at(numDatos)[i]]++;
 
     //Proceso para quitar ceros
-    int ultimoNocero=numMaxPkgPorMili-1;
-    for (int i = numMaxPkgPorMili-1; i >= 0; i--){
+    int ultimoNocero=numMaxPkgPorMicro-1;
+    for (int i = numMaxPkgPorMicro-1; i >= 0; i--){
         if(datosSalida[i]!=0)
         {
             ultimoNocero = i-1;
@@ -69,8 +64,9 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
     }
 
     //Creo el arreglo de salida
+    double errorIndeterLog=0.1;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
-    for (int i = 0; i < ultimoNocero*2; ++i) vectorSalida->push_back(QPointF(i,datosSalida[i]));
+    for (int i = 0; i < ultimoNocero+4; ++i) vectorSalida->push_back(QPointF(i+errorIndeterLog,datosSalida[i]+errorIndeterLog));
 
     return vectorSalida;
 }
