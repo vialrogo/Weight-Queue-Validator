@@ -19,10 +19,6 @@ private:
     QVector<QVector<QPointF>* >* vectorDatosCurvas;
     QwtPlotMagnifier* magnifier;
     QwtPlotPanner* panner;
-    QwtLog10ScaleEngine* engineLogX;
-    QwtLog10ScaleEngine* engineLogY;
-    QwtLinearScaleEngine* engineLinX;
-    QwtLinearScaleEngine* engineLinY;
 
 public:
     WQ_Chart(QWidget* parent, QSize tamano);

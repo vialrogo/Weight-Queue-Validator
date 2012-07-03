@@ -22,9 +22,9 @@ void WQ_Validator::eliminarDatos(int numDato)
 QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int tipoAnalisis, int inicio, int fin)
 {
     if(tipoAnalisis==0) return analisisSeriesTiempo(numDatos, inicio, fin);
-    if(tipoAnalisis==1) return analisisFuncionProbabilidad(numDatos);
-    if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1 /* Ojo!! */);
-    if(tipoAnalisis==3) return analisisHvsM(numDatos);
+    else if(tipoAnalisis==1) return analisisFuncionProbabilidad(numDatos);
+    else if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1 /* Ojo!! */);
+    else return analisisHvsM(numDatos);
 }
 
 QVector<QPointF>* WQ_Validator::analisisSeriesTiempo(int numDatos, int inicio, int fin)
@@ -47,20 +47,15 @@ QVector<QPointF>* WQ_Validator::analisisSeriesTiempo(int numDatos, int inicio, i
 
 QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 {
-    //Creo el arreglo con el conteo en milisegundos
-    int* arregloEnMilis = new int[60000];
-    for (int i = 0; i < 60000; ++i) arregloEnMilis[i]=0;
-    for (int i = 0; i < 60000000; ++i) arregloEnMilis[i/1000]+=vectorDatos->at(numDatos)[i];
-
     //Creo el arreglo con el conteo de las ocurrencias
-    int numMaxPkgPorMili = 32000;
-    double* datosSalida = new double[numMaxPkgPorMili];
-    for (int i = 0; i < numMaxPkgPorMili; ++i) datosSalida[i]=0.0;
-    for (int i = 0; i < 60000; ++i) datosSalida[arregloEnMilis[i]]++;
+    int numMaxPkgPorMicro = 2000;
+    double* datosSalida = new double[numMaxPkgPorMicro];
+    for (int i = 0; i < numMaxPkgPorMicro; ++i) datosSalida[i]=0.0;
+    for (int i = 0; i < 60000000; ++i) datosSalida[vectorDatos->at(numDatos)[i]]++;
 
-    //Proceso para quitar ceros
-    int ultimoNocero=numMaxPkgPorMili-1;
-    for (int i = numMaxPkgPorMili-1; i >= 0; i--){
+    //Proceso para detectar ultimo cero
+    int ultimoNocero=numMaxPkgPorMicro-1;
+    for (int i = numMaxPkgPorMicro-1; i >= 0; i--){
         if(datosSalida[i]!=0)
         {
             ultimoNocero = i-1;
@@ -69,15 +64,43 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
     }
 
     //Creo el arreglo de salida
+    double errorIndeterLog=0.1;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
-    for (int i = 0; i < ultimoNocero*2; ++i) vectorSalida->push_back(QPointF(i,datosSalida[i]));
+    for (int i = 0; i < ultimoNocero+4; ++i) vectorSalida->push_back(QPointF(i+errorIndeterLog,datosSalida[i]+errorIndeterLog));
 
     return vectorSalida;
 }
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
+    /// por el momento voy a ignorar m, ya que luego lo hago m=1
+
+    //Calculo de media
+    double media = 0.0;
+    for (int t = 0; t < 60000000; ++t) media+=vectorDatos->at(numDatos)[t];
+    media = media/60000000.0;
+
+    //Calculo de la varianza sin dividir
+    double varianzaG = 0.0;
+    for (int t = 0; t < 60000000; ++t) varianzaG+= pow(( (double)(vectorDatos->at(numDatos)[t]) - media ), 2);
+
+    //Calculo de la autocorrelación
+    double numerador=0.0;
+    double* autocorrelacion = new double[10];
+    for (int k = 0; k < 10; ++k)
+    {
+        numerador=0.0;
+        for (int t = 0; t < 60000000-k; ++t)
+        {
+            numerador+= (( (double)(vectorDatos->at(numDatos)[t]) - media ) * ( (double)(vectorDatos->at(numDatos)[t+k]) - media ) );
+        }qDebug("numerador: %f",numerador);
+        autocorrelacion[k]=numerador / varianzaG;
+    }
+
+    //Creo el arreglo de salida
+    double errorIndeterLog=0;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
+    for (int k = 0; k < 10; ++k) vectorSalida->push_back(QPointF(k+errorIndeterLog,autocorrelacion[k]+errorIndeterLog));
     return vectorSalida;
 }
 
