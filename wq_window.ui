@@ -299,7 +299,7 @@ QWidget#widgetTabData { background-color: white}</string>
        </rect>
       </property>
       <property name="value">
-       <double>1.800000000000000</double>
+       <double>0.500000000000000</double>
       </property>
      </widget>
      <widget class="QLabel" name="labelGeneradas">
@@ -342,7 +342,7 @@ QWidget#widgetTabData { background-color: white}</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>29</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
