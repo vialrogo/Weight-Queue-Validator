@@ -54,7 +54,7 @@ void WQ_Gen_HeavyTail::run()
         }
     }
 
-    double tamano = vector->size();
+    double tamano = (double)vector->size();
 
     qDebug("size: %d",tamano);
 
