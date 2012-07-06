@@ -2,6 +2,7 @@
 #define WQ_GEN_HEAVYTAIL_H
 
 #include "wq_generator.h"
+#include <QVector>
 
 class WQ_Gen_HeavyTail: public WQ_Generator
 {
