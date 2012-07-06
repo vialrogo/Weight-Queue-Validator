@@ -4,6 +4,10 @@
 #include "wq_generator.h"
 #include <QVector>
 
+//temporal
+#include <iostream>
+using namespace std;
+
 class WQ_Gen_HeavyTail: public WQ_Generator
 {
     Q_OBJECT

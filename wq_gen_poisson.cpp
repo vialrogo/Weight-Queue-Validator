@@ -22,8 +22,7 @@ void WQ_Gen_Poisson::run()
     for (int i = 0; i < 60000000; i++) datosGenerados[i] = 0;
 
     double numero = 0.0;
-    numero -= log(generarNumeroAleatorio())/parametro;  /// <- Estoy seguro que esto es un logaritmo natural?????????? tiene que ser!!!
-
+    numero -= log(generarNumeroAleatorio())/parametro;
     while(numero<60000000)
     {
         datosGenerados[(int)numero]++;

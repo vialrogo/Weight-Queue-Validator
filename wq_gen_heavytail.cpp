@@ -45,18 +45,42 @@ void WQ_Gen_HeavyTail::run()
 
     QVector<int>* vector = new QVector<int>();
     double probabilidad=0.0;
+    double time=0.0;
+    double* probabilidades = new double[1000];
+    for (int i = 0; i < 1000; ++i) probabilidades[i]=0.0;
 
-    for (int i = 1; i < 1000; ++i) {
-        probabilidad= alfa/(pow(i,parametro));
-        qDebug("probabilidad: %f",probabilidad);
-        for (int j = 0; j < probabilidad; ++j) {
-            vector->append(i);
+    for (int i = 1; i < 1000000; ++i)
+    {
+        time = ((double)i)/1000.0;
+        probabilidad= alfa/(pow(time, parametro));
+
+        probabilidades[(int)time]+=probabilidad;
+
+        for (int j = 0; j < probabilidad; ++j)
+        {
+            vector->append( (int)time);
         }
     }
 
+    for (int i = 0; i < 1000; ++i) qDebug("probabilidad de %d: %f",i, probabilidades[i]);
+
     double tamano = (double)vector->size();
 
-    qDebug("size: %d",tamano);
+//    for (int var = 0; var < tamano; ++var) {
+//        cout<<" "<<vector->at(var);
+//    }
+
+    cout<<endl<<endl<<"tamaño: "<<tamano<<endl;
+
+    int numero = 0.0;
+    numero += vector->at((int)(generarNumeroAleatorio()*tamano));
+
+    while(numero<60000000)
+    {
+        datosGenerados[numero]++;
+        numero += vector->at((int)(generarNumeroAleatorio()*tamano));
+//        qDebug("numero: %d",numero);
+    }
 
     emit datosGeneradosExitosamente("Heavy-Tail with β="+QString::number(parametro),datosGenerados);
 }
