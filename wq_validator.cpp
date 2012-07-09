@@ -73,7 +73,7 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
-    /// por el momento voy a ignorar m, ya que luego lo hago m=1
+    /// por el momento voy a ignorar m, ya que luego lo hago. m=1
 
 
     //Calculo de media
@@ -81,9 +81,13 @@ QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
     for (int t = 0; t < 60000000; ++t) media+=vectorDatos->at(numDatos)[t];
     media = media/60000000.0;
 
+    qDebug("media: %f",media);
+
     //Calculo de la varianza sin dividir
     double varianzaG = 0.0;
     for (int t = 0; t < 60000000; ++t) varianzaG+= pow(( (double)(vectorDatos->at(numDatos)[t]) - media ), 2);
+
+    qDebug("varianzaG: %f    %f",varianzaG, varianzaG/60000000.0);
 
     //Calculo de la autocorrelación
     double numerador=0.0;
