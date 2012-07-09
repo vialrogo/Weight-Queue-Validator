@@ -66,7 +66,7 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
     //Creo el arreglo de salida
     double errorIndeterLog=0.1;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
-    for (int i = 0; i < ultimoNocero+4; ++i) vectorSalida->push_back(QPointF(i+errorIndeterLog,datosSalida[i]+errorIndeterLog));
+    for (int i = 0; i < ultimoNocero+1; ++i) vectorSalida->push_back(QPointF(i+errorIndeterLog,datosSalida[i]+errorIndeterLog));
 
     return vectorSalida;
 }
