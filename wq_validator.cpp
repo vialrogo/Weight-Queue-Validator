@@ -91,7 +91,7 @@ QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 
     //Calculo de la autocorrelación
     double numerador=0.0;
-    int numAuto=60;
+    int numAuto=1000;
     double* autocorrelacion = new double[numAuto];
     for (int k = 0; k < numAuto; ++k) autocorrelacion[k]=0.0;
     for (int k = 1; k < numAuto; ++k)
