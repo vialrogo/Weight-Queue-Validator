@@ -66,41 +66,48 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
     //Creo el arreglo de salida
     double errorIndeterLog=0.1;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
-    for (int i = 0; i < ultimoNocero+4; ++i) vectorSalida->push_back(QPointF(i+errorIndeterLog,datosSalida[i]+errorIndeterLog));
+    for (int i = 0; i < ultimoNocero+1; ++i) vectorSalida->push_back(QPointF(i+errorIndeterLog,datosSalida[i]+errorIndeterLog));
 
     return vectorSalida;
 }
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
-    /// por el momento voy a ignorar m, ya que luego lo hago m=1
+    /// por el momento voy a ignorar m, ya que luego lo hago. m=1
+
 
     //Calculo de media
     double media = 0.0;
     for (int t = 0; t < 60000000; ++t) media+=vectorDatos->at(numDatos)[t];
     media = media/60000000.0;
 
+    qDebug("media: %f",media);
+
     //Calculo de la varianza sin dividir
     double varianzaG = 0.0;
     for (int t = 0; t < 60000000; ++t) varianzaG+= pow(( (double)(vectorDatos->at(numDatos)[t]) - media ), 2);
 
+    qDebug("varianzaG: %f    %f",varianzaG, varianzaG/60000000.0);
+
     //Calculo de la autocorrelación
     double numerador=0.0;
-    double* autocorrelacion = new double[10];
-    for (int k = 0; k < 10; ++k)
+    int numAuto=1000;
+    double* autocorrelacion = new double[numAuto];
+    for (int k = 0; k < numAuto; ++k) autocorrelacion[k]=0.0;
+    for (int k = 1; k < numAuto; ++k)
     {
         numerador=0.0;
         for (int t = 0; t < 60000000-k; ++t)
         {
             numerador+= (( (double)(vectorDatos->at(numDatos)[t]) - media ) * ( (double)(vectorDatos->at(numDatos)[t+k]) - media ) );
-        }qDebug("numerador: %f",numerador);
+        }
         autocorrelacion[k]=numerador / varianzaG;
     }
 
     //Creo el arreglo de salida
-    double errorIndeterLog=0;
+    double errorIndeterLog=0.1;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
-    for (int k = 0; k < 10; ++k) vectorSalida->push_back(QPointF(k+errorIndeterLog,autocorrelacion[k]+errorIndeterLog));
+    for (int k = 0; k < numAuto; ++k) vectorSalida->push_back(QPointF(k+errorIndeterLog,autocorrelacion[k]+errorIndeterLog));
     return vectorSalida;
 }
 

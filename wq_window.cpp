@@ -264,7 +264,7 @@ void WQ_Window::crearDatosSinteticos()
     double parametro = ui->spinParametro->value();
 
     if(opcion==0) genPoisson->generarDatosSinteticos(parametro);
-    else genHeavyTail->generarDatosSinteticos(parametro);
+    else genHeavyTail->generarDatosSinteticos(parametro,1.0,100); /// Datos quemados, sacar de aquí!!
 }
 
 void WQ_Window::cargarArchivo()

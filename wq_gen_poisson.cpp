@@ -23,7 +23,6 @@ void WQ_Gen_Poisson::run()
 
     double numero = 0.0;
     numero -= log(generarNumeroAleatorio())/parametro;
-
     while(numero<60000000)
     {
         datosGenerados[(int)numero]++;

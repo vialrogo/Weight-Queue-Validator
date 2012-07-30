@@ -2,6 +2,7 @@
 #define WQ_GEN_HEAVYTAIL_H
 
 #include "wq_generator.h"
+#include <QVector>
 
 class WQ_Gen_HeavyTail: public WQ_Generator
 {
@@ -9,6 +10,8 @@ class WQ_Gen_HeavyTail: public WQ_Generator
 
 private:
     double parametro;
+    double alfa;
+    int truncamientoFuncion;
 
 protected:
     void run();
@@ -16,7 +19,7 @@ protected:
 public:
     WQ_Gen_HeavyTail(QObject *parent = 0);
     ~WQ_Gen_HeavyTail();
-    void generarDatosSinteticos(double parametro_in);
+    void generarDatosSinteticos(double parametro_in, double alfa_in, int truncamiento_in);
 };
 
 #endif // WQ_GEN_HEAVYTAIL_H
