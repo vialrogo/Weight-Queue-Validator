@@ -73,33 +73,33 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
-    /// por el momento voy a ignorar m, ya que luego lo hago. m=1
+    m=1;
 
+    int cantidadDatos = 6000000/m;
+    double* arregloDatosPorM = new double[cantidadDatos];
+    for (int i = 0; i < cantidadDatos; ++i) arregloDatosPorM[i]=0;
+    calcularVectorM(arregloDatosPorM,m,numDatos);
 
     //Calculo de media
     double media = 0.0;
-    for (int t = 0; t < 60000000; ++t) media+=vectorDatos->at(numDatos)[t];
-    media = media/60000000.0;
-
-    qDebug("media: %f",media);
+    for (int t = 0; t < cantidadDatos; ++t) media+=arregloDatosPorM[t];
+    media = media/((double)cantidadDatos);
 
     //Calculo de la varianza sin dividir
     double varianzaG = 0.0;
-    for (int t = 0; t < 60000000; ++t) varianzaG+= pow(( (double)(vectorDatos->at(numDatos)[t]) - media ), 2);
-
-    qDebug("varianzaG: %f    %f",varianzaG, varianzaG/60000000.0);
+    for (int t = 0; t < cantidadDatos; ++t) varianzaG+= pow(( (double)(arregloDatosPorM[t]) - media ), 2);
 
     //Calculo de la autocorrelación
     double numerador=0.0;
-    int numAuto=1000;
+    int numAuto=10000; /// <-esto debe entrar como parámetro
     double* autocorrelacion = new double[numAuto];
     for (int k = 0; k < numAuto; ++k) autocorrelacion[k]=0.0;
     for (int k = 1; k < numAuto; ++k)
     {
         numerador=0.0;
-        for (int t = 0; t < 60000000-k; ++t)
+        for (int t = 0; t < cantidadDatos-k; ++t)
         {
-            numerador+= (( (double)(vectorDatos->at(numDatos)[t]) - media ) * ( (double)(vectorDatos->at(numDatos)[t+k]) - media ) );
+            numerador+= (( (double)(arregloDatosPorM[t]) - media ) * ( (double)(arregloDatosPorM[t+k]) - media ) );
         }
         autocorrelacion[k]=numerador / varianzaG;
     }
@@ -108,7 +108,25 @@ QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
     double errorIndeterLog=0.1;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
     for (int k = 0; k < numAuto; ++k) vectorSalida->push_back(QPointF(k+errorIndeterLog,autocorrelacion[k]+errorIndeterLog));
+
+    //Elimino los punteros creados
+    delete arregloDatosPorM;
+    delete autocorrelacion;
+
+    //Salida
     return vectorSalida;
+}
+
+void WQ_Validator::calcularVectorM(double *arregloDatosPorM, int m, int numData)
+{
+    for (int i = 0; i < 6000000/m; i+=m)
+    {
+        for (int j = 0; j < 10; ++j)
+        {
+            arregloDatosPorM[i]+=vectorDatos->at(numData)[i*10+j];
+        }
+//        arregloDatosPorM[i] = arregloDatosPorM[i]/((double)(m));
+    }
 }
 
 QVector<QPointF>* WQ_Validator::analisisHvsM(int numDatos)
