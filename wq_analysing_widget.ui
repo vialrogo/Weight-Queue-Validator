@@ -379,65 +379,6 @@
      </property>
     </item>
    </widget>
-   <widget class="QScrollArea" name="scrollArea">
-    <property name="geometry">
-     <rect>
-      <x>5</x>
-      <y>245</y>
-      <width>296</width>
-      <height>113</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>296</width>
-      <height>113</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>296</width>
-      <height>113</height>
-     </size>
-    </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="widgetDatos">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>280</width>
-       <height>110</height>
-      </rect>
-     </property>
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="minimumSize">
-      <size>
-       <width>280</width>
-       <height>110</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>280</width>
-       <height>110</height>
-      </size>
-     </property>
-    </widget>
-   </widget>
    <widget class="QCheckBox" name="checkBoxXLog">
     <property name="geometry">
      <rect>

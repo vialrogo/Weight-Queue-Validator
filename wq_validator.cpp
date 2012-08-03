@@ -73,12 +73,16 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
+    /// Entrar como parámetro
     m=1;
+    int numDecimar=1;
+    int numAuto=1000;
+    /// ///////////////////////
 
-    int cantidadDatos = 6000000/m;
+    int cantidadDatos = 60000000/(m*numDecimar);
     double* arregloDatosPorM = new double[cantidadDatos];
     for (int i = 0; i < cantidadDatos; ++i) arregloDatosPorM[i]=0;
-    calcularVectorM(arregloDatosPorM,m,numDatos);
+    calcularVectorM(arregloDatosPorM,m,numDecimar,numDatos);
 
     //Calculo de media
     double media = 0.0;
@@ -91,7 +95,6 @@ QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 
     //Calculo de la autocorrelación
     double numerador=0.0;
-    int numAuto=10000; /// <-esto debe entrar como parámetro
     double* autocorrelacion = new double[numAuto];
     for (int k = 0; k < numAuto; ++k) autocorrelacion[k]=0.0;
     for (int k = 1; k < numAuto; ++k)
@@ -117,15 +120,16 @@ QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
     return vectorSalida;
 }
 
-void WQ_Validator::calcularVectorM(double *arregloDatosPorM, int m, int numData)
-{
-    for (int i = 0; i < 6000000/m; i+=m)
+void WQ_Validator::calcularVectorM(double *arregloDatosPorM, int m, int numDecimar, int numData)
+{   
+    //Decimar y promediar
+    for (int i = 0; i < 60000000/numDecimar; i+=m)
     {
-        for (int j = 0; j < 10; ++j)
+        for (int j = 0; j < m; ++j)
         {
-            arregloDatosPorM[i]+=vectorDatos->at(numData)[i*10+j];
+            arregloDatosPorM[i]+=vectorDatos->at(numData)[(i+j)*numDecimar + (int)(qrand()%numDecimar)];
         }
-//        arregloDatosPorM[i] = arregloDatosPorM[i]/((double)(m));
+        arregloDatosPorM[i]=arregloDatosPorM[i]/((double)m);
     }
 }
 

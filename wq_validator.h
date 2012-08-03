@@ -21,7 +21,7 @@ public:
     QVector<QPointF>* analisisFuncionProbabilidad(int numDatos);
     QVector<QPointF>* analisisAutocorrelacionM(int numDatos, int m);
     QVector<QPointF>* analisisHvsM(int numDatos);
-    void calcularVectorM(double* arregloDatosPorM, int m, int numData);
+    void calcularVectorM(double* arregloDatosPorM, int m, int numDecimar, int numData);
 };
 
 #endif // WQ_VALIDATOR_H
