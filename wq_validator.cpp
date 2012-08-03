@@ -73,11 +73,10 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
-    /// Entrar como parámetro
-    m=1;
+    /// Parámetros quemados en código ///
     int numDecimar=1;
     int numAuto=1000;
-    /// ///////////////////////
+    /// /////////////////////////////////
 
     int cantidadDatos = 60000000/(m*numDecimar);
     double* arregloDatosPorM = new double[cantidadDatos];

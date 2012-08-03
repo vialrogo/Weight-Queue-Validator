@@ -197,7 +197,7 @@ void WQ_Window::agregarUnAnalisis(int numDatos, int numAnalisis, int inicio, int
 {
     QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,numAnalisis, inicio,fin);
 
-    if(remplazar)
+    if(remplazar && numChart<vectorCharts->size())
     {
         int numCurvasViejas = vectorChartWidgets->at(numChart)->getNumeroCurvas();
         for (int i = 0; i < numCurvasViejas; ++i) vectorChartWidgets->at(numChart)->eliminarCurvaChartWidget(0);
