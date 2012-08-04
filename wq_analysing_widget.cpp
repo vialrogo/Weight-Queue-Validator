@@ -8,13 +8,61 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     ui->setupUi(this);
     deshabilitarPorDatos(true);
 
+    //Ocultar opciones pordefecto
+    ui->checkBoxXLog->setVisible(false);
+    ui->checkBoxYLog->setVisible(false);
+
     connect(ui->botonAddCurve,SIGNAL(clicked()),this,SLOT(agregarAnalisisManual()));
     connect(ui->botonTiempo,SIGNAL(clicked()),this, SLOT(agregarSeriesTiempoAutomatico()));
+    connect(ui->comboTipoAnalisis,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioTipoAnalisis(int)));
 }
 
 WQ_Analysing_Widget::~WQ_Analysing_Widget()
 {
     delete ui;
+}
+
+void WQ_Analysing_Widget::cambioTipoAnalisis(int tipoAnalisis)
+{
+    //Oculto todo
+    ocultarMostrarTiempo(false);
+    ocultarMostrarProbAuto(false);
+    ocultarMostrarHvM(false);
+
+    //Muestro lo correspondiente
+    if(tipoAnalisis==0) ocultarMostrarTiempo(true);
+    if(tipoAnalisis==1 || tipoAnalisis==2) ocultarMostrarProbAuto(true);
+    if(tipoAnalisis==3) ocultarMostrarHvM(true);
+}
+
+void WQ_Analysing_Widget::ocultarMostrarTiempo(bool ocultar)
+{
+    ui->labelDuration->setVisible(ocultar);
+    ui->labelStart->setVisible(ocultar);
+    ui->spinDurationSegundos->setVisible(ocultar);
+    ui->spinStartSegundos->setVisible(ocultar);
+    ui->spinDurationMilis->setVisible(ocultar);
+    ui->spinStartMilis->setVisible(ocultar);
+    ui->spinDurationMicros->setVisible(ocultar);
+    ui->spinStartMicros->setVisible(ocultar);
+    ui->labelDurationSegundos->setVisible(ocultar);
+    ui->labelStartSegundos->setVisible(ocultar);
+    ui->labelDurationMilis->setVisible(ocultar);
+    ui->labelStartMilis->setVisible(ocultar);
+    ui->labelDurationMicros->setVisible(ocultar);
+    ui->labelStartMicros->setVisible(ocultar);
+}
+
+void WQ_Analysing_Widget::ocultarMostrarProbAuto(bool ocultar)
+{
+    ui->checkBoxXLog->setVisible(ocultar);
+    ui->checkBoxYLog->setVisible(ocultar);
+}
+
+void WQ_Analysing_Widget::ocultarMostrarHvM(bool ocultar)
+{
+    ui->checkBoxXLog->setVisible(ocultar);
+    ui->checkBoxYLog->setVisible(ocultar);
 }
 
 void WQ_Analysing_Widget::agregarAnalisisManual()

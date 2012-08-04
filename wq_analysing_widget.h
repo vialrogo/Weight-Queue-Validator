@@ -26,6 +26,9 @@ public:
     void agregarChart(QString nombreChart);
     void eliminarChart(int numChart);
     void deshabilitarPorDatos(bool estado);
+    void ocultarMostrarTiempo(bool ocultar);
+    void ocultarMostrarProbAuto(bool ocultar);
+    void ocultarMostrarHvM(bool ocultar);
     
 private:
     Ui::WQ_Analysing_Widget *ui;
@@ -35,6 +38,7 @@ public slots:
     void agregarAnalisisManual();
     void agregarSeriesTiempoAutomatico();
     void agregarAnalisisCompletoAutomatico();
+    void cambioTipoAnalisis(int tipoAnalisis);
 
 signals:
     void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog);
