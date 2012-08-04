@@ -14,7 +14,6 @@ WQ_Window::WQ_Window(QWidget *parent) :
     vectorCharts = new QVector<WQ_Chart*>();
     vectorChartWidgets = new QVector<WQ_Chart_Widget*>();
     ioFiles = new WQ_IOFiles(this);
-    ventanaPreferencias = new WQ_Window_Preferences(this);
     widgetNewChart = new WQ_Analysing_Widget(ui->widgetTabNew);
     genPoisson = new WQ_Gen_Poisson(this);
     genHeavyTail = new WQ_Gen_HeavyTail(this);
@@ -60,7 +59,6 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(genHeavyTail,SIGNAL(datosGeneradosExitosamente(QString,short*)),this,SLOT(datosGeneradosExitosamente(QString,short*)));
     connect(ui->actionAbout,SIGNAL(triggered()),this,SLOT(acercaDe()));
     connect(ui->actionQuit,SIGNAL(triggered()),this,SLOT(close()));
-    connect(ui->actionPreferences,SIGNAL(triggered()),ventanaPreferencias,SLOT(show()));
 }
 
 WQ_Window::~WQ_Window()

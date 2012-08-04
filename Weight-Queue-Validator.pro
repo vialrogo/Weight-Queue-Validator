@@ -21,7 +21,6 @@ SOURCES += main.cpp \
     wq_data_widget.cpp \
     wq_button.cpp \
     wq_iofiles.cpp \
-    wq_window_preferences.cpp \
     wq_analysing_widget.cpp
 
 HEADERS  += \
@@ -35,14 +34,12 @@ HEADERS  += \
     wq_data_widget.h \
     wq_button.h \
     wq_iofiles.h \
-    wq_window_preferences.h \
     wq_analysing_widget.h
 
 FORMS    += \
     wq_chart_widget.ui \
     wq_window.ui \
     wq_data_widget.ui \
-    wq_window_preferences.ui \
     wq_analysing_widget.ui
 
 INCLUDEPATH += /usr/include/qwt

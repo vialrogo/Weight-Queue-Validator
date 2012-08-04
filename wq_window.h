@@ -13,7 +13,6 @@
 #include "wq_chart_widget.h"
 #include "wq_data_widget.h"
 #include "wq_iofiles.h"
-#include "wq_window_preferences.h"
 #include "wq_analysing_widget.h"
 #include "wq_gen_poisson.h"
 #include "wq_gen_heavytail.h"
@@ -41,7 +40,6 @@ private:
     QToolBox* toolBoxCharts;
     WQ_Data_Widget* widgetFiles;
     WQ_IOFiles* ioFiles;
-    WQ_Window_Preferences* ventanaPreferencias;
     WQ_Analysing_Widget* widgetNewChart;
     WQ_Gen_Poisson* genPoisson;
     WQ_Gen_HeavyTail* genHeavyTail;

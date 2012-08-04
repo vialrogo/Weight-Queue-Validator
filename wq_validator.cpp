@@ -23,7 +23,7 @@ QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int tipoAnalisi
 {
     if(tipoAnalisis==0) return analisisSeriesTiempo(numDatos, inicio, fin);
     else if(tipoAnalisis==1) return analisisFuncionProbabilidad(numDatos);
-    else if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1 /* Ojo!! */);
+    else if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1);
     else return analisisHvsM(numDatos);
 }
 
@@ -122,7 +122,7 @@ QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 void WQ_Validator::calcularVectorM(double *arregloDatosPorM, int m, int numDecimar, int numData)
 {   
     //Decimar y promediar
-    for (int i = 0; i < 60000000/numDecimar; i+=m)
+    for (int i = 0; i < 60000000/(m*numDecimar); i++)
     {
         for (int j = 0; j < m; ++j)
         {

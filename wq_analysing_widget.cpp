@@ -9,11 +9,12 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     deshabilitarPorDatos(true);
 
     //Ocultar opciones pordefecto
-    ui->checkBoxXLog->setVisible(false);
-    ui->checkBoxYLog->setVisible(false);
+    ocultarMostrarProbAuto(false);
+    ocultarMostrarHvM(false);
 
     connect(ui->botonAddCurve,SIGNAL(clicked()),this,SLOT(agregarAnalisisManual()));
     connect(ui->botonTiempo,SIGNAL(clicked()),this, SLOT(agregarSeriesTiempoAutomatico()));
+    connect(ui->botonCompleto,SIGNAL(clicked()),this,SLOT(agregarAnalisisCompletoAutomatico()));
     connect(ui->comboTipoAnalisis,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioTipoAnalisis(int)));
 }
 
@@ -63,6 +64,8 @@ void WQ_Analysing_Widget::ocultarMostrarHvM(bool ocultar)
 {
     ui->checkBoxXLog->setVisible(ocultar);
     ui->checkBoxYLog->setVisible(ocultar);
+    ui->labelM->setVisible(ocultar);
+    ui->spinM->setVisible(ocultar);
 }
 
 void WQ_Analysing_Widget::agregarAnalisisManual()
@@ -89,7 +92,7 @@ void WQ_Analysing_Widget::agregarSeriesTiempoAutomatico()
 
 void WQ_Analysing_Widget::agregarAnalisisCompletoAutomatico()
 {
-
+    qDebug("va a hacer un analisis completo automático");
 }
 
 void WQ_Analysing_Widget::deshabilitarPorDatos(bool estado)
