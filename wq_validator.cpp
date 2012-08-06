@@ -19,12 +19,12 @@ void WQ_Validator::eliminarDatos(int numDato)
     vectorDatos->remove(numDato);
 }
 
-QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int tipoAnalisis, int inicio, int fin)
+QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int tipoAnalisis, int inicio, int fin, int hlimit)
 {
     if(tipoAnalisis==0) return analisisSeriesTiempo(numDatos, inicio, fin);
     else if(tipoAnalisis==1) return analisisFuncionProbabilidad(numDatos);
     else if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1);
-    else return analisisHvsM(numDatos);
+    else return analisisHvsM(numDatos,hlimit);
 }
 
 QVector<QPointF>* WQ_Validator::analisisSeriesTiempo(int numDatos, int inicio, int fin)
@@ -132,8 +132,48 @@ void WQ_Validator::calcularVectorM(double *arregloDatosPorM, int m, int numDecim
     }
 }
 
-QVector<QPointF>* WQ_Validator::analisisHvsM(int numDatos)
+QVector<QPointF>* WQ_Validator::analisisHvsM(int numDatos, int maximoM)
 {
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
+    QVector<QPointF>* vectorTemporal;
+    double pendiente;
+
+    for (int i = 1; i <= maximoM; ++i)
+    {
+        vectorTemporal = analisisAutocorrelacionM(numDatos,i);
+        pendiente = calcularPendienteMinimosCuadrados(vectorTemporal);
+        vectorSalida->push_back(QPointF(i,pendiente));
+        delete vectorTemporal;
+    }
+
     return vectorSalida;
 }
+
+double WQ_Validator::calcularPendienteMinimosCuadrados(QVector<QPointF> *vectorDatosIn)
+{
+    int tamanho = vectorDatosIn->size();
+    QPointF puntoTemporal;
+
+    double X;
+    double Y;
+    double term1=0.0;
+    double term2=0.0;
+    double term3=0.0;
+    double term4=0.0;
+
+    for (int i = 0; i < tamanho; ++i)
+    {
+        puntoTemporal = vectorDatosIn->at(i);
+        X = log10(puntoTemporal.rx());
+        Y = log10(puntoTemporal.ry());
+
+        term1+=X;
+        term2+=Y;
+        term3+=X*Y;
+        term4+=X*X;
+    }
+
+    return (tamanho*term3 - term1*term2) / (tamanho*term4 - term1*term1);
+}
+
+

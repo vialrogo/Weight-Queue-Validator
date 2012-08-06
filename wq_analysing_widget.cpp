@@ -78,8 +78,9 @@ void WQ_Analysing_Widget::agregarAnalisisManual()
     bool remplazando = ui->checkBoxReplace->isChecked();
     bool xlog = ui->checkBoxXLog->isChecked();
     bool ylog = ui->checkBoxYLog->isChecked();
+    int hlimit = ui->spinM->value();
 
-    emit graficarUnaAnalisis(numDatos,tipoAnalisis,inicio,fin,numChart,remplazando, xlog, ylog);
+    emit graficarUnaAnalisis(numDatos,tipoAnalisis,inicio,fin,numChart,remplazando, xlog, ylog, hlimit);
 }
 
 void WQ_Analysing_Widget::agregarSeriesTiempoAutomatico()

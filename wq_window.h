@@ -59,7 +59,7 @@ private slots:
     void archivoCargadoExitosamente(QString rutaArchivo, short* datos);
     void datosGeneradosExitosamente(QString nombreDatos, short* datos);
     void noSePudoCargarArchivo(QString rutaArchivo);
-    void agregarUnAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog);
+    void agregarUnAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit);
     void agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar);
     void cambiarEqiquetaGeneradas(int opcion);
     void crearDatosSinteticos();

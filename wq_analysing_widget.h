@@ -41,7 +41,7 @@ public slots:
     void cambioTipoAnalisis(int tipoAnalisis);
 
 signals:
-    void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog);
+    void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit);
     void graficarTodasSeriesTiempo(int numDatos, bool remplazar);
 ;};
 
