@@ -93,7 +93,10 @@ void WQ_Analysing_Widget::agregarSeriesTiempoAutomatico()
 
 void WQ_Analysing_Widget::agregarAnalisisCompletoAutomatico()
 {
-    qDebug("va a hacer un analisis completo automático");
+    int numDatos = ui->comboDatos->currentIndex();
+    bool remplazando = ui->checkBoxReplace->isChecked();
+
+    emit graficarTodosLosAnalisis(numDatos,remplazando);
 }
 
 void WQ_Analysing_Widget::deshabilitarPorDatos(bool estado)

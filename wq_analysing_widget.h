@@ -43,6 +43,7 @@ public slots:
 signals:
     void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit);
     void graficarTodasSeriesTiempo(int numDatos, bool remplazar);
+    void graficarTodosLosAnalisis(int numDatos, bool remplazar);
 ;};
 
 #endif // WQ_ANALYSING_WIDGET_H

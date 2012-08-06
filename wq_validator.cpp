@@ -175,5 +175,3 @@ double WQ_Validator::calcularPendienteMinimosCuadrados(QVector<QPointF> *vectorD
 
     return (tamanho*term3 - term1*term2) / (tamanho*term4 - term1*term1);
 }
-
-
