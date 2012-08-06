@@ -19,12 +19,12 @@ void WQ_Validator::eliminarDatos(int numDato)
     vectorDatos->remove(numDato);
 }
 
-QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int tipoAnalisis, int inicio, int fin)
+QVector<QPointF>* WQ_Validator::obtenerVectorDatos(int numDatos, int tipoAnalisis, int inicio, int fin, int hlimit)
 {
     if(tipoAnalisis==0) return analisisSeriesTiempo(numDatos, inicio, fin);
     else if(tipoAnalisis==1) return analisisFuncionProbabilidad(numDatos);
-    else if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1 /* Ojo!! */);
-    else return analisisHvsM(numDatos);
+    else if(tipoAnalisis==2) return analisisAutocorrelacionM(numDatos, 1);
+    else return analisisHvsM(numDatos,hlimit);
 }
 
 QVector<QPointF>* WQ_Validator::analisisSeriesTiempo(int numDatos, int inicio, int fin)
@@ -73,33 +73,35 @@ QVector<QPointF>* WQ_Validator::analisisFuncionProbabilidad(int numDatos)
 
 QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
 {
-    /// por el momento voy a ignorar m, ya que luego lo hago. m=1
+    /// Parámetros quemados en código ///
+    int numDecimar=1;
+    int numAuto=1000;
+    /// /////////////////////////////////
 
+    int cantidadDatos = 60000000/(m*numDecimar);
+    double* arregloDatosPorM = new double[cantidadDatos];
+    for (int i = 0; i < cantidadDatos; ++i) arregloDatosPorM[i]=0;
+    calcularVectorM(arregloDatosPorM,m,numDecimar,numDatos);
 
     //Calculo de media
     double media = 0.0;
-    for (int t = 0; t < 60000000; ++t) media+=vectorDatos->at(numDatos)[t];
-    media = media/60000000.0;
-
-    qDebug("media: %f",media);
+    for (int t = 0; t < cantidadDatos; ++t) media+=arregloDatosPorM[t];
+    media = media/((double)cantidadDatos);
 
     //Calculo de la varianza sin dividir
     double varianzaG = 0.0;
-    for (int t = 0; t < 60000000; ++t) varianzaG+= pow(( (double)(vectorDatos->at(numDatos)[t]) - media ), 2);
-
-    qDebug("varianzaG: %f    %f",varianzaG, varianzaG/60000000.0);
+    for (int t = 0; t < cantidadDatos; ++t) varianzaG+= pow(( (double)(arregloDatosPorM[t]) - media ), 2);
 
     //Calculo de la autocorrelación
     double numerador=0.0;
-    int numAuto=1000;
     double* autocorrelacion = new double[numAuto];
     for (int k = 0; k < numAuto; ++k) autocorrelacion[k]=0.0;
     for (int k = 1; k < numAuto; ++k)
     {
         numerador=0.0;
-        for (int t = 0; t < 60000000-k; ++t)
+        for (int t = 0; t < cantidadDatos-k; ++t)
         {
-            numerador+= (( (double)(vectorDatos->at(numDatos)[t]) - media ) * ( (double)(vectorDatos->at(numDatos)[t+k]) - media ) );
+            numerador+= (( (double)(arregloDatosPorM[t]) - media ) * ( (double)(arregloDatosPorM[t+k]) - media ) );
         }
         autocorrelacion[k]=numerador / varianzaG;
     }
@@ -108,11 +110,68 @@ QVector<QPointF>* WQ_Validator::analisisAutocorrelacionM(int numDatos, int m)
     double errorIndeterLog=0.1;
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
     for (int k = 0; k < numAuto; ++k) vectorSalida->push_back(QPointF(k+errorIndeterLog,autocorrelacion[k]+errorIndeterLog));
+
+    //Elimino los punteros creados
+    delete arregloDatosPorM;
+    delete autocorrelacion;
+
+    //Salida
     return vectorSalida;
 }
 
-QVector<QPointF>* WQ_Validator::analisisHvsM(int numDatos)
+void WQ_Validator::calcularVectorM(double *arregloDatosPorM, int m, int numDecimar, int numData)
+{   
+    //Decimar y promediar
+    for (int i = 0; i < 60000000/(m*numDecimar); i++)
+    {
+        for (int j = 0; j < m; ++j)
+        {
+            arregloDatosPorM[i]+=vectorDatos->at(numData)[(i+j)*numDecimar + (int)(qrand()%numDecimar)];
+        }
+        arregloDatosPorM[i]=arregloDatosPorM[i]/((double)m);
+    }
+}
+
+QVector<QPointF>* WQ_Validator::analisisHvsM(int numDatos, int maximoM)
 {
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
+    QVector<QPointF>* vectorTemporal;
+    double pendiente;
+
+    for (int i = 1; i <= maximoM; ++i)
+    {
+        vectorTemporal = analisisAutocorrelacionM(numDatos,i);
+        pendiente = calcularPendienteMinimosCuadrados(vectorTemporal);
+        vectorSalida->push_back(QPointF(i,pendiente));
+        delete vectorTemporal;
+    }
+
     return vectorSalida;
+}
+
+double WQ_Validator::calcularPendienteMinimosCuadrados(QVector<QPointF> *vectorDatosIn)
+{
+    int tamanho = vectorDatosIn->size();
+    QPointF puntoTemporal;
+
+    double X;
+    double Y;
+    double term1=0.0;
+    double term2=0.0;
+    double term3=0.0;
+    double term4=0.0;
+
+    for (int i = 0; i < tamanho; ++i)
+    {
+        puntoTemporal = vectorDatosIn->at(i);
+        X = log10(puntoTemporal.rx());
+        Y = log10(puntoTemporal.ry());
+
+        term1+=X;
+        term2+=Y;
+        term3+=X*Y;
+        term4+=X*X;
+    }
+
+    return (tamanho*term3 - term1*term2) / (tamanho*term4 - term1*term1);
 }
