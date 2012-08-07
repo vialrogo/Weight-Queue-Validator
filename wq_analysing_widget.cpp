@@ -8,6 +8,9 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     ui->setupUi(this);
     deshabilitarPorDatos(true);
 
+    colorExpress = QColor(Qt::black);
+    colorAdvanced = QColor(Qt::black);
+
     //Ocultar opciones pordefecto
     ocultarMostrarProbAuto(false);
     ocultarMostrarHvM(false);
@@ -16,6 +19,8 @@ WQ_Analysing_Widget::WQ_Analysing_Widget(QWidget *parent) :
     connect(ui->botonTiempo,SIGNAL(clicked()),this, SLOT(agregarSeriesTiempoAutomatico()));
     connect(ui->botonCompleto,SIGNAL(clicked()),this,SLOT(agregarAnalisisCompletoAutomatico()));
     connect(ui->comboTipoAnalisis,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioTipoAnalisis(int)));
+    connect(ui->botonColorAdvanced,SIGNAL(clicked()),this,SLOT(cambiarColorAdvanced()));
+    connect(ui->botonColorExpress,SIGNAL(clicked()),this,SLOT(cambiarColorExpress()));
 }
 
 WQ_Analysing_Widget::~WQ_Analysing_Widget()
@@ -80,23 +85,23 @@ void WQ_Analysing_Widget::agregarAnalisisManual()
     bool ylog = ui->checkBoxYLog->isChecked();
     int hlimit = ui->spinM->value();
 
-    emit graficarUnaAnalisis(numDatos,tipoAnalisis,inicio,fin,numChart,remplazando, xlog, ylog, hlimit);
+    emit graficarUnaAnalisis(numDatos,tipoAnalisis,inicio,fin,numChart,remplazando, xlog, ylog, hlimit, colorAdvanced);
 }
 
 void WQ_Analysing_Widget::agregarSeriesTiempoAutomatico()
 {
     int numDatos = ui->comboDatos->currentIndex();
-    bool remplazando = ui->checkBoxReplace->isChecked();
+    bool remplazando = ui->checkBoxReplaceEx->isChecked();
 
-    emit graficarTodasSeriesTiempo(numDatos,remplazando);
+    emit graficarTodasSeriesTiempo(numDatos,remplazando, colorExpress);
 }
 
 void WQ_Analysing_Widget::agregarAnalisisCompletoAutomatico()
 {
     int numDatos = ui->comboDatos->currentIndex();
-    bool remplazando = ui->checkBoxReplace->isChecked();
+    bool remplazando = ui->checkBoxReplaceEx->isChecked();
 
-    emit graficarTodosLosAnalisis(numDatos,remplazando);
+    emit graficarTodosLosAnalisis(numDatos,remplazando, colorExpress);
 }
 
 void WQ_Analysing_Widget::deshabilitarPorDatos(bool estado)
@@ -119,12 +124,15 @@ void WQ_Analysing_Widget::deshabilitarPorDatos(bool estado)
     ui->labelStartMicros->setDisabled(estado);
     ui->comboChart->setDisabled(estado);
     ui->checkBoxReplace->setDisabled(estado);
+    ui->checkBoxReplaceEx->setDisabled(estado);
     ui->botonTiempo->setDisabled(estado);
     ui->botonCompleto->setDisabled(estado);
     ui->botonAddCurve->setDisabled(estado);
     ui->comboTipoAnalisis->setDisabled(estado);
     ui->checkBoxXLog->setDisabled(estado);
     ui->checkBoxYLog->setDisabled(estado);
+    ui->botonColorAdvanced->setDisabled(estado);
+    ui->botonColorExpress->setDisabled(estado);
 }
 
 void WQ_Analysing_Widget::agregarDatos(QString nombreDatos)
@@ -147,4 +155,14 @@ void WQ_Analysing_Widget::agregarChart(QString nombreChart)
 void WQ_Analysing_Widget::eliminarChart(int numChart)
 {
     ui->comboChart->removeItem(numChart+1);
+}
+
+void WQ_Analysing_Widget::cambiarColorExpress()
+{
+    colorExpress = QColorDialog::getColor(QColor(Qt::white),this);
+}
+
+void WQ_Analysing_Widget::cambiarColorAdvanced()
+{
+    colorAdvanced = QColorDialog::getColor(QColor(Qt::white),this);
 }

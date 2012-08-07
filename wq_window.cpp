@@ -51,9 +51,9 @@ WQ_Window::WQ_Window(QWidget *parent) :
     connect(ioFiles,SIGNAL(archivoCargado(QString, short*)),this,SLOT(archivoCargadoExitosamente(QString, short*)));
     connect(ioFiles,SIGNAL(archivoNoCargado(QString)),this,SLOT(noSePudoCargarArchivo(QString)));
     connect(ioFiles,SIGNAL(archivoEliminado(int)),widgetNewChart,SLOT(eliminarDatos(int)));
-    connect(widgetNewChart,SIGNAL(graficarUnaAnalisis(int,int,int,int,int,bool,bool,bool,int)),this,SLOT(agregarUnAnalisis(int,int,int,int,int,bool,bool,bool,int)));
-    connect(widgetNewChart,SIGNAL(graficarTodasSeriesTiempo(int,bool)),this,SLOT(agregarTodasLasSeriesDeTiempo(int,bool)));
-    connect(widgetNewChart,SIGNAL(graficarTodosLosAnalisis(int,bool)),this,SLOT(agregarTodosLosAnalisis(int,bool)));
+    connect(widgetNewChart,SIGNAL(graficarUnaAnalisis(int,int,int,int,int,bool,bool,bool,int,QColor)),this,SLOT(agregarUnAnalisis(int,int,int,int,int,bool,bool,bool,int,QColor)));
+    connect(widgetNewChart,SIGNAL(graficarTodasSeriesTiempo(int,bool,QColor)),this,SLOT(agregarTodasLasSeriesDeTiempo(int,bool,QColor)));
+    connect(widgetNewChart,SIGNAL(graficarTodosLosAnalisis(int,bool,QColor)),this,SLOT(agregarTodosLosAnalisis(int,bool,QColor)));
     connect(ui->comboBoxGeneradas, SIGNAL(currentIndexChanged(int)),this,SLOT(cambiarEqiquetaGeneradas(int)));
     connect(ui->pushButtonLoadSintetic,SIGNAL(clicked()),this,SLOT(crearDatosSinteticos()));
     connect(genPoisson,SIGNAL(datosGeneradosExitosamente(QString,short*)),this,SLOT(datosGeneradosExitosamente(QString,short*)));
@@ -192,7 +192,7 @@ void WQ_Window::agregarCurvaAChart(int numChart, QString nombreCurva, QVector<QP
     vectorChartWidgets->at(numChart)->agregarCurva(nombreCurva);
 }
 
-void WQ_Window::agregarUnAnalisis(int numDatos, int numAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit)
+void WQ_Window::agregarUnAnalisis(int numDatos, int numAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit, QColor colorGrafica)
 {
     QVector<QPointF>* vectorDatos = validador->obtenerVectorDatos(numDatos,numAnalisis,inicio,fin,hlimit);
 
@@ -209,9 +209,10 @@ void WQ_Window::agregarUnAnalisis(int numDatos, int numAnalisis, int inicio, int
     }
     vectorCharts->at(numChart)->escalaLogEjeX(xlog);
     vectorCharts->at(numChart)->escalaLogEjeY(ylog);
+    vectorCharts->at(numChart)->cambiarColorCuva(vectorChartWidgets->at(numChart)->getNumeroCurvas()-1,colorGrafica);
 }
 
-void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
+void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar, QColor colorGrafica)
 {
     QTime midnight(0, 0, 0);
     qsrand(midnight.secsTo(QTime::currentTime()));
@@ -224,39 +225,45 @@ void WQ_Window::agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar)
     QVector<QPointF>* vectorDatos0 = validador->obtenerVectorDatos(numDatos,0,0,60000000,1);
     if(vectorCharts->size()<1) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(0,QString::number(numDatos)+". 0us a 60000000us",vectorDatos0);
+    vectorCharts->at(0)->cambiarColorCuva(vectorChartWidgets->at(0)->getNumeroCurvas()-1,colorGrafica);
 
     //Segundo gráfico: 10 segundo
     inicio = qrand()%(60000000-10000000);
     QVector<QPointF>* vectorDatos1 = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+10000000,1);
     if(vectorCharts->size()<2) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(1,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+10000000)+"us",vectorDatos1);
+    vectorCharts->at(1)->cambiarColorCuva(vectorChartWidgets->at(1)->getNumeroCurvas()-1,colorGrafica);
 
     //Tercer gráfico: 1 segundo
     inicio = qrand()%(60000000-1000000);
     QVector<QPointF>* vectorDatos2 = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+1000000,1);
     if(vectorCharts->size()<3) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(2,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+1000000)+"us",vectorDatos2);
+    vectorCharts->at(2)->cambiarColorCuva(vectorChartWidgets->at(2)->getNumeroCurvas()-1,colorGrafica);
 
     //Cuarto gráfico: 100 milisegundos
     inicio = qrand()%(60000000-100000);
     QVector<QPointF>* vectorDatos3 = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+100000,1);
     if(vectorCharts->size()<4) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(3,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+100000)+"us",vectorDatos3);
+    vectorCharts->at(3)->cambiarColorCuva(vectorChartWidgets->at(3)->getNumeroCurvas()-1,colorGrafica);
 
     //Quinto gráfico: 10 milisegundos
     inicio = qrand()%(60000000-10000);
     QVector<QPointF>* vectorDatos4 = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+10000,1);
     if(vectorCharts->size()<5) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(4,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+10000)+"us",vectorDatos4);
+    vectorCharts->at(4)->cambiarColorCuva(vectorChartWidgets->at(4)->getNumeroCurvas()-1,colorGrafica);
 
     //Sexto gráfico: 1 milisegundo
     inicio = qrand()%(60000000-1000);
     QVector<QPointF>* vectorDatos5 = validador->obtenerVectorDatos(numDatos,0,inicio,inicio+1000,1);
     if(vectorCharts->size()<6) agregarChart("Serie de Datos en Chart "+QString::number(numDatos));
     agregarCurvaAChart(5,QString::number(numDatos)+". "+QString::number(inicio)+"us a "+QString::number(inicio+1000)+"us",vectorDatos5);
+    vectorCharts->at(5)->cambiarColorCuva(vectorChartWidgets->at(5)->getNumeroCurvas()-1,colorGrafica);
 }
 
-void WQ_Window::agregarTodosLosAnalisis(int numDatos, bool remplazar)
+void WQ_Window::agregarTodosLosAnalisis(int numDatos, bool remplazar, QColor colorGrafica)
 {
     //Si es el caso, elimino todos los charts
     while (vectorCharts->size()>0 && remplazar==true) eliminarChart(0);
@@ -265,11 +272,13 @@ void WQ_Window::agregarTodosLosAnalisis(int numDatos, bool remplazar)
     QVector<QPointF>* vectorDatos0 = validador->obtenerVectorDatos(numDatos,0,0,60000000,1);
     if(vectorCharts->size()<1) agregarChart("Serie de Tiempo");
     agregarCurvaAChart(0,QString::number(numDatos)+". 0us a 60000000us",vectorDatos0);
+    vectorCharts->at(0)->cambiarColorCuva(vectorChartWidgets->at(0)->getNumeroCurvas()-1,colorGrafica);
 
     //Primer gráfico: Probabilidad
     QVector<QPointF>* vectorDatos1 = validador->obtenerVectorDatos(numDatos,1,0,60000000,1);
     if(vectorCharts->size()<2) agregarChart("Probabilidad");
     agregarCurvaAChart(1,QString::number(numDatos)+". Probabilidad",vectorDatos1);
+    vectorCharts->at(1)->cambiarColorCuva(vectorChartWidgets->at(1)->getNumeroCurvas()-1,colorGrafica);
 
     //Primer gráfico: Probabilidad Log
     QVector<QPointF>* vectorDatos2 = validador->obtenerVectorDatos(numDatos,1,0,60000000,1);
@@ -277,11 +286,13 @@ void WQ_Window::agregarTodosLosAnalisis(int numDatos, bool remplazar)
     agregarCurvaAChart(2,QString::number(numDatos)+". Probabilidad log-log",vectorDatos2);
     vectorCharts->at(2)->escalaLogEjeX(true);
     vectorCharts->at(2)->escalaLogEjeY(true);
+    vectorCharts->at(2)->cambiarColorCuva(vectorChartWidgets->at(2)->getNumeroCurvas()-1,colorGrafica);
 
     //Primer gráfico: Autocorrelacion
     QVector<QPointF>* vectorDatos3 = validador->obtenerVectorDatos(numDatos,2,0,60000000,1);
     if(vectorCharts->size()<4) agregarChart("Autocorrelacion");
     agregarCurvaAChart(3,QString::number(numDatos)+". Autocorrelacion",vectorDatos3);
+    vectorCharts->at(3)->cambiarColorCuva(vectorChartWidgets->at(3)->getNumeroCurvas()-1,colorGrafica);
 
     //Primer gráfico: Autocorrelacion Log
     QVector<QPointF>* vectorDatos4 = validador->obtenerVectorDatos(numDatos,2,0,60000000,1);
@@ -289,12 +300,14 @@ void WQ_Window::agregarTodosLosAnalisis(int numDatos, bool remplazar)
     agregarCurvaAChart(4,QString::number(numDatos)+". Autocorrelacion log-log",vectorDatos4);
     vectorCharts->at(4)->escalaLogEjeX(true);
     vectorCharts->at(4)->escalaLogEjeY(true);
+    vectorCharts->at(4)->cambiarColorCuva(vectorChartWidgets->at(4)->getNumeroCurvas()-1,colorGrafica);
 
     //Primer gráfico: H vs M
     QVector<QPointF>* vectorDatos5 = validador->obtenerVectorDatos(numDatos,3,0,60000000,10);
     if(vectorCharts->size()<6) agregarChart("H vs. M");
     agregarCurvaAChart(5,QString::number(numDatos)+". H vs. M",vectorDatos5);
     vectorCharts->at(5)->escalaLogEjeX(true);
+    vectorCharts->at(5)->cambiarColorCuva(vectorChartWidgets->at(5)->getNumeroCurvas()-1,colorGrafica);
 }
 
 void WQ_Window::crearDatosSinteticos()

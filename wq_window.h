@@ -59,9 +59,9 @@ private slots:
     void archivoCargadoExitosamente(QString rutaArchivo, short* datos);
     void datosGeneradosExitosamente(QString nombreDatos, short* datos);
     void noSePudoCargarArchivo(QString rutaArchivo);
-    void agregarUnAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit);
-    void agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar);
-    void agregarTodosLosAnalisis(int numDatos, bool remplazar);
+    void agregarUnAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit, QColor colorGrafica);
+    void agregarTodasLasSeriesDeTiempo(int numDatos, bool remplazar, QColor colorGrafica);
+    void agregarTodosLosAnalisis(int numDatos, bool remplazar, QColor colorGrafica);
     void cambiarEqiquetaGeneradas(int opcion);
     void crearDatosSinteticos();
 };

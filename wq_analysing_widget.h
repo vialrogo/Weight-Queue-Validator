@@ -9,6 +9,8 @@
 #include <QPushButton>
 #include <QFont>
 #include <QScrollArea>
+#include <QColor>
+#include <QColorDialog>
 #include <math.h>
 
 namespace Ui {
@@ -32,6 +34,8 @@ public:
     
 private:
     Ui::WQ_Analysing_Widget *ui;
+    QColor colorAdvanced;
+    QColor colorExpress;
 
 public slots:
     void eliminarDatos(int numDatos);
@@ -39,11 +43,13 @@ public slots:
     void agregarSeriesTiempoAutomatico();
     void agregarAnalisisCompletoAutomatico();
     void cambioTipoAnalisis(int tipoAnalisis);
+    void cambiarColorExpress();
+    void cambiarColorAdvanced();
 
 signals:
-    void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit);
-    void graficarTodasSeriesTiempo(int numDatos, bool remplazar);
-    void graficarTodosLosAnalisis(int numDatos, bool remplazar);
+    void graficarUnaAnalisis(int numDatos, int tipoAnalisis, int inicio, int fin, int numChart, bool remplazar, bool xlog, bool ylog, int hlimit, QColor colorGrafica);
+    void graficarTodasSeriesTiempo(int numDatos, bool remplazar, QColor colorGrafica);
+    void graficarTodosLosAnalisis(int numDatos, bool remplazar, QColor colorGrafica);
 ;};
 
 #endif // WQ_ANALYSING_WIDGET_H
