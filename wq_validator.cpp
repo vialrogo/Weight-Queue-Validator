@@ -136,13 +136,13 @@ QVector<QPointF>* WQ_Validator::analisisHvsM(int numDatos, int maximoM)
 {
     QVector<QPointF>* vectorSalida = new QVector<QPointF>();
     QVector<QPointF>* vectorTemporal;
-    double pendiente;
+    double h;
 
     for (int i = 1; i <= maximoM; ++i)
     {
         vectorTemporal = analisisAutocorrelacionM(numDatos,i);
-        pendiente = calcularPendienteMinimosCuadrados(vectorTemporal);
-        vectorSalida->push_back(QPointF(i,pendiente));
+        h = calcularPendienteMinimosCuadrados(vectorTemporal);
+        vectorSalida->push_back(QPointF(i,h));
         delete vectorTemporal;
     }
 
@@ -173,5 +173,6 @@ double WQ_Validator::calcularPendienteMinimosCuadrados(QVector<QPointF> *vectorD
         term4+=X*X;
     }
 
-    return (tamanho*term3 - term1*term2) / (tamanho*term4 - term1*term1);
+    double pendiente = (tamanho*term3 - term1*term2) / (tamanho*term4 - term1*term1);
+    return (1.0 - (pendiente/2.0));
 }
