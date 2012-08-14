@@ -174,5 +174,5 @@ double WQ_Validator::calcularPendienteMinimosCuadrados(QVector<QPointF> *vectorD
     }
 
     double pendiente = (tamanho*term3 - term1*term2) / (tamanho*term4 - term1*term1);
-    return (1.0 - (pendiente/2.0));
+    return (1.0 + (pendiente/2.0));
 }
