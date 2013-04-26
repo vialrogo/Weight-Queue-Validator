@@ -2,10 +2,9 @@ Weight Queue Validator
 ^^^^^^^^^^^^^^^^^^^^^^
 Author: Victor Alberto Romero
 
-Aplicación final y software complementario para el trabajo de grado de Ingeniería de Sistemas. Weight Queue Validator
-está basado en parte del trabajo del proyecto Qwt (http://qwt.sf.net).
+Aplicación final y software complementario para el trabajo de grado de Ingeniería de Sistemas. Weight Queue Validator está basado en parte del trabajo del proyecto Qwt (http://qwt.sf.net).
 
----	
+---
 
 Carpetas:
 - Datos		Contiene los datos con los que se va a trabajar. NO estan en el repositorio
@@ -13,8 +12,6 @@ Carpetas:
 - Imagenes	Contiene todas las imágenes que hacen parte del programa, como iconos y demás.
 
 Compilación:
-^^^^^^^^^^^^
-Para poder compilar algo usando qwt hay que incluir en el .pro lo siguiente
-	
+Para poder compilar algo usando qwt hay que incluir en el .pro lo siguiente:
 	INCLUDEPATH += /usr/include/qwt
 	LIBS += -l qwt
