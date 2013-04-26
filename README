@@ -1,36 +1,20 @@
 Weight Queue Validator
 ^^^^^^^^^^^^^^^^^^^^^^
-Victor Alberto Romero
-Erika Suárez Valencia (programadora estrella)
-Andrés Ricardo Torres (programador carita feliz) :)
----
-	Aplicación final y software complementario para el trabajo de grado de Ingeniería de Sistemas
+Author: Victor Alberto Romero
+
+Aplicación final y software complementario para el trabajo de grado de Ingeniería de Sistemas. Weight Queue Validator
+está basado en parte del trabajo del proyecto Qwt (http://qwt.sf.net).
+
+---	
 
 Carpetas:
 - Datos		Contiene los datos con los que se va a trabajar. NO estan en el repositorio
 - Documentacion	Contiene los diagramas y archivos varios que se van a utilizar.
 - Imagenes	Contiene todas las imágenes que hacen parte del programa, como iconos y demás.
 
-Archivos:
-- main		Main
-- wq_window	Archivo principal llamado por main (es un ui)
-- wq_validator
-- wq_chart
-- wq_generator
-- wq_gen_heavytail
-- wq_gen_poisson
-
-
-NOTAS VARIAS
+Compilación:
 ^^^^^^^^^^^^
-1)Cuando se utiliza qwt hay que referenciarlo algo así:
-
-	[program/widget] is based in part on the work of the Qwt project (http://qwt.sf.net).
-
-2)Para poder compilar algo usando qwt hay que incluir en el .pro lo siguiente
+Para poder compilar algo usando qwt hay que incluir en el .pro lo siguiente
 	
 	INCLUDEPATH += /usr/include/qwt
 	LIBS += -l qwt
-
-Para poder hacer push desde QtCreator hay que ir a Tools, Options, Version Control, y en
-SSH Prompt Command colocar "/usr/lib/seahorse/seahorse-ssh-askpass"
